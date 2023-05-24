@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
       <Sidebar />
       <Content>
         <div className="p-6">
-          <div className="h-screen p-4 bg-white ">{children}</div>
+          <div className=" p-4 bg-white h-auto my-8 ">{children}</div>
         </div>
       </Content>
       <Footer />

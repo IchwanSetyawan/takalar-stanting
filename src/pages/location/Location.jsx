@@ -1,11 +1,12 @@
 import React from "react";
 import Layout from "../../layouts/Layout";
+import TableComponent from "../../components/TableComponent";
 
 const Location = () => {
   return (
     <>
       <Layout>
-        <h1>ini adalah halaman location</h1>
+        <TableComponent />
       </Layout>
     </>
   );
