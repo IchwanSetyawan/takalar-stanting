@@ -3,8 +3,8 @@ import React from "react";
 export const Header = () => {
   return (
     <>
-      <div className="sm:ml-48">
-        <div className="p-6 bg-[#5B8DAC] justify-between flex items-center">
+      <div className="sm:ml-48 sticky top-0 z-50">
+        <div className="p-6 bg-[#2EA9DD] justify-between flex items-center shadow-md">
           <h1 className="text-white text-2xl font-semibold">Dashboard</h1>
           <div className="text-white flex justify-center gap-2 cursor-pointer hover:text-gray-100">
             <span className="text-[#252A35]">
