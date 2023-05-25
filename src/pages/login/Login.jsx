@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../../assets/image/logo.png";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,8 +10,8 @@ const Login = () => {
   };
 
   const defaultData = {
-    username: "",
-    password: "",
+    username: "admin",
+    password: "admin123",
   };
 
   const [formData, setFormData] = useState({ ...defaultData });
@@ -87,9 +88,11 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="flex justify-end">
-                  <button className="bg-[#2EA9DD] text-white rounded-md text-xs px-6 py-2 hover:bg-[#5B8DAC]">
-                    Login
-                  </button>
+                  <Link to="/">
+                    <button className="bg-[#2EA9DD] text-white rounded-md text-xs px-6 py-2 hover:bg-[#5B8DAC]">
+                      Login
+                    </button>
+                  </Link>
                 </div>
               </form>
             </div>

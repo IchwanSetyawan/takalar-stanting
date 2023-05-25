@@ -21,7 +21,7 @@ export const Header = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                 >
                   <path
                     fill-rule="evenodd"
@@ -38,7 +38,7 @@ export const Header = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      class="w-4 h-4"
+                      className="w-4 h-4"
                     >
                       <path
                         fill-rule="evenodd"
@@ -52,7 +52,7 @@ export const Header = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="w-4 h-4"
+                        className="w-4 h-4"
                       >
                         <path
                           fill-rule="evenodd"

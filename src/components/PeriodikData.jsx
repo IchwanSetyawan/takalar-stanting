@@ -13,7 +13,7 @@ const PeriodikData = () => {
           >
             <path
               fill-rule="evenodd"
-              d="M11.622 1.602a.75.75 0 01.756 0l2.25 1.313a.75.75 0 01-.756 1.295L12 3.118 10.128 4.21a.75.75 0 11-.756-1.295l2.25-1.313zM5.898 5.81a.75.75 0 01-.27 1.025l-1.14.665 1.14.665a.75.75 0 11-.756 1.295L3.75 8.806v.944a.75.75 0 01-1.5 0V7.5a.75.75 0 01.372-.648l2.25-1.312a.75.75 0 011.026.27zm12.204 0a.75.75 0 011.026-.27l2.25 1.312a.75.75 0 01.372.648v2.25a.75.75 0 01-1.5 0v-.944l-1.122.654a.75.75 0 11-.756-1.295l1.14-.665-1.14-.665a.75.75 0 01-.27-1.025zm-9 5.25a.75.75 0 011.026-.27L12 11.882l1.872-1.092a.75.75 0 11.756 1.295l-1.878 1.096V15a.75.75 0 01-1.5 0v-1.82l-1.878-1.095a.75.75 0 01-.27-1.025zM3 13.5a.75.75 0 01.75.75v1.82l1.878 1.095a.75.75 0 11-.756 1.295l-2.25-1.312a.75.75 0 01-.372-.648v-2.25A.75.75 0 013 13.5zm18 0a.75.75 0 01.75.75v2.25a.75.75 0 01-.372.648l-2.25 1.312a.75.75 0 11-.756-1.295l1.878-1.096V14.25a.75.75 0 01.75-.75zm-9 5.25a.75.75 0 01.75.75v.944l1.122-.654a.75.75 0 11.756 1.295l-2.25 1.313a.75.75 0 01-.756 0l-2.25-1.313a.75.75 0 11.756-1.295l1.122.654V19.5a.75.75 0 01.75-.75z"
+              d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z"
               clip-rule="evenodd"
             />
           </svg>
@@ -34,25 +34,34 @@ const PeriodikData = () => {
             </select>
           </div>
         </div>
-        <div className="grid grid-rows-3 grid-flow-col gap-4 ">
+        <div className="grid grid-rows-4 grid-flow-col gap-4 ">
           <div className="bg-primary  p-4 rounded-2xl text-center justify-center flex  items-center gap-4">
             <div>
               <h1 className="text-light font-semibold text-xl">896.234</h1>
+              <p className="text-light font-medium text-sm">Jumlah Keluarga</p>
+            </div>
+          </div>
+          <div className="bg-primary  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
+            <div>
+              <h1 className="text-light font-semibold text-xl">1.234</h1>
               <p className="text-light font-medium text-sm">
-                Total Balita Tercatat
+                {" "}
+                Keluarga beresiko Stunting
               </p>
             </div>
           </div>
           <div className="bg-primary  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">456.234</h1>
-              <p className="text-light font-medium text-sm">Laki-laki</p>
+              <h1 className="text-light font-semibold text-xl">34.234</h1>
+              <p className="text-light font-medium text-sm">
+                Jumlah Anak Stunting
+              </p>
             </div>
           </div>
           <div className="bg-primary  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">1231.234</h1>
-              <p className="text-light font-medium text-sm">Perempuan</p>
+              <h1 className="text-light font-semibold text-xl">234.234</h1>
+              <p className="text-light font-medium text-sm">Prevelensi</p>
             </div>
           </div>
         </div>

@@ -44,7 +44,7 @@ const CartHorizontal = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "right",
+        position: "top",
       },
       title: {
         display: true,
@@ -55,7 +55,7 @@ const CartHorizontal = () => {
 
   return (
     <>
-      <Bar data={data} options={options} />
+      <Bar data={data} options={options} width={"200%"} />
     </>
   );
 };

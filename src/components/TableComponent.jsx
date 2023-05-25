@@ -3,13 +3,13 @@ import BabyIcon from "../assets/icon/baby-icon.svg";
 import { dataTable } from "../model/TableComponentModel";
 import { useNavigate, useParams } from "react-router-dom";
 
-const TableComponent = () => {
+const TableComponent = ({ name }) => {
   const navigate = useNavigate();
 
   return (
     <>
       <div>
-        <h1 className="text-2xl font-semibold mb-4">Kecamatan</h1>
+        <h1 className="text-2xl font-semibold mb-4">{name}</h1>
 
         <div className="relative  shadow-md sm:rounded-lg h-auto">
           <table className="w-full text-sm text-left text-blue-100 ">
@@ -19,7 +19,7 @@ const TableComponent = () => {
                   #
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Nama Kecamatan
+                  Nama {name}
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Balita Stunting
@@ -33,7 +33,7 @@ const TableComponent = () => {
               {dataTable.map((item, id) => (
                 <tr
                   onClick={() => {
-                    navigate(`/location/${item.id}`);
+                    navigate(`/location/${item.id}/`);
                   }}
                   key={item.id}
                   className="bg-white border-b border-gray-200 hover:bg-gray-100 hover:text-white hover:cursor-pointer"

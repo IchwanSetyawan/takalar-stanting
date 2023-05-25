@@ -6,7 +6,9 @@ const Location = () => {
   return (
     <>
       <Layout>
-        <TableComponent />
+        <div className="p-4">
+          <TableComponent name="Kecamatan" />
+        </div>
       </Layout>
     </>
   );
