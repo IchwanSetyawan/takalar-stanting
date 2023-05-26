@@ -27,7 +27,7 @@ const PeriodikData = () => {
               <option value="1">Februari</option>
               <option value="2">Agustus</option>
             </select>
-            <select className="cursor-pointer p-2 bg-transparent border-b-2 border-gray-400 focus:outline-none">
+            <select className="cursor-pointer p-2 bg-transparent border-b border-gray-400 focus:outline-none">
               <option value="1">2023</option>
               <option value="2">2022</option>
               <option value="3">2021</option>

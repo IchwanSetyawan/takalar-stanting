@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { dataTable } from "../../../model/TableComponentModel";
 import Layout from "../../../layouts/Layout";
 import RealtimeData from "../../../components/RealtimeData";
@@ -8,10 +8,20 @@ import TableComponent from "../../../components/TableComponent";
 
 const LocationDetail = () => {
   let { id } = useParams();
-  const [dataParams, setdataParams] = useState("");
+  const navigate = useNavigate();
 
-  const data = dataTable.find((item) => item.id == id);
-  console.log(data);
+  const datasName = dataTable.find((item) => item.id === Number(id));
+
+  const [datas, setDatas] = useState([]);
+
+  const handleNavigateLink = (eId) => {
+    navigate(`/location/${id}/cakupan/${eId}`);
+  };
+
+  useEffect(() => {
+    const dataKel = dataTable.filter((item) => item.id === Number(id));
+    setDatas(dataKel);
+  }, [id]);
 
   return (
     <>
@@ -35,13 +45,13 @@ const LocationDetail = () => {
               </div>
             </Link>
             <h1 className="text-2xl font-semibold my-4">
-              Kecamatan {data.name}
+              Kecamatan {datasName?.name}
             </h1>
             <div
               className={
-                data.status === "success"
+                datasName?.status === "success"
                   ? "bg-green-500 rounded-full w-4 h-4"
-                  : data.status === "warning"
+                  : datasName.status === "warning"
                   ? "bg-yellow-500 rounded-full w-4 h-4"
                   : "bg-red-500 rounded-full w-4 h-4"
               }
@@ -52,7 +62,11 @@ const LocationDetail = () => {
             <PeriodikData />
           </div>
           <div className="mt-8">
-            <TableComponent name="Kelurahan/Desa" />
+            <TableComponent
+              data={datas[0]?.kelurahan || []}
+              name="Kelurahan/Desa"
+              handleLink={(eId) => handleNavigateLink(eId)}
+            />
           </div>
         </div>
       </Layout>

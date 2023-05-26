@@ -3,9 +3,7 @@ import BabyIcon from "../assets/icon/baby-icon.svg";
 import { dataTable } from "../model/TableComponentModel";
 import { useNavigate, useParams } from "react-router-dom";
 
-const TableComponent = ({ name }) => {
-  const navigate = useNavigate();
-
+const TableComponent = ({ name, handleLink, data }) => {
   return (
     <>
       <div>
@@ -30,11 +28,9 @@ const TableComponent = ({ name }) => {
               </tr>
             </thead>
             <tbody>
-              {dataTable.map((item, id) => (
+              {data.map((item, id) => (
                 <tr
-                  onClick={() => {
-                    navigate(`/location/${item.id}/`);
-                  }}
+                  onClick={() => handleLink(item.id)}
                   key={item.id}
                   className="bg-white border-b border-gray-200 hover:bg-gray-100 hover:text-white hover:cursor-pointer"
                 >
