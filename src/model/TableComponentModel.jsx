@@ -1,7 +1,7 @@
 export const dataTable = [
   {
     id: 1,
-    name: "Bagan Sinembah",
+    name: "Manggarabombang",
     kelurahan: [
       {
         id: 1,
@@ -24,7 +24,7 @@ export const dataTable = [
   },
   {
     id: 2,
-    name: "Bandar Petalangan",
+    name: "Mappakasunggu",
     kelurahan: [
       {
         id: 1,
@@ -48,7 +48,7 @@ export const dataTable = [
   },
   {
     id: 3,
-    name: "Bandar Sei Kijang",
+    name: "Polombangkeng Selatan",
     kelurahan: [
       {
         id: 1,
@@ -67,7 +67,7 @@ export const dataTable = [
   },
   {
     id: 4,
-    name: "BeBangkinang Barat",
+    name: "Polombangkeng Utara",
 
     kelurahan: [
       {
@@ -87,7 +87,7 @@ export const dataTable = [
   },
   {
     id: 5,
-    name: "Bangkinang Seberang",
+    name: "Galesong Selatan",
     total: 78,
     kelurahan: [
       {
@@ -106,7 +106,7 @@ export const dataTable = [
   },
   {
     id: 6,
-    name: "Bangkinang",
+    name: "Galesong Utara",
     total: 34,
     kelurahan: [
       {
@@ -125,7 +125,7 @@ export const dataTable = [
   },
   {
     id: 7,
-    name: "Bangko Pusako",
+    name: "Pattalassang",
     total: 34,
     kelurahan: [
       {
@@ -144,7 +144,7 @@ export const dataTable = [
   },
   {
     id: 8,
-    name: "Siak.",
+    name: "Galesong",
     kelurahan: [
       {
         id: 1,
@@ -159,44 +159,6 @@ export const dataTable = [
     ],
     total: 789,
     percent: "90.3%",
-    status: "danger",
-  },
-  {
-    id: 9,
-    name: "Kuantan Singingi.",
-    total: 565,
-    kelurahan: [
-      {
-        id: 1,
-        name: "Bangkinang utara",
-        total: 123,
-      },
-      {
-        id: 2,
-        name: "Bangkinang Barat",
-        total: 123,
-      },
-    ],
-    percent: "70.3%",
-    status: "danger",
-  },
-  {
-    id: 10,
-    name: "Kepulauan Meranti.",
-    total: 223,
-    kelurahan: [
-      {
-        id: 1,
-        name: "Bangkinang utara",
-        total: 123,
-      },
-      {
-        id: 2,
-        name: "Bangkinang Barat",
-        total: 123,
-      },
-    ],
-    percent: "67.3%",
     status: "danger",
   },
 ];

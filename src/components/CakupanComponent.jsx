@@ -50,9 +50,9 @@ const CakupanComponent = ({ title }) => {
             <div className="w-full bg-gray-200 rounded-full h-8 dark:bg-gray-700">
               <div
                 className={`${
-                  item.total <= 100 / 3
+                  item.total <= 33
                     ? "bg-red-400"
-                    : item.total <= 100 / 2
+                    : item.total <= 50
                     ? "bg-yellow-500"
                     : "bg-green-400"
                 } h-8 rounded-full relative`}
