@@ -20,7 +20,7 @@ ChartJS.register(
 );
 
 const CartHorizontal = () => {
-  const labels = ["0-5", "6-10", "11-15"];
+  const labels = ["0-5 tahun", "6-10 tahun", "11-15 tahun"];
   const data = {
     labels: labels,
     datasets: [
@@ -35,7 +35,7 @@ const CartHorizontal = () => {
   };
 
   const options = {
-    indexAxis: "y",
+    indexAxis: "x",
     elements: {
       bar: {
         borderWidth: 2,
@@ -55,7 +55,7 @@ const CartHorizontal = () => {
 
   return (
     <>
-      <Bar data={data} options={options} width={"200%"} />
+      <Bar data={data} options={options} width={"300%"} />
     </>
   );
 };

@@ -29,8 +29,8 @@ const RealtimeData = () => {
             Database Balita
           </h2>
         </div>
-        <div className="grid grid-rows-4 grid-flow-col gap-4">
-          <div className="bg-primary col-span-2 p-5 rounded-2xl flex justify-start items-center gap-4">
+        <div className="grid grid-cols-3  gap-4">
+          <div className="bg-[#295C5A]  p-4 rounded-2xl text-center justify-center flex  items-center gap-4">
             <div className="w-10 h-10 bg-white rounded-full p-2 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ const RealtimeData = () => {
               <p className="text-light font-medium text-sm">Jumlah Keluarga</p>
             </div>
           </div>
-          <div className="bg-primary col-span-2 p-5 rounded-2xl flex justify-start items-center gap-4">
+          <div className="bg-[#5C3F9D]  p-5 rounded-2xl flex justify-start items-center gap-4">
             <div className="w-10 h-10 bg-white rounded-full p-2 ">
               <img src={ManIcon} alt="man-icon" className="w-10 h-6" />
             </div>
@@ -62,7 +62,7 @@ const RealtimeData = () => {
               </p>
             </div>
           </div>
-          <div className="bg-primary col-span-2 p-5 rounded-2xl flex justify-start items-center gap-4">
+          <div className="bg-[#614C73]  p-5 rounded-2xl flex justify-start items-center gap-4">
             <div className="w-10 h-10 bg-white rounded-full p-2 ">
               <img src={BabyIcon} alt="baby-icon" className="w-10 h-6" />
             </div>
@@ -73,7 +73,7 @@ const RealtimeData = () => {
               </p>
             </div>
           </div>
-          <div className="bg-primary col-span-2 p-5 rounded-2xl flex justify-start items-center gap-4">
+          <div className="bg-[#8A7D98]  p-5 rounded-2xl flex justify-start items-center gap-4">
             <div className="w-10 h-10 bg-white rounded-full p-2 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,53 @@ const RealtimeData = () => {
               <p className="text-light font-medium text-sm">Prevelensi</p>
             </div>
           </div>
-          <div className="bg-primary  row-span-4 p-1 rounded-2xl flex justify-start items-center gap-4">
+          <div className="bg-[#E4B239]  p-5 rounded-2xl flex justify-start items-center gap-4">
+            <div className="w-10 h-10 bg-white rounded-full p-2 ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 3.75v16.5M2.25 12h19.5M6.375 17.25a4.875 4.875 0 004.875-4.875V12m6.375 5.25a4.875 4.875 0 01-4.875-4.875V12m-9 8.25h16.5a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v13.5a1.5 1.5 0 001.5 1.5zm12.621-9.44c-1.409 1.41-4.242 1.061-4.242 1.061s-.349-2.833 1.06-4.242a2.25 2.25 0 013.182 3.182zM10.773 7.63c1.409 1.409 1.06 4.242 1.06 4.242S9 12.22 7.592 10.811a2.25 2.25 0 113.182-3.182z"
+                />
+              </svg>
+            </div>
+            <div>
+              <h1 className="text-light font-semibold text-xl">1.452</h1>
+              <p className="text-light font-medium text-sm">
+                Total Orang Tua Asuh
+              </p>
+            </div>
+          </div>
+          <div className="bg-primary  p-5 rounded-2xl flex justify-start items-center gap-4">
+            <div className="w-10 h-10 bg-white rounded-full p-2 ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"
+                />
+              </svg>
+            </div>
+            <div>
+              <h1 className="text-light font-semibold text-xl">1.452</h1>
+              <p className="text-light font-medium text-sm">Total Anak Asuh</p>
+            </div>
+          </div>
+          <div className="bg-primary col-span-3 mt-4 p-1 rounded-2xl flex justify-start items-center gap-4">
             <CartHorizontal />
           </div>
         </div>
