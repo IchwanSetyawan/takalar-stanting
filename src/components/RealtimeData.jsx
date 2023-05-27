@@ -29,14 +29,40 @@ const RealtimeData = () => {
             Database Balita
           </h2>
         </div>
-        <div className="grid grid-cols-3  gap-4">
-          <div className="bg-[#295C5A]  p-4 rounded-2xl text-center justify-center flex  items-center gap-4">
-            <div className="w-10 h-10 bg-white rounded-full p-2 ">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-primary hover:bg-purple relative overflow-hidden  flex items-center justify-between ">
+            <div className="z-10">
+              <div className="justify-start flex p-5 items-center gap-4">
+                <div className="w-10 h-10 text-light">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-10 h-10"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h1 className="text-light font-semibold text-xl">876</h1>
+                  <p className="text-light font-medium text-sm">
+                    Jumlah Keluarga
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -right-5 text-secondary  ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                class="w-6 h-6"
+                class="w-20 h-20"
               >
                 <path
                   fill-rule="evenodd"
@@ -46,40 +72,125 @@ const RealtimeData = () => {
                 <path d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z" />
               </svg>
             </div>
-            <div>
-              <h1 className="text-light font-semibold text-xl">787.234</h1>
-              <p className="text-light font-medium text-sm">Jumlah Keluarga</p>
+          </div>
+          <div className="bg-primary hover:bg-purple relative overflow-hidden  flex items-center justify-between ">
+            <div className="z-10">
+              <div className="justify-start flex p-5 items-center gap-4">
+                <div className="w-10 h-10 text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-10 h-10"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h1 className="text-light font-semibold text-xl">1.200</h1>
+                  <p className="text-light font-medium text-sm">
+                    Keluarga beresiko Stunting
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -right-5 text-secondary  ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-20 h-20"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819"
+                />
+              </svg>
             </div>
           </div>
-          <div className="bg-[#5C3F9D]  p-5 rounded-2xl flex justify-start items-center gap-4">
-            <div className="w-10 h-10 bg-white rounded-full p-2 ">
-              <img src={ManIcon} alt="man-icon" className="w-10 h-6" />
+
+          <div className="bg-primary hover:bg-purple relative overflow-hidden  flex items-center justify-between ">
+            <div className="z-10">
+              <div className="justify-start flex p-5 items-center gap-4">
+                <div className="w-10 h-10 text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-10 h-10"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h1 className="text-light font-semibold text-xl">2.002</h1>
+                  <p className="text-light font-medium text-sm">
+                    Jumlah Anak Stunting
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h1 className="text-light font-semibold text-xl">237.234</h1>
-              <p className="text-light font-medium text-sm">
-                Keluarga beresiko Stunting
-              </p>
+            <div className="absolute -right-5 text-secondary  ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-20 h-20"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
             </div>
           </div>
-          <div className="bg-[#614C73]  p-5 rounded-2xl flex justify-start items-center gap-4">
-            <div className="w-10 h-10 bg-white rounded-full p-2 ">
-              <img src={BabyIcon} alt="baby-icon" className="w-10 h-6" />
+          <div className="bg-primary hover:bg-purple relative overflow-hidden  flex items-center justify-between ">
+            <div className="z-10">
+              <div className="justify-start flex p-5 items-center gap-4">
+                <div className="w-10 h-10 text-white">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-10 h-10"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.622 1.602a.75.75 0 01.756 0l2.25 1.313a.75.75 0 01-.756 1.295L12 3.118 10.128 4.21a.75.75 0 11-.756-1.295l2.25-1.313zM5.898 5.81a.75.75 0 01-.27 1.025l-1.14.665 1.14.665a.75.75 0 11-.756 1.295L3.75 8.806v.944a.75.75 0 01-1.5 0V7.5a.75.75 0 01.372-.648l2.25-1.312a.75.75 0 011.026.27zm12.204 0a.75.75 0 011.026-.27l2.25 1.312a.75.75 0 01.372.648v2.25a.75.75 0 01-1.5 0v-.944l-1.122.654a.75.75 0 11-.756-1.295l1.14-.665-1.14-.665a.75.75 0 01-.27-1.025zm-9 5.25a.75.75 0 011.026-.27L12 11.882l1.872-1.092a.75.75 0 11.756 1.295l-1.878 1.096V15a.75.75 0 01-1.5 0v-1.82l-1.878-1.095a.75.75 0 01-.27-1.025zM3 13.5a.75.75 0 01.75.75v1.82l1.878 1.095a.75.75 0 11-.756 1.295l-2.25-1.312a.75.75 0 01-.372-.648v-2.25A.75.75 0 013 13.5zm18 0a.75.75 0 01.75.75v2.25a.75.75 0 01-.372.648l-2.25 1.312a.75.75 0 11-.756-1.295l1.878-1.096V14.25a.75.75 0 01.75-.75zm-9 5.25a.75.75 0 01.75.75v.944l1.122-.654a.75.75 0 11.756 1.295l-2.25 1.313a.75.75 0 01-.756 0l-2.25-1.313a.75.75 0 11.756-1.295l1.122.654V19.5a.75.75 0 01.75-.75z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h1 className="text-light font-semibold text-xl">190</h1>
+                  <p className="text-light font-medium text-sm">Prevelensi</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h1 className="text-light font-semibold text-xl">487.234</h1>
-              <p className="text-light font-medium text-sm">
-                Jumlah Anak Stunting
-              </p>
-            </div>
-          </div>
-          <div className="bg-[#8A7D98]  p-5 rounded-2xl flex justify-start items-center gap-4">
-            <div className="w-10 h-10 bg-white rounded-full p-2 ">
+            <div className="absolute -right-5 text-secondary  ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                class="w-6 h-6"
+                class="w-20 h-20"
               >
                 <path
                   fill-rule="evenodd"
@@ -88,58 +199,9 @@ const RealtimeData = () => {
                 />
               </svg>
             </div>
-            <div>
-              <h1 className="text-light font-semibold text-xl">383.452</h1>
-              <p className="text-light font-medium text-sm">Prevelensi</p>
-            </div>
           </div>
-          <div className="bg-[#E4B239]  p-5 rounded-2xl flex justify-start items-center gap-4">
-            <div className="w-10 h-10 bg-white rounded-full p-2 ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 3.75v16.5M2.25 12h19.5M6.375 17.25a4.875 4.875 0 004.875-4.875V12m6.375 5.25a4.875 4.875 0 01-4.875-4.875V12m-9 8.25h16.5a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v13.5a1.5 1.5 0 001.5 1.5zm12.621-9.44c-1.409 1.41-4.242 1.061-4.242 1.061s-.349-2.833 1.06-4.242a2.25 2.25 0 013.182 3.182zM10.773 7.63c1.409 1.409 1.06 4.242 1.06 4.242S9 12.22 7.592 10.811a2.25 2.25 0 113.182-3.182z"
-                />
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-light font-semibold text-xl">1.452</h1>
-              <p className="text-light font-medium text-sm">
-                Total Orang Tua Asuh
-              </p>
-            </div>
-          </div>
-          <div className="bg-primary  p-5 rounded-2xl flex justify-start items-center gap-4">
-            <div className="w-10 h-10 bg-white rounded-full p-2 ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"
-                />
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-light font-semibold text-xl">1.452</h1>
-              <p className="text-light font-medium text-sm">Total Anak Asuh</p>
-            </div>
-          </div>
-          <div className="bg-primary col-span-3 mt-4 p-1 rounded-2xl flex justify-start items-center gap-4">
+
+          <div className="bg-secondary col-span-2 mt-8 p- flex justify-start items-center gap-4">
             <CartHorizontal />
           </div>
         </div>

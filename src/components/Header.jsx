@@ -15,7 +15,7 @@ export const Header = () => {
     <>
       <div className="sm:ml-48 sticky top-0 z-50">
         <div className="relative">
-          <div className="p-4 bg-[#2EA9DD]  justify-between flex items-center shadow-md">
+          <div className="p-4 bg-primary  justify-between flex items-center shadow-md">
             <Link to="/" onClick={() => setTabMenu(1)}>
               <h1 className="text-white text-xl font-semibold">Dashboard</h1>
             </Link>

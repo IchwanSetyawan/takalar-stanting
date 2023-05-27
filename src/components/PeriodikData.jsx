@@ -35,46 +35,39 @@ const PeriodikData = () => {
           </div>
         </div>
         <div className="grid grid-rows-6 grid-flow-col gap-4 ">
-          <div className="bg-[#295C5A]  p-4 rounded-2xl text-center justify-center flex  items-center gap-4">
+          <div className="bg-greenSmooth  p-4 rounded-2xl text-center justify-center flex  items-center gap-4">
             <div>
               <h1 className="text-light font-semibold text-xl">896.234</h1>
-              <p className="text-light font-medium text-sm">Jumlah Keluarga</p>
+              <p className="text-light font-medium text-sm">
+                Jumlah Balita yang Diukur
+              </p>
             </div>
           </div>
-          <div className="bg-[#5C3F9D]  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
+          <div className="bg-greenSmooth  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
               <h1 className="text-light font-semibold text-xl">1.234</h1>
               <p className="text-light font-medium text-sm">
-                {" "}
-                Keluarga beresiko Stunting
+                Jumlah Balita Stunting
               </p>
             </div>
           </div>
-          <div className="bg-[#614C73]  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
+          <div className="bg-greenSmooth p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">34.234</h1>
+              <h1 className="text-light font-semibold text-xl">240</h1>
               <p className="text-light font-medium text-sm">
-                Jumlah Anak Stunting
+                Proporsi Balita Stunting
               </p>
             </div>
           </div>
-          <div className="bg-[#8A7D98]  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
+          <div className="bg-greenSmooth p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">234.234</h1>
-              <p className="text-light font-medium text-sm">Prevelensi</p>
+              <h1 className="text-light font-semibold text-xl">2.412</h1>
+              <p className="text-light font-medium text-sm">Total bapak Asuh</p>
             </div>
           </div>
-          <div className="bg-[#E4B239]  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
+          <div className="bg-greenSmooth p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">235.034</h1>
-              <p className="text-light font-medium text-sm">
-                Jumlah Orang Tua Asuh
-              </p>
-            </div>
-          </div>
-          <div className="bg-primary  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
-            <div>
-              <h1 className="text-light font-semibold text-xl">212.234</h1>
+              <h1 className="text-light font-semibold text-xl">10.228</h1>
               <p className="text-light font-medium text-sm">Total Anak Asuh</p>
             </div>
           </div>

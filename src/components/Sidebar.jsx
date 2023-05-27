@@ -33,7 +33,7 @@ const Sidebar = () => {
                     onClick={() => setTabMenu(1)}
                     className={`${
                       tabMenu === 1
-                        ? "flex items-center p-2 text-white rounded-lg  bg-[#2EA9DD]"
+                        ? "flex items-center p-2 text-white rounded-lg  bg-primary"
                         : "flex items-center p-2 text-[#252A35] rounded-lg   hover:bg-[#F7F7F6]"
                     }`}
                   >
@@ -57,7 +57,7 @@ const Sidebar = () => {
                     onClick={() => setTabMenu(2)}
                     className={`${
                       tabMenu === 2
-                        ? "flex items-center p-2 text-white rounded-lg  bg-[#2EA9DD]  "
+                        ? "flex items-center p-2 text-white rounded-lg  bg-primary  "
                         : "flex items-center p-2 text-[#252A35] rounded-lg   hover:bg-[#F7F7F6] "
                     }`}
                   >

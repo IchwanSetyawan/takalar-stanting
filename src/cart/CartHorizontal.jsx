@@ -20,15 +20,15 @@ ChartJS.register(
 );
 
 const CartHorizontal = () => {
-  const labels = ["0-5 tahun", "6-10 tahun", "11-15 tahun"];
+  const labels = ["0-5 bulan ", "6-10 bulan ", "11-15 bulan"];
   const data = {
     labels: labels,
     datasets: [
       {
-        label: "Bulan",
+        label: "Anak",
         data: [3, 6, 9],
-        backgroundColor: "#605671",
-        borderColor: "black",
+        backgroundColor: "#4DA4B1",
+        borderColor: "#756ED9",
         borderWidth: 1,
       },
     ],

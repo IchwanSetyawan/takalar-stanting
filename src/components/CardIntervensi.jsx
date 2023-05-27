@@ -4,12 +4,12 @@ import { intervensiModel } from "../model/IntervensiModel";
 const CardIntervensi = () => {
   return (
     <>
-      <div className="bg-primary h-auto px-6 pt-12 pb-20 rounded-xl">
+      <div className="bg-primary h-auto px-6 pt-8 pb-20 rounded-xl">
         <div className=" flex justify-between items-center">
           <h1 className="text-light text-xl font-semibold">
             Rekomendasi Perbaikan Intervensi
           </h1>
-          <button className="bg-white border text-darkSmooth text-sm border-gray-500 rounded-md flex gap-2 items-center p-2">
+          <button className="bg-white border text-darkSmooth text-sm border-gray-500  flex gap-2 items-center p-2">
             <p>Download Rekomendasi</p>
             <span>
               <svg
@@ -28,7 +28,7 @@ const CardIntervensi = () => {
           </button>
         </div>
         <div className="mt-8 ">
-          <div className="flex items-center gap-2 bg-[#3A41C3] w-1/2 p-2 rounded-md shadow-md text-light">
+          <div className="flex items-center gap-2 bg-greenSmooth w-1/2 p-2   text-light">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -50,7 +50,7 @@ const CardIntervensi = () => {
         </div>
 
         <div className="mt-8 ">
-          <div className="flex items-center gap-2 bg-[#3A41C3] w-1/2 p-2 rounded-md shadow-md text-light">
+          <div className="flex items-center gap-2 bg-greenSmooth w-1/2 p-2   text-light">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

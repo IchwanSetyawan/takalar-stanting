@@ -45,19 +45,19 @@ const Dashboard = () => {
             </h1>
 
             <div className="flex justify-between gap-5 my-8">
-              <div className="bg-[#1A2779] p-4 w-full rounded-lg">
+              <div className="bg-primary p-4 w-full rounded-lg">
                 <div className="text-center">
                   <h1 className="text-light font-semibold text-xl">26</h1>
                   <p className="text-light font-medium text-sm">Kecamatan</p>
                 </div>
               </div>
-              <div className="bg-[#6F558F] p-4 w-full rounded-lg">
+              <div className="bg-primary p-4 w-full rounded-lg">
                 <div className="text-center">
                   <h1 className="text-light font-semibold text-xl">35</h1>
                   <p className="text-light font-medium text-sm">Puskesmas</p>
                 </div>
               </div>
-              <div className="bg-[#3A41C3] p-4 w-full rounded-lg">
+              <div className="bg-primary p-4 w-full rounded-lg">
                 <div className="text-center">
                   <h1 className="text-light font-semibold text-xl">277</h1>
                   <p className="text-light font-medium text-sm">
@@ -65,7 +65,7 @@ const Dashboard = () => {
                   </p>
                 </div>
               </div>
-              <div className="bg-[#66AADC] p-4 w-full rounded-lg">
+              <div className="bg-primary p-4 w-full rounded-lg">
                 <div className="text-center">
                   <h1 className="text-light font-semibold text-xl">1709</h1>
                   <p className="text-light font-medium text-sm">Posyandu</p>
@@ -80,7 +80,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="my-20">
+            <div className="my-10">
               <CardIntervensi />
             </div>
           </div>

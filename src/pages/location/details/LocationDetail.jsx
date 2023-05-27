@@ -50,7 +50,7 @@ const LocationDetail = () => {
             <div
               className={
                 datasName?.status === "success"
-                  ? "bg-green-500 rounded-full w-4 h-4"
+                  ? "bg-greenSmooth-500 rounded-full w-4 h-4"
                   : datasName.status === "warning"
                   ? "bg-yellow-500 rounded-full w-4 h-4"
                   : "bg-red-500 rounded-full w-4 h-4"

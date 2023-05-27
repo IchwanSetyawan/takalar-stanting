@@ -51,10 +51,10 @@ const CakupanComponent = ({ title }) => {
               <div
                 className={`${
                   item.total <= 33
-                    ? "bg-red-400"
+                    ? "bg-red-600"
                     : item.total <= 50
                     ? "bg-yellow-500"
-                    : "bg-green-400"
+                    : "bg-green-600"
                 } h-8 rounded-full relative`}
                 style={{ width: `${maxWidthConvert(item.total)}%` }}
               >

@@ -23,7 +23,7 @@ const Login = () => {
   };
   return (
     <>
-      <div className="bg-[#2EA9DD] h-screen flex justify-center items-center">
+      <div className="bg-primary h-screen flex justify-center items-center">
         <div className="">
           <div className="flex justify-center items-center flex-col gap-5">
             <div className="w-48">
@@ -89,7 +89,7 @@ const Login = () => {
                 </div>
                 <div className="flex justify-end">
                   <Link to="/">
-                    <button className="bg-[#2EA9DD] text-white rounded-md text-xs px-6 py-2 hover:bg-[#5B8DAC]">
+                    <button className="bg-primary text-white rounded-md text-xs px-6 py-2 hover:bg-[#5B8DAC]">
                       Login
                     </button>
                   </Link>
