@@ -27,8 +27,8 @@ const CartHorizontal = () => {
       {
         label: "Anak",
         data: [3, 6, 9],
-        backgroundColor: "#4DA4B1",
-        borderColor: "#756ED9",
+        backgroundColor: "#8662B2",
+        borderColor: "#F7F7F6",
         borderWidth: 1,
       },
     ],

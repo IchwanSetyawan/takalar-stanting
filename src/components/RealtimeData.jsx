@@ -201,7 +201,7 @@ const RealtimeData = () => {
             </div>
           </div>
 
-          <div className="bg-secondary col-span-2 mt-8 p- flex justify-start items-center gap-4">
+          <div className="bg-primary col-span-2 mt-8 p- flex justify-start items-center gap-4">
             <CartHorizontal />
           </div>
         </div>

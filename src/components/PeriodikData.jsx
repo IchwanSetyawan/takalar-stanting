@@ -34,7 +34,7 @@ const PeriodikData = () => {
             </select>
           </div>
         </div>
-        <div className="grid grid-rows-6 grid-flow-col gap-4 ">
+        <div className="flex flex-col space-y-7">
           <div className="bg-greenSmooth  p-4 rounded-2xl text-center justify-center flex  items-center gap-4">
             <div>
               <h1 className="text-light font-semibold text-lg">896.234</h1>
