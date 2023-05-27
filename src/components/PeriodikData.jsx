@@ -20,7 +20,7 @@ const PeriodikData = () => {
 
           <h2 className="text-xl text-dark">Periodik</h2>
         </div>
-        <div className="flex justify-between items-center my-4">
+        <div className="flex justify-between items-center text-sm mb-8 mt-2">
           <h1 className="text-md  text-dark">Lokasi</h1>
           <div className="flex justify-center items-center gap-2">
             <select className="cursor-pointer p-2 bg-transparent border-b border-gray-400 focus:outline-none">
@@ -37,7 +37,7 @@ const PeriodikData = () => {
         <div className="grid grid-rows-6 grid-flow-col gap-4 ">
           <div className="bg-greenSmooth  p-4 rounded-2xl text-center justify-center flex  items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">896.234</h1>
+              <h1 className="text-light font-semibold text-lg">896.234</h1>
               <p className="text-light font-medium text-sm">
                 Jumlah Balita yang Diukur
               </p>
@@ -45,7 +45,7 @@ const PeriodikData = () => {
           </div>
           <div className="bg-greenSmooth  p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">1.234</h1>
+              <h1 className="text-light font-semibold text-lg">1.234</h1>
               <p className="text-light font-medium text-sm">
                 Jumlah Balita Stunting
               </p>
@@ -53,7 +53,7 @@ const PeriodikData = () => {
           </div>
           <div className="bg-greenSmooth p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">240</h1>
+              <h1 className="text-light font-semibold text-lg">240</h1>
               <p className="text-light font-medium text-sm">
                 Proporsi Balita Stunting
               </p>
@@ -61,13 +61,13 @@ const PeriodikData = () => {
           </div>
           <div className="bg-greenSmooth p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">2.412</h1>
+              <h1 className="text-light font-semibold text-lg">2.412</h1>
               <p className="text-light font-medium text-sm">Total bapak Asuh</p>
             </div>
           </div>
           <div className="bg-greenSmooth p-4 rounded-2xl flex justify-center text-center items-center gap-4">
             <div>
-              <h1 className="text-light font-semibold text-xl">10.228</h1>
+              <h1 className="text-light font-semibold text-lg">10.228</h1>
               <p className="text-light font-medium text-sm">Total Anak Asuh</p>
             </div>
           </div>

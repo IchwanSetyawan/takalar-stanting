@@ -26,15 +26,15 @@ const LocationDetail = () => {
   return (
     <>
       <Layout>
-        <div className="p-4">
-          <div className="flex items-center gap-2">
+        <div className="">
+          <div className="flex items-center justify-start">
             <Link to="/location">
-              <div className="w-8 h-8 rounded-lg border-2 border-primary flex justify-center items-center mr-3 cursor-pointer">
+              <div className="w-8 h-8 rounded-lg  flex justify-center items-center mr-3 cursor-pointer hover:text-primary">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  class="w-6 h-6"
+                  class="w-8 h-8"
                 >
                   <path
                     fill-rule="evenodd"

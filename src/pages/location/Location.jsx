@@ -14,7 +14,7 @@ const Location = () => {
   return (
     <>
       <Layout>
-        <div className="p-4">
+        <div className="">
           <TableComponent
             data={dataTable}
             handleLink={(id) => handleNavigateLink(id)}

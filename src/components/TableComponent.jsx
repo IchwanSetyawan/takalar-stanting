@@ -63,7 +63,7 @@ const TableComponent = ({ name, handleLink, data }) => {
                       <div
                         className={
                           item.status === "success"
-                            ? "bg-greenSmooth-500 rounded-full w-4 h-4"
+                            ? "bg-green-500 rounded-full w-4 h-4"
                             : item.status === "warning"
                             ? "bg-yellow-500 rounded-full w-4 h-4"
                             : "bg-red-500 rounded-full w-4 h-4"

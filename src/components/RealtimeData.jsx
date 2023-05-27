@@ -50,7 +50,7 @@ const RealtimeData = () => {
                   </svg>
                 </div>
                 <div>
-                  <h1 className="text-light font-semibold text-xl">876</h1>
+                  <h1 className="text-light font-semibold text-lg">876</h1>
                   <p className="text-light font-medium text-sm">
                     Jumlah Keluarga
                   </p>
@@ -93,7 +93,7 @@ const RealtimeData = () => {
                   </svg>
                 </div>
                 <div>
-                  <h1 className="text-light font-semibold text-xl">1.200</h1>
+                  <h1 className="text-light font-semibold text-lg">1.200</h1>
                   <p className="text-light font-medium text-sm">
                     Keluarga beresiko Stunting
                   </p>
@@ -138,7 +138,7 @@ const RealtimeData = () => {
                   </svg>
                 </div>
                 <div>
-                  <h1 className="text-light font-semibold text-xl">2.002</h1>
+                  <h1 className="text-light font-semibold text-lg">2.002</h1>
                   <p className="text-light font-medium text-sm">
                     Jumlah Anak Stunting
                   </p>
@@ -180,7 +180,7 @@ const RealtimeData = () => {
                   </svg>
                 </div>
                 <div>
-                  <h1 className="text-light font-semibold text-xl">190</h1>
+                  <h1 className="text-light font-semibold text-lg">190</h1>
                   <p className="text-light font-medium text-sm">Prevelensi</p>
                 </div>
               </div>

@@ -17,11 +17,11 @@ const Dashboard = () => {
     <>
       <Layout>
         <div>
-          <div className="p-4">
+          <div className="p-4 -mt-8">
             <div className="flex justify-between items-center mb-8">
-              <h1 className="text-2xl font-semibold  text-dark">Lokasi</h1>
-              <div className="flex justify-center items-center gap-2">
-                <select className="cursor-pointer p-3 border-2 rounded-lg border-gray-200">
+              <h1 className="text-xl font-semibold  text-dark">Lokasi</h1>
+              <div className="flex justify-center items-center  text-sm gap-2">
+                <select className="cursor-pointer p-3 border-2  rounded-lg border-gray-200">
                   <option value="1">Kecamatan</option>
                   <option value="2">Kecamatan 1</option>
                   <option value="3">Kecamatan 2</option>
@@ -73,7 +73,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="bg-blue-200 h-screen mb-8">
+            <div className="bg-blue-200 h-screen mb-8 ">
               <div className="flex justify-center items-center">
                 <div className="bg-primary h-screen w-full">
                   <img src={MapImage} alt="map" className="w-full" />
