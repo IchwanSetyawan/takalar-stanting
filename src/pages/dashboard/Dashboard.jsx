@@ -1,14 +1,11 @@
 import React, { useContext } from "react";
 import { TabMenuContext } from "../../context/TabMenuContext";
 import Layout from "../../layouts/Layout";
-import BabyIcon from "../../assets/icon/baby-icon.svg";
-import ManIcon from "../../assets/icon/person-icon.svg";
-import WomanIcon from "../../assets/icon/person-woman-icon.svg";
-import CartHorizontal from "../../cart/CartHorizontal";
 import RealtimeData from "../../components/RealtimeData";
 import PeriodikData from "../../components/PeriodikData";
 import MapImage from "../../assets/image/takalar.png";
 import CardIntervensi from "../../components/CardIntervensi";
+import CardWilayah from "../../components/CardWilayah";
 
 const Dashboard = () => {
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
@@ -19,58 +16,51 @@ const Dashboard = () => {
         <div>
           <div className="p-4 -mt-8">
             <div className="flex justify-between items-center mb-8">
-              <h1 className="text-xl font-semibold  text-dark">Lokasi</h1>
-              <div className="flex justify-center items-center  text-sm gap-2">
-                <select className="cursor-pointer p-3 border-2  rounded-lg border-gray-200">
-                  <option value="1">Kecamatan</option>
-                  <option value="2">Kecamatan 1</option>
-                  <option value="3">Kecamatan 2</option>
+              <h1 className="text-base font-medium  text-darkHard">
+                Ringkasan /
+              </h1>
+              <div className=" flex justify-center items-center text-dark  gap-4">
+                <select className="border py-4 pl-4 pr-32 text-md  rounded-lg border-darkHard">
+                  <option className="text-xs" selected>
+                    Kecamatan
+                  </option>
+                  <option className="text-xs" value="1">
+                    Kecamatan 1
+                  </option>
+                  <option className="text-xs" value="2">
+                    Kecamatan 2
+                  </option>
                 </select>
-                <select className="cursor-pointer p-3 border-2 rounded-lg border-gray-200">
-                  <option value="1">Kelurahan</option>
-                  <option value="2">Kelurahan 1</option>
-                  <option value="3">Kelurahan 2</option>
+
+                <select className="border py-4 pl-4 pr-32 rounded-lg border-darkHard">
+                  <option className="text-xs" value="1">
+                    Kelurahan
+                  </option>
+                  <option className="text-xs" value="2">
+                    Kelurahan 1
+                  </option>
+                  <option className="text-xs" value="3">
+                    Kelurahan 2
+                  </option>
                 </select>
               </div>
             </div>
-            <div className=" grid grid-cols-3 gap-4">
+            <div className=" grid grid-cols-3 gap-4 mt-10">
               <RealtimeData />
               <PeriodikData />
             </div>
           </div>
 
           <div className="mt-8">
-            <h1 className="text-dark font-semibold text-xl">
+            <h2 className="text-xl  text-dark font-bold">
               Ringkasan Per Wilayah
-            </h1>
+            </h2>
 
             <div className="flex justify-between gap-5 my-8">
-              <div className="bg-primary p-4 w-full rounded-lg">
-                <div className="text-center">
-                  <h1 className="text-light font-semibold text-xl">26</h1>
-                  <p className="text-light font-medium text-sm">Kecamatan</p>
-                </div>
-              </div>
-              <div className="bg-primary p-4 w-full rounded-lg">
-                <div className="text-center">
-                  <h1 className="text-light font-semibold text-xl">35</h1>
-                  <p className="text-light font-medium text-sm">Puskesmas</p>
-                </div>
-              </div>
-              <div className="bg-primary p-4 w-full rounded-lg">
-                <div className="text-center">
-                  <h1 className="text-light font-semibold text-xl">277</h1>
-                  <p className="text-light font-medium text-sm">
-                    Desa/Kelurahan
-                  </p>
-                </div>
-              </div>
-              <div className="bg-primary p-4 w-full rounded-lg">
-                <div className="text-center">
-                  <h1 className="text-light font-semibold text-xl">1709</h1>
-                  <p className="text-light font-medium text-sm">Posyandu</p>
-                </div>
-              </div>
+              <CardWilayah title="kecamatan" total="26" />
+              <CardWilayah title="Puskesmas" total="35" />
+              <CardWilayah title="kecamatan" total="277" />
+              <CardWilayah title="Desa/Kelurahan" total="26" />
             </div>
 
             <div className="bg-blue-200 h-screen mb-8 ">
@@ -80,7 +70,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="my-10">
+            <div>
               <CardIntervensi />
             </div>
           </div>

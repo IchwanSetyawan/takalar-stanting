@@ -1,7 +1,5 @@
 import React from "react";
 import BabyIcon from "../assets/icon/baby-icon.svg";
-import { dataTable } from "../model/TableComponentModel";
-import { useNavigate, useParams } from "react-router-dom";
 
 const TableComponent = ({ name, handleLink, data }) => {
   return (

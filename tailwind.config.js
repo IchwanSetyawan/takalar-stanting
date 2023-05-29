@@ -7,8 +7,9 @@ export default {
         primary: "#168EEA",
         secondary: "#9FBED3",
         third: "#F4F4F4",
-        dark: "#252A35",
-        darkSmooth: "#3A4039",
+        dark: "#3A4039",
+        darkHard: "#505258",
+        darkSmooth: "#B4B5B7",
         light: "#F7F7F6",
         blueDark: "#756ED9",
         greenSmooth: "#4DA4B1",
@@ -17,5 +18,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

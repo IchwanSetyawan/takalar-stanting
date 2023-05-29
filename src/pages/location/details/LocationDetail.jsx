@@ -44,7 +44,7 @@ const LocationDetail = () => {
                 </svg>
               </div>
             </Link>
-            <h1 className="text-2xl font-semibold my-4">
+            <h1 className="text-2xl font-semibold my-4 mr-2">
               Kecamatan {datasName?.name}
             </h1>
             <div

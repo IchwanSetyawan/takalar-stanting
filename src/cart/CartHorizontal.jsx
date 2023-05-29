@@ -27,9 +27,11 @@ const CartHorizontal = () => {
       {
         label: "Anak",
         data: [3, 6, 9],
-        backgroundColor: "#8662B2",
-        borderColor: "#F7F7F6",
+        indexAxis: "x",
+        backgroundColor: "#168EEA",
+        borderColor: "#168EEA",
         borderWidth: 1,
+        borderRadius: 8,
       },
     ],
   };
@@ -44,18 +46,20 @@ const CartHorizontal = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: "right",
+        indexAxis: "y",
       },
       title: {
         display: true,
         text: "Balita berdasarkan Umur",
       },
     },
+    maintainAspectRatio: false,
   };
 
   return (
     <>
-      <Bar data={data} options={options} width={"300%"} />
+      <Bar data={data} options={options} height={388} />
     </>
   );
 };
