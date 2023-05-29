@@ -20,13 +20,13 @@ ChartJS.register(
 );
 
 const CartHorizontal = () => {
-  const labels = ["0-5 bulan ", "6-10 bulan ", "11-15 bulan"];
+  const labels = ["0-5 bulan ", "6-10 bulan ", "11-15 bulan", "16-20 bulan"];
   const data = {
     labels: labels,
     datasets: [
       {
         label: "Anak",
-        data: [3, 6, 9],
+        data: [30, 69, 93, 12],
         indexAxis: "x",
         backgroundColor: "#168EEA",
         borderColor: "#168EEA",
@@ -37,7 +37,7 @@ const CartHorizontal = () => {
   };
 
   const options = {
-    indexAxis: "x",
+    indexAxis: "y",
     elements: {
       bar: {
         borderWidth: 2,
@@ -46,8 +46,8 @@ const CartHorizontal = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "right",
-        indexAxis: "y",
+        position: "bottom",
+        indexAxis: "x",
       },
       title: {
         display: true,

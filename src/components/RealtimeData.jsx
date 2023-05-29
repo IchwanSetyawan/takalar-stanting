@@ -7,6 +7,32 @@ import MotherChildIcon from "../assets/icon/mother-child-icon.svg";
 import CurveIcon from "../assets/icon/curve-icon.svg";
 
 const RealtimeData = () => {
+  const data = [
+    {
+      id: 1,
+      total: "876",
+      title: "Jumlah Keluarga",
+      icon: FamilyIcon,
+    },
+    {
+      id: 2,
+      total: "1.200",
+      title: "Keluarga beresiko Stunting",
+      icon: PregnanIcon,
+    },
+    {
+      id: 3,
+      total: "2.000",
+      title: "Jumlah Anak Stunting",
+      icon: MotherChildIcon,
+    },
+    {
+      id: 4,
+      total: "54%",
+      title: "Prevalensi",
+      icon: CurveIcon,
+    },
+  ];
   return (
     <>
       <div className="col-span-2 border border-gray-400 w-full rounded-lg p-6 ">
@@ -22,66 +48,28 @@ const RealtimeData = () => {
           </h2>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-lg border border-darkSmooth flex items-center justify-between ">
-            <div className="z-10">
-              <div className="justify-start flex p-6 items-center gap-4 ">
-                <div>
-                  <img src={FamilyIcon} alt="family-icon" />
-                </div>
-                <div>
-                  <h1 className="text-dark font-bold text-xl">876</h1>
-                  <p className="text-darkHard font-normal text-sm">
-                    Jumlah Keluarga
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-darkSmooth flex items-center justify-between ">
-            <div className="z-10">
-              <div className="justify-start flex p-6 items-center gap-4 ">
-                <div>
-                  <img src={PregnanIcon} alt="family-icon" />
-                </div>
-                <div>
-                  <h1 className="text-dark font-bold text-xl">1.200</h1>
-                  <p className="text-darkHard font-normal text-sm">
-                    Keluarga beresiko Stunting
-                  </p>
+          {data.map((item) => (
+            <div
+              key={item.id}
+              className="rounded-lg border border-darkSmooth flex items-center justify-between "
+            >
+              <div className="z-10">
+                <div className="justify-start flex p-6 items-center gap-4 ">
+                  <div className="w-6 h-auto">
+                    <img src={item.icon} alt="family-icon" />
+                  </div>
+                  <div>
+                    <h1 className="text-dark font-bold text-xl">
+                      {item.total}
+                    </h1>
+                    <p className="text-darkHard font-normal text-sm">
+                      {item.title}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="rounded-lg border border-darkSmooth flex items-center justify-between ">
-            <div className="z-10">
-              <div className="justify-start flex p-6 items-center gap-4 ">
-                <div>
-                  <img src={MotherChildIcon} alt="family-icon" />
-                </div>
-                <div>
-                  <h1 className="text-dark font-bold text-xl">2.000</h1>
-                  <p className="text-darkHard font-normal text-sm">
-                    Jumlah Anak Stunting
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-darkSmooth flex items-center justify-between ">
-            <div className="z-10">
-              <div className="justify-start flex p-6 items-center gap-4 ">
-                <div>
-                  <img src={CurveIcon} alt="family-icon" />
-                </div>
-                <div>
-                  <h1 className="text-dark font-bold text-xl">109</h1>
-                  <p className="text-darkHard font-normal text-sm">
-                    Prevalensi
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="mt-3 border rounded-lg border-darkSmooth p-2 ">

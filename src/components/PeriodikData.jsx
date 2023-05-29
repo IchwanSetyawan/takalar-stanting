@@ -1,7 +1,15 @@
 import React from "react";
 import PeriodikIcon from "../assets/icon/periodik-icon.svg";
+import CardPeriodik from "./CardPeriodik";
 
 const PeriodikData = () => {
+  const data = [
+    { id: 1, name: "Jumlah Balita yang Diukur", total: "896.234" },
+    { id: 2, name: "Jumlah Balita Stunting", total: "1.234" },
+    { id: 3, name: "Prevalensi Balita Stunting", total: "240 %" },
+    { id: 4, name: "Total Bapak Asuh", total: "2.412" },
+    { id: 5, name: "Total Anak Asuh", total: "10.228" },
+  ];
   return (
     <>
       <div className=" border border-gray-400 w-full p-6 rounded-lg">
@@ -42,46 +50,9 @@ const PeriodikData = () => {
           </div>
         </div>
         <div className="flex flex-col space-y-4">
-          <div className="border border-darkSmooth  p-6 rounded-lg text-center justify-center flex  items-center gap-4">
-            <div classname="flex justify-center item-center flex-col gap-2">
-              <h1 className="text-primary font-semibold text-2xl">896.234</h1>
-              <p className="text-darkHard font-medium text-sm">
-                Jumlah Balita yang Diukur
-              </p>
-            </div>
-          </div>
-          <div className="border border-darkSmooth  p-6 rounded-lg flex justify-center text-center items-center gap-4">
-            <div classname="flex justify-center item-center flex-col gap-2">
-              <h1 className="text-primary font-semibold text-2xl">1.234</h1>
-              <p className="text-darkHard font-medium text-sm">
-                Jumlah Balita Stunting
-              </p>
-            </div>
-          </div>
-          <div className="border border-darkSmooth p-6 rounded-lg flex justify-center text-center items-center gap-4">
-            <div classname="flex justify-center item-center flex-col gap-2">
-              <h1 className="text-primary font-semibold text-2xl">240</h1>
-              <p className="text-darkHard font-medium text-sm">
-                Proporsi Balita Stunting
-              </p>
-            </div>
-          </div>
-          <div className="border border-darkSmooth p-6 rounded-lg flex justify-center text-center items-center gap-4">
-            <div classname="flex justify-center item-center flex-col gap-2">
-              <h1 className="text-primary font-semibold text-2xl">2.412</h1>
-              <p className="text-darkHard font-medium text-sm">
-                Total bapak Asuh
-              </p>
-            </div>
-          </div>
-          <div className="border border-darkSmooth p-6 rounded-lg flex justify-center text-center items-center gap-4">
-            <div classname="flex justify-center item-center flex-col gap-2">
-              <h1 className="text-primary font-semibold text-2xl">10.228</h1>
-              <p className="text-darkHard font-medium text-sm">
-                Total Anak Asuh
-              </p>
-            </div>
-          </div>
+          {data.map((item) => (
+            <CardPeriodik key={item.id} name={item.name} total={item.total} />
+          ))}
         </div>
       </div>
     </>
