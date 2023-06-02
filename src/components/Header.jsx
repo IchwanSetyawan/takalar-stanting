@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { TabMenuContext } from "../context/TabMenuContext";
 import UserIcon from "../assets/icon/user-icon.svg";
 import ArrowButtonIcon from "../assets/icon/arrow-bottom-icon.svg";
@@ -11,15 +11,46 @@ export const Header = () => {
     e.preventDefault();
     setShowDropdown(!showDropdown);
   };
+
+  const location = useLocation();
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setTabMenu(1);
+    } else if (location.pathname === "/dashboard-balita") {
+      setTabMenu(2);
+    } else if (location.pathname === "/sebaran") {
+      setTabMenu(3);
+    } else if (location.pathname === "/cakupan") {
+      setTabMenu(4);
+    } else if (location.pathname === "/recommendation") {
+      setTabMenu(5);
+    } else if (location.pathname === "/location") {
+      setTabMenu(6);
+    }
+  }, []);
 
   return (
     <>
       <div className="sm:ml-60 sticky top-0 z-50">
         <div className="relative">
-          <div className="p-4 bg-primary  justify-between flex items-center shadow-md">
+          <div className="p-7 bg-primary  justify-between flex items-center shadow-md">
             <Link to="/" onClick={() => setTabMenu(1)}>
-              <h1 className="text-white text-xl font-semibold">Dashboard</h1>
+              <h1 className="text-white text-xl font-semibold">
+                {tabMenu === 1
+                  ? "Dashboard"
+                  : tabMenu === 2
+                  ? "Dashboard Balita"
+                  : tabMenu === 3
+                  ? "Sebaran"
+                  : tabMenu === 4
+                  ? "Cakupan"
+                  : tabMenu === 5
+                  ? "Rekomendasi"
+                  : tabMenu === 6
+                  ? "Lokasi"
+                  : ""}
+              </h1>
             </Link>
             <div className="text-white flex justify-center gap-2 cursor-pointer hover:text-gray-100">
               <div>

@@ -1,10 +1,10 @@
 import React from "react";
-import CartHorizontal from "../cart/CartHorizontal";
 import RealtImeIcon from "../assets/icon/realtime-icon.svg";
 import FamilyIcon from "../assets/icon/family-icon.svg";
-import PregnanIcon from "../assets/icon/pregnan-icon.svg";
-import MotherChildIcon from "../assets/icon/mother-child-icon.svg";
+import AlertIcon from "../assets/icon/alert-icon.svg";
 import CurveIcon from "../assets/icon/curve-icon.svg";
+import StuntingIcon from "../assets/icon/stunting-icon.svg";
+import CartComponent from "../cart/CartComponent";
 
 const RealtimeData = () => {
   const data = [
@@ -18,13 +18,13 @@ const RealtimeData = () => {
       id: 2,
       total: "1.200",
       title: "Keluarga beresiko Stunting",
-      icon: PregnanIcon,
+      icon: AlertIcon,
     },
     {
       id: 3,
       total: "2.000",
       title: "Jumlah Anak Stunting",
-      icon: MotherChildIcon,
+      icon: StuntingIcon,
     },
     {
       id: 4,
@@ -35,7 +35,7 @@ const RealtimeData = () => {
   ];
   return (
     <>
-      <div className="col-span-2 border border-gray-400 w-full rounded-lg p-6 ">
+      <div className="col-span-2 border border-gray-200 shadow-md w-full rounded-lg p-6 ">
         <div className="flex gap-4 items-center">
           <div>
             <img src={RealtImeIcon} alt="icon realtime" />
@@ -51,12 +51,12 @@ const RealtimeData = () => {
           {data.map((item) => (
             <div
               key={item.id}
-              className="rounded-lg border border-darkSmooth flex items-center justify-between "
+              className="rounded-lg border border-darkSmooth flex items-center justify-between hover:bg-gray-50 "
             >
               <div className="z-10">
                 <div className="justify-start flex p-6 items-center gap-4 ">
-                  <div className="w-6 h-auto">
-                    <img src={item.icon} alt="family-icon" />
+                  <div className="w-8 h-auto">
+                    <img src={item.icon} alt="icon" />
                   </div>
                   <div>
                     <h1 className="text-dark font-bold text-xl">
@@ -72,8 +72,8 @@ const RealtimeData = () => {
           ))}
         </div>
 
-        <div className="mt-3 border rounded-lg border-darkSmooth p-2 ">
-          <CartHorizontal />
+        <div className="mt-4 border rounded-lg border-darkSmooth px-2 py-5">
+          <CartComponent />
         </div>
       </div>
     </>

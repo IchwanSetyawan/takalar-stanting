@@ -21,30 +21,17 @@ const Dashboard = () => {
 
             <div className="flex justify-between gap-x-5 my-8">
               <CardWilayah title="kecamatan" total="26" />
-              <CardWilayah title="Puskesmas" total="35" />
-              <CardWilayah title="kecamatan" total="277" />
-              <CardWilayah title="Desa/Kelurahan" total="26" />
+              <CardWilayah title="Desa/Kelurahan" total="78" />
+              <CardWilayah title="Dusun" total="277" />
+              <CardWilayah title="Jumlah Penduduk" total="1.709" />
             </div>
-
-            {/* <div className="bg-blue-200 h-screen mb-8 ">
-              <div className="flex justify-center items-center">
-                <div className="bg-primary h-screen w-full">
-                  <img src={MapImage} alt="map" className="w-full" />
-                </div>
-              </div>
-            </div>
-            <div>
-              <CardIntervensi />
-            </div> */}
           </div>
           <div className="p-4 -mt-8">
             <div className="flex justify-between items-center mb-8">
-              <h1 className="text-base font-medium  text-darkHard">
-                Ringkasan /
-              </h1>
+              <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
               <div className=" flex justify-center items-center text-dark  gap-4">
                 <select className="border py-4 pl-4 pr-32 text-md  rounded-lg border-darkHard">
-                  <option className="text-xs" selected>
+                  <option defaultValue="3" className="text-xs" selected>
                     Kecamatan
                   </option>
                   <option className="text-xs" value="1">

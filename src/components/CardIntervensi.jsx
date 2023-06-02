@@ -1,14 +1,13 @@
 import React from "react";
 import { intervensiModel } from "../model/IntervensiModel";
+import TitleComponent from "./TitleComponent";
 
 const CardIntervensi = () => {
   return (
     <>
       <div className="border rounded-lg border-darkSmooth h-auto px-6 pt-8 pb-10">
         <div className=" flex justify-between items-center">
-          <h1 className=" text-xl text-dark font-bold">
-            Rekomendasi Perbaikan Intervensi
-          </h1>
+          <TitleComponent title="Rekomendasi Perbaikan Intervensi" />
         </div>
         <div className="mt-8 ">
           <div>
