@@ -6,9 +6,42 @@ import PeriodikData from "../../components/PeriodikData";
 import MapImage from "../../assets/image/takalar.png";
 import CardIntervensi from "../../components/CardIntervensi";
 import CardWilayah from "../../components/CardWilayah";
+import CardRealtimeHor from "../../components/CardRealtimeHor";
+import FamilyIcon from "../../assets/icon/family-icon.svg";
+import AlertIcon from "../../assets/icon/alert-icon.svg";
+import CurveIcon from "../../assets/icon/curve-icon.svg";
+import StuntingIcon from "../../assets/icon/stunting-icon.svg";
+import CartComponent from "../../cart/CartComponent";
 
 const Dashboard = () => {
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
+
+  const data = [
+    {
+      id: 1,
+      total: "876",
+      title: "Jumlah Keluarga",
+      icon: FamilyIcon,
+    },
+    {
+      id: 2,
+      total: "1.200",
+      title: "Keluarga beresiko Stunting",
+      icon: AlertIcon,
+    },
+    {
+      id: 3,
+      total: "2.000",
+      title: "Jumlah Anak Stunting",
+      icon: StuntingIcon,
+    },
+    {
+      id: 4,
+      total: "54%",
+      title: "Prevalensi",
+      icon: CurveIcon,
+    },
+  ];
 
   return (
     <>
@@ -57,7 +90,21 @@ const Dashboard = () => {
             </div>
 
             <div className=" grid grid-cols-3 gap-4 mt-10">
-              <RealtimeData />
+              <RealtimeData>
+                <div className="grid grid-cols-2 gap-5">
+                  {data.map((item) => (
+                    <CardRealtimeHor
+                      key={item.id}
+                      name={item.title}
+                      total={item.total}
+                      icon={item.icon}
+                    />
+                  ))}
+                </div>
+                <div className="mt-4 border rounded-lg border-darkSmooth px-2 py-5">
+                  <CartComponent />
+                </div>
+              </RealtimeData>
               <PeriodikData />
             </div>
           </div>

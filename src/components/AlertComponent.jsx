@@ -10,7 +10,7 @@ const AlertComponent = () => {
   return (
     <>
       {isShow && (
-        <div className="p-3 mb-3 border border-textError bg-[##FEF3F2] rounded-lg flex justify-between items-center">
+        <div className="p-3 mb-3 border border-textError bg-[#FEF3F2] rounded-lg flex justify-between items-center">
           <div className="flex gap-2 items-center">
             <div>
               <img src={ErrorIcon} alt="error-icon" />
@@ -32,8 +32,8 @@ const AlertComponent = () => {
               class="w-6 h-6"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>

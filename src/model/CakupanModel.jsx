@@ -29,4 +29,34 @@ export const CakupanModel = [
     content: "In qui mollit tempor ut. Est laborum exercitation ",
     total: 20,
   },
+  {
+    id: 6,
+    title: "loremp ipsum",
+    content: "Cakupan bumil KEK yang mendapati pemulihan",
+    total: 5433,
+  },
+  {
+    id: 7,
+    title: "ipsum reprehenderit",
+    content: "Reprehenderit nulla ipsum ",
+    total: 90,
+  },
+  {
+    id: 8,
+    title: " commodo cupidata",
+    content: "Nostrud sunt ipsum eiusmod adipisicing ",
+    total: 40,
+  },
+  {
+    id: 9,
+    title: " magna veniam sint aliquip ",
+    content: "Eiusmod elit magna veniam sint aliquip",
+    total: 30,
+  },
+  {
+    id: 10,
+    title: "tempor ut. Est laborum",
+    content: "In qui mollit tempor ut. Est laborum exercitation ",
+    total: 20,
+  },
 ];

@@ -14,8 +14,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" exact element={<Dashboard />} />
         <Route path="/login" exact element={<Login />} />
+        <Route path="/" exact element={<Dashboard />} />
         <Route path="/cakupan" exact element={<Cakupan />} />
         <Route path="/dashboard-balita" exact element={<DashboardBalita />} />
         <Route path="/recommendation" exact element={<Recommendation />} />

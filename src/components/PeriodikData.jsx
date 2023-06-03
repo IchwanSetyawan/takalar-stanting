@@ -1,35 +1,8 @@
 import React from "react";
 import PeriodikIcon from "../assets/icon/periodik-icon.svg";
 import CardPeriodik from "./CardPeriodik";
-import Persons from "../assets/icon/persons.svg";
-import DifableIcon from "../assets/icon/difable-icon.svg";
-import SortIcon from "../assets/icon/sort-icon.svg";
-import Fathericon from "../assets/icon/father-icon.svg";
-import Childicon from "../assets/icon/child-icon.svg";
 
-const PeriodikData = () => {
-  const data = [
-    {
-      id: 1,
-      name: "Jumlah Balita yang Diukur",
-      total: "896.234",
-      icon: Persons,
-    },
-    {
-      id: 2,
-      name: "Jumlah Balita Stunting",
-      total: "1.234",
-      icon: DifableIcon,
-    },
-    {
-      id: 3,
-      name: "Prevalensi Balita Stunting",
-      total: "240 %",
-      icon: SortIcon,
-    },
-    { id: 4, name: "Total Bapak Asuh", total: "2.412", icon: Fathericon },
-    { id: 5, name: "Total Anak Asuh", total: "10.228", icon: Childicon },
-  ];
+const PeriodikData = ({ children }) => {
   return (
     <>
       <div className=" border border-gray-200 shadow-md w-full p-6 rounded-lg">
@@ -69,16 +42,7 @@ const PeriodikData = () => {
             </select>
           </div>
         </div>
-        <div className="flex flex-col space-y-4">
-          {data.map((item) => (
-            <CardPeriodik
-              key={item.id}
-              name={item.name}
-              icon={item?.icon}
-              total={item.total}
-            />
-          ))}
-        </div>
+        <div className="flex flex-col space-y-4">{children}</div>
       </div>
     </>
   );
