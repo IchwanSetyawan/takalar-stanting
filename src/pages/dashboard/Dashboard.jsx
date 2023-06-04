@@ -18,6 +18,7 @@ import Persons from "../../assets/icon/persons.svg";
 import SortIcon from "../../assets/icon/sort-icon.svg";
 import FatherIcon from "../../assets/icon/father-icon.svg";
 import ChildIcon from "../../assets/icon/child-icon.svg";
+import AccesibleIcon from "../../assets/icon/accessible-icon.svg";
 import CardPeriodik from "../../components/CardPeriodik";
 
 const Dashboard = () => {
@@ -53,32 +54,32 @@ const Dashboard = () => {
   const dataPeriodik = [
     {
       id: 1,
-      name: "Jumlah Remaja",
+      name: "Jumlah Balita yang Diukur",
       total: "1.738",
-      // icon: RemajaIcon,
+      icon: Persons,
     },
     {
       id: 2,
-      name: "Jumlah Calon Pengantin",
-      total: "336",
-      icon: PersonPeriodik,
+      name: "Jumlah Balita Stunting",
+      total: "1.234",
+      icon: AccesibleIcon,
     },
     {
       id: 3,
-      name: "Jumlah Ibu Hamil",
-      total: "123",
+      name: "Prevalensi Balita Stunting",
+      total: "240 %",
       icon: SortIcon,
     },
     {
       id: 4,
-      name: "Jumlah Ibu Menyusui",
-      total: "214",
+      name: "Total Bapak Asuh",
+      total: "2.412",
       icon: FatherIcon,
     },
     {
       id: 5,
-      name: "Jumlah Anak Usia 0-59 bulan",
-      total: "355",
+      name: "Total Anak Asuh",
+      total: "10.228",
       icon: ChildIcon,
     },
   ];

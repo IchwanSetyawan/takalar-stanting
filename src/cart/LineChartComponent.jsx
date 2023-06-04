@@ -82,7 +82,7 @@ const LineChartComponent = () => {
 
   return (
     <>
-      <Line options={options} data={data} />;
+      <Line options={options} data={data} />
     </>
   );
 };

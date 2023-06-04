@@ -1,5 +1,6 @@
 {
   "name": "takalar-stanting",
+  "proxy": "http://103.150.120.21:8000",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,6 +13,8 @@
   "dependencies": {
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",

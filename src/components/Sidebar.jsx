@@ -40,8 +40,10 @@ const Sidebar = () => {
       >
         <div className="h-full px-3 py-4  bg-white shadow-lg flex flex-col justify-between  ">
           <div>
-            <div className="w-32 ">
-              <img src={Logo} alt="logo" />
+            <div className="flex justify-center">
+              <div className="w-32 ">
+                <img src={Logo} alt="logo" />
+              </div>
             </div>
             <div className="mt-9">
               <ul className="font-medium flex flex-col  gap-2 text-sm">

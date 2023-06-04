@@ -11,8 +11,8 @@ const CakupanComponent = ({ data }) => {
     <>
       <div className=" p-6  rounded-xl border border-gray-200">
         <div className="grid grid-cols-2 gap-4">
-          {firstHalf.map((item) => (
-            <div className="mt-4">
+          {firstHalf.map((item, id) => (
+            <div className="mt-4" key={id}>
               <div className="flex justify-between items-center mb-1">
                 <p>{item.title}</p>
               </div>
@@ -36,8 +36,8 @@ const CakupanComponent = ({ data }) => {
             </div>
           ))}
 
-          {secondHalf.map((item) => (
-            <div className="mt-4">
+          {secondHalf.map((item, id) => (
+            <div className="mt-4" key={id}>
               <div className="flex justify-between items-center mb-1">
                 <p>{item.title}</p>
               </div>

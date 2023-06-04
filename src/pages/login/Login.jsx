@@ -1,36 +1,85 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../../assets/image/logo.png";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { authContext } from "../../context/AuthContext";
+import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const {
+    setIsLogin,
+    setToken,
+    setTokenFunc,
+    isLogin,
+    token,
+    username,
+    setUsername,
+    setUser,
+  } = useContext(authContext);
+
   const handleShowPassword = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
 
   const defaultData = {
-    username: "admin",
-    password: "admin123",
+    username: "",
+    password: "",
   };
 
   const [formData, setFormData] = useState({ ...defaultData });
+
+  console.log(formData);
 
   const handleFormLogin = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setFormData({ ...formData, [name]: value });
   };
+
+  const requestBody = {
+    username: formData.username,
+    password: formData.password,
+  };
+
+  const getLogin = () => {
+    const URL = "http://103.150.120.21:8000/api/auth/login";
+    axios
+      .post(URL, requestBody)
+      .then((response) => {
+        setIsLogin(true);
+        setTokenFunc(response.data.access);
+        setUsername(response.data.first_name);
+        console.log("login sukses");
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        setIsLogin(false);
+        alert("login failed");
+        console.log(err);
+      });
+  };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // setIsloading(true);
+
+    getLogin();
+  }
   return (
     <>
       <div className="bg-primary h-screen flex justify-center items-center">
-        <div className="">
+        <div className="w-[450px]">
           <div className="flex justify-center items-center flex-col gap-5">
             <div className="w-48">
               <img src={Logo} alt="logo" />
             </div>
             <div className="w-full">
-              <form className="bg-[#F0F4F4]  px-24 py-14  flex flex-col gap-5 rounded-lg">
+              <form
+                onSubmit={handleSubmit}
+                className="bg-[#F0F4F4]  p-16   flex flex-col gap-5 rounded-lg"
+              >
                 <h1 className="text-[#434D5C] text-md font-semibold">
                   Login ke Dashboard
                 </h1>
@@ -63,7 +112,7 @@ const Login = () => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="w-4 h-4"
+                          className="w-4 h-4"
                         >
                           <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
                           <path
@@ -77,7 +126,7 @@ const Login = () => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="w-4 h-4"
+                          className="w-4 h-4"
                         >
                           <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.676 12.553a11.249 11.249 0 01-2.631 4.31l-3.099-3.099a5.25 5.25 0 00-6.71-6.71L7.759 4.577a11.217 11.217 0 014.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113z" />
                           <path d="M15.75 12c0 .18-.013.357-.037.53l-4.244-4.243A3.75 3.75 0 0115.75 12zM12.53 15.713l-4.243-4.244a3.75 3.75 0 004.243 4.243z" />
@@ -88,11 +137,12 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="flex justify-end">
-                  <Link to="/">
-                    <button className="bg-primary text-white rounded-md text-xs px-6 py-2 hover:bg-[#5B8DAC]">
-                      Login
-                    </button>
-                  </Link>
+                  <button
+                    type="submit"
+                    className="bg-primary text-white rounded-md text-xs px-6 py-2 hover:bg-[#5B8DAC]"
+                  >
+                    Login
+                  </button>
                 </div>
               </form>
             </div>

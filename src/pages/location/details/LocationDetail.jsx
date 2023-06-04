@@ -57,10 +57,7 @@ const LocationDetail = () => {
               }
             ></div>
           </div>
-          <div className=" grid grid-cols-3 gap-4 mt-4">
-            <RealtimeData />
-            <PeriodikData />
-          </div>
+
           <div className="mt-8">
             <TableComponent
               data={datas[0]?.kelurahan || []}
