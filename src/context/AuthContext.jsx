@@ -39,8 +39,8 @@ export const AuthContextProvider = ({ children }) => {
         token,
       }}
     >
-      {getLogin ? children : <Login />}
-      {/* {children} */}
+      {/* {getLogin ? children : <Login />} */}
+      {children}
     </authContext.Provider>
   );
 };
