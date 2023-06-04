@@ -59,4 +59,22 @@ export const CakupanModel = [
     content: "In qui mollit tempor ut. Est laborum exercitation ",
     total: 20,
   },
+  {
+    id: 11,
+    title: " commodo cupidata",
+    content: "Nostrud sunt ipsum eiusmod adipisicing ",
+    total: 12,
+  },
+  {
+    id: 12,
+    title: " magna veniam sint aliquip ",
+    content: "Eiusmod elit magna veniam sint aliquip",
+    total: 13,
+  },
+  {
+    id: 13,
+    title: "tempor ut. Est laborum",
+    content: "In qui mollit tempor ut. Est laborum exercitation ",
+    total: 20,
+  },
 ];

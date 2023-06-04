@@ -47,7 +47,7 @@ const Sidebar = () => {
               <ul className="font-medium flex flex-col  gap-2 text-sm">
                 <li>
                   <Link
-                    to="/"
+                    to="/dashboard"
                     onClick={() => setTabMenu(1)}
                     className={`${
                       tabMenu === 1

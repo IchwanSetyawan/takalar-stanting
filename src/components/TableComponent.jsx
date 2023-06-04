@@ -1,5 +1,4 @@
 import React from "react";
-import BabyIcon from "../assets/icon/baby-icon.svg";
 
 const TableComponent = ({ name, handleLink, data }) => {
   return (
@@ -12,7 +11,7 @@ const TableComponent = ({ name, handleLink, data }) => {
             <thead className="text-xs text-white uppercase bg-primary border-b border-gray-200 dark:text-white">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  #
+                  No.
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Nama {name}
@@ -34,41 +33,34 @@ const TableComponent = ({ name, handleLink, data }) => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-semibold text-dark whitespace-nowrap "
+                    className="px-6 py-4 font-medium text-dark whitespace-nowrap "
                   >
                     {id + 1}
                   </th>
                   <th
                     scope="row"
-                    className="px-6 py-4 font-semibold text-dark whitespace-nowrap "
+                    className="px-6 py-4 font-medium text-dark whitespace-nowrap "
                   >
                     {item.name}
                   </th>
                   <td className="px-6 py-4 text-dark">
                     <div className="flex gap-2 items-center">
-                      <div className="w-10 h-10 bg-white rounded-full p-2 ">
-                        <img
-                          src={BabyIcon}
-                          alt="baby-icon"
-                          className="w-10 h-6"
-                        />
-                      </div>
-                      <p>{item.total}</p>
+                      <p className="font-bold">{item.total}</p>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-dark">
                     <div className="flex items-center gap-2">
-                      <div
+                      <p
                         className={
                           item.status === "success"
-                            ? "bg-green-500 rounded-full w-4 h-4"
+                            ? "text-green-500 font-bold"
                             : item.status === "warning"
-                            ? "bg-yellow-500 rounded-full w-4 h-4"
-                            : "bg-red-500 rounded-full w-4 h-4"
+                            ? "text-yellow-500 font-bold"
+                            : "text-red-500 font-bold"
                         }
-                      ></div>
-
-                      <p>{item.percent}</p>
+                      >
+                        {item.percent}
+                      </p>
                     </div>
                   </td>
                 </tr>

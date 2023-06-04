@@ -13,6 +13,13 @@ import CurveIcon from "../../assets/icon/curve-icon.svg";
 import StuntingIcon from "../../assets/icon/stunting-icon.svg";
 import CartComponent from "../../cart/CartComponent";
 
+import PersonPeriodik from "../../assets/icon/person-periodik-icon.svg";
+import Persons from "../../assets/icon/persons.svg";
+import SortIcon from "../../assets/icon/sort-icon.svg";
+import FatherIcon from "../../assets/icon/father-icon.svg";
+import ChildIcon from "../../assets/icon/child-icon.svg";
+import CardPeriodik from "../../components/CardPeriodik";
+
 const Dashboard = () => {
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
 
@@ -43,6 +50,39 @@ const Dashboard = () => {
     },
   ];
 
+  const dataPeriodik = [
+    {
+      id: 1,
+      name: "Jumlah Remaja",
+      total: "1.738",
+      // icon: RemajaIcon,
+    },
+    {
+      id: 2,
+      name: "Jumlah Calon Pengantin",
+      total: "336",
+      icon: PersonPeriodik,
+    },
+    {
+      id: 3,
+      name: "Jumlah Ibu Hamil",
+      total: "123",
+      icon: SortIcon,
+    },
+    {
+      id: 4,
+      name: "Jumlah Ibu Menyusui",
+      total: "214",
+      icon: FatherIcon,
+    },
+    {
+      id: 5,
+      name: "Jumlah Anak Usia 0-59 bulan",
+      total: "355",
+      icon: ChildIcon,
+    },
+  ];
+
   return (
     <>
       <Layout>
@@ -63,26 +103,26 @@ const Dashboard = () => {
             <div className="flex justify-between items-center mb-8">
               <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
               <div className=" flex justify-center items-center text-dark  gap-4">
-                <select className="border py-4 pl-4 pr-32 text-md  rounded-lg border-darkHard">
-                  <option defaultValue="3" className="text-xs" selected>
+                <select className="border py-4 pl-4 pr-32   rounded-lg border-darkHard">
+                  <option defaultValue="3" className="text-base" selected>
                     Kecamatan
                   </option>
-                  <option className="text-xs" value="1">
+                  <option className="text-base" value="1">
                     Kecamatan 1
                   </option>
-                  <option className="text-xs" value="2">
+                  <option className="text-base" value="2">
                     Kecamatan 2
                   </option>
                 </select>
 
                 <select className="border py-4 pl-4 pr-32 rounded-lg border-darkHard">
-                  <option className="text-xs" value="1">
+                  <option className="text-base" value="1">
                     Kelurahan
                   </option>
-                  <option className="text-xs" value="2">
+                  <option className="text-base" value="2">
                     Kelurahan 1
                   </option>
-                  <option className="text-xs" value="3">
+                  <option className="text-base" value="3">
                     Kelurahan 2
                   </option>
                 </select>
@@ -105,7 +145,16 @@ const Dashboard = () => {
                   <CartComponent />
                 </div>
               </RealtimeData>
-              <PeriodikData />
+              <PeriodikData>
+                {dataPeriodik.map((item) => (
+                  <CardPeriodik
+                    key={item.id}
+                    name={item.name}
+                    icon={item?.icon}
+                    total={item.total}
+                  />
+                ))}
+              </PeriodikData>
             </div>
           </div>
         </div>

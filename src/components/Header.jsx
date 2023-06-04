@@ -35,23 +35,23 @@ export const Header = () => {
       <div className="sm:ml-60 sticky top-0 z-50">
         <div className="relative">
           <div className="p-7 bg-primary  justify-between flex items-center shadow-md">
-            <Link to="/" onClick={() => setTabMenu(1)}>
-              <h1 className="text-white text-xl font-semibold">
-                {tabMenu === 1
-                  ? "Dashboard"
-                  : tabMenu === 2
-                  ? "Dashboard Balita"
-                  : tabMenu === 3
-                  ? "Sebaran"
-                  : tabMenu === 4
-                  ? "Cakupan"
-                  : tabMenu === 5
-                  ? "Rekomendasi"
-                  : tabMenu === 6
-                  ? "Lokasi"
-                  : ""}
-              </h1>
-            </Link>
+            {/* <Link to="/" onClick={() => setTabMenu(1)}>
+            </Link> */}
+            <h1 className="text-white text-xl font-semibold">
+              {tabMenu === 1
+                ? "Dashboard"
+                : tabMenu === 2
+                ? "Dashboard Balita"
+                : tabMenu === 3
+                ? "Sebaran"
+                : tabMenu === 4
+                ? "Cakupan"
+                : tabMenu === 5
+                ? "Rekomendasi"
+                : tabMenu === 6
+                ? "Wilayah"
+                : ""}
+            </h1>
             <div className="text-white flex justify-center gap-2 cursor-pointer hover:text-gray-100">
               <div>
                 <img src={UserIcon} alt="user icon" />
