@@ -3,12 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { TabMenuContext } from "../context/TabMenuContext";
 import UserIcon from "../assets/icon/user-icon.svg";
 import ArrowButtonIcon from "../assets/icon/arrow-bottom-icon.svg";
-import moment from "moment-timezone";
+import moment from "moment/moment";
 import { authContext } from "../context/AuthContext";
 
 export const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [currentTime, setCurrentTime] = useState("");
+  const [currentTime, setCurrentTime] = useState(
+    moment().format("dddd, dD MMMM YYYY | HH:mm:ss")
+  );
 
   const handlerShowDropdown = (e) => {
     e.preventDefault();
@@ -35,8 +37,7 @@ export const Header = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = moment().tz("Asia/Jakarta");
-      setCurrentTime(now.format("dddd, dD MMMM YYYY | HH:mm:ss"));
+      setCurrentTime(moment().format("dddd, dD MMMM YYYY | HH:mm:ss"));
     }, 1000);
 
     return () => {
