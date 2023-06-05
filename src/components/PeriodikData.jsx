@@ -2,17 +2,10 @@ import React from "react";
 import PeriodikIcon from "../assets/icon/periodik-icon.svg";
 import CardPeriodik from "./CardPeriodik";
 
-const PeriodikData = () => {
-  const data = [
-    { id: 1, name: "Jumlah Balita yang Diukur", total: "896.234" },
-    { id: 2, name: "Jumlah Balita Stunting", total: "1.234" },
-    { id: 3, name: "Prevalensi Balita Stunting", total: "240 %" },
-    { id: 4, name: "Total Bapak Asuh", total: "2.412" },
-    { id: 5, name: "Total Anak Asuh", total: "10.228" },
-  ];
+const PeriodikData = ({ children }) => {
   return (
     <>
-      <div className=" border border-gray-400 w-full p-6 rounded-lg">
+      <div className=" border border-gray-200 shadow-md w-full p-6 rounded-lg">
         <div className="flex gap-4 items-center">
           <div>
             <img src={PeriodikIcon} alt="periodik icon" />
@@ -49,11 +42,7 @@ const PeriodikData = () => {
             </select>
           </div>
         </div>
-        <div className="flex flex-col space-y-4">
-          {data.map((item) => (
-            <CardPeriodik key={item.id} name={item.name} total={item.total} />
-          ))}
-        </div>
+        <div className="flex flex-col space-y-4">{children}</div>
       </div>
     </>
   );

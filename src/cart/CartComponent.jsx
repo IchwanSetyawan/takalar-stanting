@@ -19,19 +19,28 @@ ChartJS.register(
   Legend
 );
 
-const CartHorizontal = () => {
-  const labels = ["0-5 bulan ", "6-10 bulan ", "11-15 bulan", "16-20 bulan"];
+const CartComponent = () => {
+  const labels = ["2021", "2022", "2023"];
   const data = {
     labels: labels,
     datasets: [
       {
-        label: "Anak",
-        data: [30, 69, 93, 12],
+        label: "SSGI",
+        data: [10, 20, 30],
         indexAxis: "x",
         backgroundColor: "#168EEA",
         borderColor: "#168EEA",
         borderWidth: 1,
-        borderRadius: 8,
+        borderRadius: 10,
+      },
+      {
+        label: "E-PPGBM",
+        data: [20, 30, 100],
+        indexAxis: "x",
+        backgroundColor: "#FBAE47",
+        borderColor: "#FBAE47",
+        borderWidth: 1,
+        borderRadius: 10,
       },
     ],
   };
@@ -51,7 +60,7 @@ const CartHorizontal = () => {
       },
       title: {
         display: true,
-        text: "Balita berdasarkan Umur",
+        text: "Angka Prevalensi Stunting  ",
       },
     },
     maintainAspectRatio: false,
@@ -64,4 +73,4 @@ const CartHorizontal = () => {
   );
 };
 
-export default CartHorizontal;
+export default CartComponent;

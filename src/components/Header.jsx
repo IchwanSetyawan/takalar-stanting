@@ -1,44 +1,77 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { TabMenuContext } from "../context/TabMenuContext";
 import UserIcon from "../assets/icon/user-icon.svg";
 import ArrowButtonIcon from "../assets/icon/arrow-bottom-icon.svg";
+import moment from "moment/moment";
+import { authContext } from "../context/AuthContext";
 
 export const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const location = useLocation();
+  const { tabMenu, setTabMenu } = useContext(TabMenuContext);
 
   const handlerShowDropdown = (e) => {
     e.preventDefault();
     setShowDropdown(!showDropdown);
   };
-  const { tabMenu, setTabMenu } = useContext(TabMenuContext);
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setTabMenu(1);
+    } else if (location.pathname === "/dashboard-balita") {
+      setTabMenu(2);
+    } else if (location.pathname === "/sebaran") {
+      setTabMenu(3);
+    } else if (location.pathname === "/cakupan") {
+      setTabMenu(4);
+    } else if (location.pathname === "/recommendation") {
+      setTabMenu(5);
+    } else if (location.pathname === "/location") {
+      setTabMenu(6);
+    }
+  }, []);
 
   return (
     <>
       <div className="sm:ml-60 sticky top-0 z-50">
         <div className="relative">
-          <div className="p-4 bg-primary  justify-between flex items-center shadow-md">
-            <Link to="/" onClick={() => setTabMenu(1)}>
-              <h1 className="text-white text-xl font-semibold">Dashboard</h1>
-            </Link>
-            <div className="text-white flex justify-center gap-2 cursor-pointer hover:text-gray-100">
-              <div>
-                <img src={UserIcon} alt="user icon" />
-              </div>
-              <button onClick={handlerShowDropdown}>
-                <div className="flex gap-2 items-center">
-                  <span className=" text-sm">Admin</span>
-                  {showDropdown ? (
-                    <div className="rotate-180">
-                      <img src={ArrowButtonIcon} />
-                    </div>
-                  ) : (
-                    <div>
-                      <img src={ArrowButtonIcon} />
-                    </div>
-                  )}
+          <div className="py-4 px-6 bg-primary  justify-between flex items-center shadow-md">
+            <h1 className="text-white text-xl font-semibold">
+              {tabMenu === 1
+                ? "Dashboard"
+                : tabMenu === 2
+                ? "Dashboard Balita"
+                : tabMenu === 3
+                ? "Sebaran"
+                : tabMenu === 4
+                ? "Cakupan"
+                : tabMenu === 5
+                ? "Rekomendasi"
+                : tabMenu === 6
+                ? "Wilayah"
+                : ""}
+            </h1>
+            <div className=" cursor-pointer hover:text-gray-100">
+              <div className="flex justify-end gap-2 text-white ">
+                <div>
+                  <img src={UserIcon} alt="user icon" />
                 </div>
-              </button>
+                <button onClick={handlerShowDropdown}>
+                  <div className="flex gap-2 items-center">
+                    <span className=" text-sm">Admin</span>
+                    {showDropdown ? (
+                      <div className="rotate-180">
+                        <img src={ArrowButtonIcon} />
+                      </div>
+                    ) : (
+                      <div>
+                        <img src={ArrowButtonIcon} />
+                      </div>
+                    )}
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
           {showDropdown && (
