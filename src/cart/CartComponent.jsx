@@ -60,7 +60,7 @@ const CartComponent = () => {
       },
       title: {
         display: true,
-        text: "Angka Prevalensi Stunting (%)  ",
+        text: "Angka Prevalensi Stunting  ",
       },
     },
     maintainAspectRatio: false,

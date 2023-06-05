@@ -9,12 +9,14 @@ import Cakupan from "./pages/Cakupan/Cakupan";
 import DashboardBalita from "./pages/dashboard-balita/DashboardBalita";
 import Recommendation from "./pages/rekomendasi/Recommendation";
 import Sebaran from "./pages/sebaran/Sebaran";
+import Notfound from "./pages/404notfound/Notfound";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/login" exact element={<Login />} />
+        <Route path="*" element={<Notfound />} />
         <Route path="/dashboard" exact element={<Dashboard />} />
         <Route path="/cakupan" exact element={<Cakupan />} />
         <Route path="/dashboard-balita" exact element={<DashboardBalita />} />

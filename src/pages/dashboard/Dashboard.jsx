@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TabMenuContext } from "../../context/TabMenuContext";
 import Layout from "../../layouts/Layout";
 import RealtimeData from "../../components/RealtimeData";
@@ -20,84 +20,74 @@ import FatherIcon from "../../assets/icon/father-icon.svg";
 import ChildIcon from "../../assets/icon/child-icon.svg";
 import AccesibleIcon from "../../assets/icon/accessible-icon.svg";
 import CardPeriodik from "../../components/CardPeriodik";
+import axios from "axios";
+import { formattedNumber } from "../../utills/formattedNumber ";
+import moment from "moment";
 
 const Dashboard = () => {
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
+  const [datas, setDatas] = useState([]);
 
-  const data = [
-    {
-      id: 1,
-      total: "876",
-      title: "Jumlah Keluarga",
-      icon: FamilyIcon,
-    },
-    {
-      id: 2,
-      total: "1.200",
-      title: "Keluarga beresiko Stunting",
-      icon: AlertIcon,
-    },
-    {
-      id: 3,
-      total: "2.000",
-      title: "Jumlah Anak Stunting",
-      icon: StuntingIcon,
-    },
-    {
-      id: 4,
-      total: "54%",
-      title: "Prevalensi",
-      icon: CurveIcon,
-    },
-  ];
+  const [currentTime, setCurrentTime] = useState(
+    moment().format("dddd, dD MMMM YYYY | HH:mm:ss")
+  );
 
-  const dataPeriodik = [
-    {
-      id: 1,
-      name: "Jumlah Balita yang Diukur",
-      total: "1.738",
-      icon: Persons,
-    },
-    {
-      id: 2,
-      name: "Jumlah Balita Stunting",
-      total: "1.234",
-      icon: AccesibleIcon,
-    },
-    {
-      id: 3,
-      name: "Prevalensi Balita Stunting",
-      total: "240 %",
-      icon: SortIcon,
-    },
-    {
-      id: 4,
-      name: "Total Bapak Asuh",
-      total: "2.412",
-      icon: FatherIcon,
-    },
-    {
-      id: 5,
-      name: "Total Anak Asuh",
-      total: "10.228",
-      icon: ChildIcon,
-    },
-  ];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(moment().format("dddd, dD MMMM YYYY | HH:mm:ss"));
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = "http://103.150.120.21:8000/api/admin/dashboard/summary";
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDatas(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    formattedNumber;
+  }, []);
 
   return (
     <>
       <Layout>
         <div>
-          <div className="my-8 p-4 border border-gray-400 rounded-lg">
-            <h2 className="text-xl  text-dark font-bold">
-              Ringkasan Per Wilayah
-            </h2>
+          <div className="my-8 px-4 py-2 border border-gray-400 rounded-lg">
+            <div className=" flex justify-between items-center">
+              <h2 className="text-xl  text-dark font-bold">
+                Ringkasan Per Wilayah
+              </h2>
+              <div className="text-dark mt-2 text-lg ">
+                <span>{currentTime}</span>
+              </div>
+            </div>
 
             <div className="flex justify-between gap-x-5 my-8">
-              <CardWilayah title="kecamatan" total="26" />
-              <CardWilayah title="Desa/Kelurahan" total="78" />
-              <CardWilayah title="Dusun" total="277" />
-              <CardWilayah title="Jumlah Penduduk" total="1.709" />
+              <CardWilayah title="kecamatan" total={datas.total_kecamatan} />
+              <CardWilayah
+                title="Desa/Kelurahan"
+                total={datas.total_kelurahan}
+              />
+              <CardWilayah title="Dusun" total={datas.total_dusun} />
+              <CardWilayah
+                title="Jumlah Penduduk"
+                total={datas.total_penduduk}
+              />
             </div>
           </div>
           <div className="p-4 -mt-8">
@@ -133,28 +123,57 @@ const Dashboard = () => {
             <div className=" grid grid-cols-3 gap-4 mt-10">
               <RealtimeData>
                 <div className="grid grid-cols-2 gap-5">
-                  {data.map((item) => (
-                    <CardRealtimeHor
-                      key={item.id}
-                      name={item.title}
-                      total={item.total}
-                      icon={item.icon}
-                    />
-                  ))}
+                  <CardRealtimeHor
+                    name="Jumlah Keluarga"
+                    total={datas.jumlah_keluarga}
+                    icon={FamilyIcon}
+                  />
+                  <CardRealtimeHor
+                    name="Keluarga beresiko Stunting"
+                    total={datas.jumlah_keluarga_beresiko}
+                    icon={AlertIcon}
+                  />
+                  <CardRealtimeHor
+                    name="Jumlah Anak Stunting"
+                    total={datas.jumlah_anak_stunting}
+                    icon={StuntingIcon}
+                  />
+                  <CardRealtimeHor
+                    name="Prevalensi"
+                    total={`${datas.prevalensi} %`}
+                    icon={CurveIcon}
+                  />
                 </div>
                 <div className="mt-4 border rounded-lg border-darkSmooth px-2 py-5">
                   <CartComponent />
                 </div>
               </RealtimeData>
               <PeriodikData>
-                {dataPeriodik.map((item) => (
-                  <CardPeriodik
-                    key={item.id}
-                    name={item.name}
-                    icon={item?.icon}
-                    total={item.total}
-                  />
-                ))}
+                <CardPeriodik
+                  name="Jumlah Balita yang Diukur"
+                  icon={Persons}
+                  total={datas.jumlah_balita_terukur}
+                />
+                <CardPeriodik
+                  name="Jumlah Balita Stunting"
+                  icon={AccesibleIcon}
+                  total={datas.jumlah_anak_stunting}
+                />
+                <CardPeriodik
+                  name="Prevalensi Balita Stunting"
+                  icon={SortIcon}
+                  total={`${datas.prevalensi_balita_stunting} %`}
+                />
+                <CardPeriodik
+                  name="Total Bapak Asuh"
+                  icon={FatherIcon}
+                  total={datas.jumlah_bapak_asuh}
+                />
+                <CardPeriodik
+                  name="Total Anak Asuh"
+                  icon={ChildIcon}
+                  total={datas.jumlah_anak_asuh}
+                />
               </PeriodikData>
             </div>
           </div>

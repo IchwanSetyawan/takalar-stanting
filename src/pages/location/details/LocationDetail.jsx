@@ -14,8 +14,9 @@ const LocationDetail = () => {
 
   const [datas, setDatas] = useState([]);
 
-  const handleNavigateLink = (eId) => {
-    navigate(`/location/${id}/cakupan/${eId}`);
+  const handleNavigateLink = () => {
+    return;
+    // navigate(`/location/${id}/cakupan/${eId}`);
   };
 
   useEffect(() => {
@@ -62,7 +63,7 @@ const LocationDetail = () => {
             <TableComponent
               data={datas[0]?.kelurahan || []}
               name="Kelurahan/Desa"
-              handleLink={(eId) => handleNavigateLink(eId)}
+              handleLink={() => handleNavigateLink()}
             />
           </div>
         </div>

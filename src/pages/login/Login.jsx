@@ -30,8 +30,6 @@ const Login = () => {
 
   const [formData, setFormData] = useState({ ...defaultData });
 
-  console.log(formData);
-
   const handleFormLogin = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -56,7 +54,7 @@ const Login = () => {
       })
       .catch((err) => {
         setIsLogin(false);
-        alert("login failed");
+        alert("Username atau Password Salah");
         console.log(err);
       });
   };

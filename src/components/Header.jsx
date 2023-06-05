@@ -8,17 +8,14 @@ import { authContext } from "../context/AuthContext";
 
 export const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [currentTime, setCurrentTime] = useState(
-    moment().format("dddd, dD MMMM YYYY | HH:mm:ss")
-  );
+  const location = useLocation();
+  const { tabMenu, setTabMenu } = useContext(TabMenuContext);
 
   const handlerShowDropdown = (e) => {
     e.preventDefault();
     setShowDropdown(!showDropdown);
   };
 
-  const location = useLocation();
-  const { tabMenu, setTabMenu } = useContext(TabMenuContext);
   useEffect(() => {
     if (location.pathname === "/") {
       setTabMenu(1);
@@ -33,16 +30,6 @@ export const Header = () => {
     } else if (location.pathname === "/location") {
       setTabMenu(6);
     }
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(moment().format("dddd, dD MMMM YYYY | HH:mm:ss"));
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
   }, []);
 
   return (
@@ -84,9 +71,6 @@ export const Header = () => {
                     )}
                   </div>
                 </button>
-              </div>
-              <div className="text-white mt-2 text-sm">
-                <span>{currentTime}</span>
               </div>
             </div>
           </div>
