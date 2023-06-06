@@ -9,6 +9,9 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { useContext } from "react";
+import { SummaryContext } from "../context/SummaryContext";
+import { useEffect } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -20,13 +23,23 @@ ChartJS.register(
 );
 
 const CartComponent = () => {
+  const { datas, fetchData } = useContext(SummaryContext);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const labels = ["2021", "2022", "2023"];
   const data = {
     labels: labels,
     datasets: [
       {
         label: "SSGI",
-        data: [10, 20, 30],
+        data: [
+          datas.prevalensi_stunting_ssgi_2021,
+          datas.prevalensi_stunting_ssgi_2021,
+          datas.prevalensi_stunting_ssgi_2023,
+        ],
         indexAxis: "x",
         backgroundColor: "#168EEA",
         borderColor: "#168EEA",
@@ -35,7 +48,11 @@ const CartComponent = () => {
       },
       {
         label: "E-PPGBM",
-        data: [20, 30, 100],
+        data: [
+          datas.prevalensi_stunting_eppgbm_2021,
+          datas.prevalensi_stunting_eppgbm_2022,
+          datas.prevalensi_stunting_eppgbm_2023,
+        ],
         indexAxis: "x",
         backgroundColor: "#FBAE47",
         borderColor: "#FBAE47",

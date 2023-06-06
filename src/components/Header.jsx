@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TabMenuContext } from "../context/TabMenuContext";
 import UserIcon from "../assets/icon/user-icon.svg";
 import ArrowButtonIcon from "../assets/icon/arrow-bottom-icon.svg";
@@ -7,6 +7,7 @@ import moment from "moment/moment";
 import { authContext } from "../context/AuthContext";
 
 export const Header = () => {
+  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
@@ -31,6 +32,13 @@ export const Header = () => {
       setTabMenu(6);
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("roles");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -75,19 +83,20 @@ export const Header = () => {
             </div>
           </div>
           {showDropdown && (
-            <div className="absolute  right-4 top-14 flex items-center cursor-pointer ">
+            <button
+              onClick={handleLogout}
+              className="absolute  right-4 top-14 flex items-center cursor-pointer "
+            >
               <div className="bg-white rounded-md shadow-md w-36  flex j">
                 <ul className="w-full">
                   <li className="hover:bg-slate-100 hover:rounded-md py-2 px-2 text-sm justify-end flex gap-2">
-                    <button>
-                      <Link to="/login">Logout</Link>
-                    </button>
+                    <div>Logout</div>
                     <div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="w-5 h-5"
+                        className="w-5 h-5"
                       >
                         <path
                           fillRule="evenodd"
@@ -99,7 +108,7 @@ export const Header = () => {
                   </li>
                 </ul>
               </div>
-            </div>
+            </button>
           )}
         </div>
       </div>

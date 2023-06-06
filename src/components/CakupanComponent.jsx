@@ -9,7 +9,7 @@ const CakupanComponent = ({ data }) => {
 
   return (
     <>
-      <div className=" p-6  rounded-xl border border-gray-200">
+      <div className=" p-6  rounded-xl bg-white border border-gray-200">
         <div className="grid grid-cols-2 gap-4">
           {firstHalf.map((item, id) => (
             <div className="mt-4" key={id}>

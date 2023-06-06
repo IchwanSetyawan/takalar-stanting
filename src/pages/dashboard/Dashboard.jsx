@@ -1,19 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, createContext, useEffect, useState } from "react";
 import { TabMenuContext } from "../../context/TabMenuContext";
 import Layout from "../../layouts/Layout";
 import RealtimeData from "../../components/RealtimeData";
 import PeriodikData from "../../components/PeriodikData";
-import MapImage from "../../assets/image/takalar.png";
-import CardIntervensi from "../../components/CardIntervensi";
 import CardWilayah from "../../components/CardWilayah";
 import CardRealtimeHor from "../../components/CardRealtimeHor";
 import FamilyIcon from "../../assets/icon/family-icon.svg";
-import AlertIcon from "../../assets/icon/alert-icon.svg";
+import WarningIcon from "../../assets/icon/warning-icon.svg";
 import CurveIcon from "../../assets/icon/curve-icon.svg";
 import StuntingIcon from "../../assets/icon/stunting-icon.svg";
 import CartComponent from "../../cart/CartComponent";
-
-import PersonPeriodik from "../../assets/icon/person-periodik-icon.svg";
 import Persons from "../../assets/icon/persons.svg";
 import SortIcon from "../../assets/icon/sort-icon.svg";
 import FatherIcon from "../../assets/icon/father-icon.svg";
@@ -21,59 +17,37 @@ import ChildIcon from "../../assets/icon/child-icon.svg";
 import AccesibleIcon from "../../assets/icon/accessible-icon.svg";
 import CardPeriodik from "../../components/CardPeriodik";
 import axios from "axios";
-import { formattedNumber } from "../../utills/formattedNumber ";
 import moment from "moment";
+import "moment/locale/id";
+
+import { authContext } from "../../context/AuthContext";
+import LiveClock from "react-live-clock";
+import { SummaryContext } from "../../context/SummaryContext";
 
 const Dashboard = () => {
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
-  const [datas, setDatas] = useState([]);
 
-  const [currentTime, setCurrentTime] = useState(
-    moment().format("dddd, dD MMMM YYYY | HH:mm:ss")
-  );
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(moment().format("dddd, dD MMMM YYYY | HH:mm:ss"));
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const url = "http://103.150.120.21:8000/api/admin/dashboard/summary";
-
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setDatas(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { roles } = useContext(authContext);
+  const { datas, fetchData } = useContext(SummaryContext);
 
   useEffect(() => {
     fetchData();
-    formattedNumber;
   }, []);
+
+  const currentDate = moment().format("dddd, D MMMM YYYY");
 
   return (
     <>
       <Layout>
         <div>
-          <div className="my-8 px-4 py-2 border border-gray-400 rounded-lg">
+          <div className="bg-white my-8 px-4 py-2  rounded-lg">
             <div className=" flex justify-between items-center">
               <h2 className="text-xl  text-dark font-bold">
                 Ringkasan Per Wilayah
               </h2>
               <div className="text-dark mt-2 text-lg ">
-                <span>{currentTime}</span>
+                <span>{currentDate} | </span>
+                <LiveClock format="HH:mm:ss" ticking={true} />
               </div>
             </div>
 
@@ -90,12 +64,15 @@ const Dashboard = () => {
               />
             </div>
           </div>
-          <div className="p-4 -mt-8">
+          <div className="mt-8">
             <div className="flex justify-between items-center mb-8">
               <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
               <div className=" flex justify-center items-center text-dark  gap-4">
-                <select className="border py-4 pl-4 pr-32   rounded-lg border-darkHard">
-                  <option defaultValue="3" className="text-base" selected>
+                <select
+                  defaultValue={"default"}
+                  className="border-none py-4 pl-4 pr-32   rounded-lg "
+                >
+                  <option value="default" className="text-base" disabled>
                     Kecamatan
                   </option>
                   <option className="text-base" value="1">
@@ -106,8 +83,11 @@ const Dashboard = () => {
                   </option>
                 </select>
 
-                <select className="border py-4 pl-4 pr-32 rounded-lg border-darkHard">
-                  <option className="text-base" value="1">
+                <select
+                  defaultValue={"default"}
+                  className="border-none py-4 pl-4 pr-32 rounded-lg "
+                >
+                  <option className="text-base" value="default" disabled>
                     Kelurahan
                   </option>
                   <option className="text-base" value="2">
@@ -131,7 +111,7 @@ const Dashboard = () => {
                   <CardRealtimeHor
                     name="Keluarga beresiko Stunting"
                     total={datas.jumlah_keluarga_beresiko}
-                    icon={AlertIcon}
+                    icon={WarningIcon}
                   />
                   <CardRealtimeHor
                     name="Jumlah Anak Stunting"
@@ -144,7 +124,7 @@ const Dashboard = () => {
                     icon={CurveIcon}
                   />
                 </div>
-                <div className="mt-4 border rounded-lg border-darkSmooth px-2 py-5">
+                <div className="mt-4 shadow-smooth  border rounded-lg  px-2 py-5">
                   <CartComponent />
                 </div>
               </RealtimeData>

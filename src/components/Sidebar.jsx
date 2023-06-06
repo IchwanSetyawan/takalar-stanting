@@ -95,8 +95,31 @@ const Sidebar = () => {
                       </div>
 
                       <span className="ml-3 text-base font-bold">
-                        Dahsboard Balita
+                        Dashboard Balita
                       </span>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/location"
+                    onClick={() => setTabMenu(6)}
+                    className={`${
+                      tabMenu === 6
+                        ? "flex items-center p-5 text-white rounded-lg  bg-primary  "
+                        : "flex items-center p-5 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                    }`}
+                  >
+                    <div className="flex items-center ">
+                      <div className="text-white">
+                        {tabMenu === 6 ? (
+                          <img src={LocationLightIcon} />
+                        ) : (
+                          <img src={LocationIcon} />
+                        )}
+                      </div>
+
+                      <span className="ml-3 text-base font-bold">Wilayah</span>
                     </div>
                   </Link>
                 </li>
@@ -167,29 +190,6 @@ const Sidebar = () => {
                       <span className="ml-3 text-base font-bold">
                         Rekomendasi
                       </span>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/location"
-                    onClick={() => setTabMenu(6)}
-                    className={`${
-                      tabMenu === 6
-                        ? "flex items-center p-5 text-white rounded-lg  bg-primary  "
-                        : "flex items-center p-5 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center ">
-                      <div className="text-white">
-                        {tabMenu === 6 ? (
-                          <img src={LocationLightIcon} />
-                        ) : (
-                          <img src={LocationIcon} />
-                        )}
-                      </div>
-
-                      <span className="ml-3 text-base font-bold">Wilayah</span>
                     </div>
                   </Link>
                 </li>

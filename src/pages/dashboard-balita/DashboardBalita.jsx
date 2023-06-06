@@ -81,7 +81,7 @@ const DashboardBalita = () => {
             <div className="flex justify-between items-center mb-8">
               <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
               <div className=" flex justify-center items-center text-dark  gap-4">
-                <select className="border py-4 pl-4 pr-32 text-md  rounded-lg border-darkHard">
+                <select className="border-none py-4 pl-4 pr-32 text-md  rounded-lg shadow-smooth ">
                   <option defaultValue="3" className="text-lg" selected>
                     Tanjung Medar
                   </option>
@@ -93,7 +93,7 @@ const DashboardBalita = () => {
                   </option>
                 </select>
 
-                <select className="border py-4 pl-4 pr-32 rounded-lg border-darkHard">
+                <select className="border-none py-4 pl-4 pr-32 rounded-lg shadow-smooth ">
                   <option className="text-lg" value="1">
                     Kelurahan
                   </option>
@@ -120,7 +120,7 @@ const DashboardBalita = () => {
                       />
                     ))}
                   </div>
-                  <div className="mt-5 border rounded-lg border-darkSmooth px-2 py-5">
+                  <div className="mt-5 border-none rounded-lg shadow-smooth  px-2 py-5">
                     <CartComponentSingle />
                   </div>
                 </div>
