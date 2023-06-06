@@ -73,68 +73,70 @@ const DashboardBalita = () => {
   return (
     <>
       <Layout>
-        <div className="mb-10">
-          <AlertComponent />
-        </div>
-        <div>
-          <div className="p-4 -mt-8">
-            <div className="flex justify-between items-center mb-8">
-              <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
-              <div className=" flex justify-center items-center text-dark  gap-4">
-                <select className="border-none py-4 pl-4 pr-32 text-md  rounded-lg shadow-smooth ">
-                  <option defaultValue="3" className="text-lg" selected>
-                    Tanjung Medar
-                  </option>
-                  <option className="text-lg" value="1">
-                    Kecamatan 1
-                  </option>
-                  <option className="text-lg" value="2">
-                    Kecamatan 2
-                  </option>
-                </select>
+        <div className="m-8">
+          <div className="mb-12">
+            <AlertComponent />
+          </div>
+          <div>
+            <div className="-mt-6">
+              <div className="flex justify-between items-center mb-8">
+                <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
+                <div className=" flex justify-center items-center text-dark  gap-4">
+                  <select className="border-none py-4 pl-4 pr-32 text-md  rounded-lg shadow-smooth ">
+                    <option defaultValue="3" className="text-lg" selected>
+                      Tanjung Medar
+                    </option>
+                    <option className="text-lg" value="1">
+                      Kecamatan 1
+                    </option>
+                    <option className="text-lg" value="2">
+                      Kecamatan 2
+                    </option>
+                  </select>
 
-                <select className="border-none py-4 pl-4 pr-32 rounded-lg shadow-smooth ">
-                  <option className="text-lg" value="1">
-                    Kelurahan
-                  </option>
-                  <option className="text-lg" value="2">
-                    Kelurahan 1
-                  </option>
-                  <option className="text-lg" value="3">
-                    Kelurahan 2
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <div className=" grid grid-cols-3 gap-4 mt-10">
-              <RealtimeData>
-                <div className="flex flex-col space-y-8">
-                  <div className="grid grid-cols-3 gap-5">
-                    {data.map((item) => (
-                      <CardRealtimeVer
-                        key={item.id}
-                        name={item.title}
-                        total={item.total}
-                        icon={item.icon}
-                      />
-                    ))}
-                  </div>
-                  <div className="mt-5 border-none rounded-lg shadow-smooth  px-2 py-5">
-                    <CartComponentSingle />
-                  </div>
+                  <select className="border-none py-4 pl-4 pr-32 rounded-lg shadow-smooth ">
+                    <option className="text-lg" value="1">
+                      Kelurahan
+                    </option>
+                    <option className="text-lg" value="2">
+                      Kelurahan 1
+                    </option>
+                    <option className="text-lg" value="3">
+                      Kelurahan 2
+                    </option>
+                  </select>
                 </div>
-              </RealtimeData>
-              <PeriodikData>
-                {dataPeriodik.map((item) => (
-                  <CardPeriodik
-                    key={item.id}
-                    name={item.name}
-                    icon={item?.icon}
-                    total={item.total}
-                  />
-                ))}
-              </PeriodikData>
+              </div>
+
+              <div className=" grid grid-cols-3 gap-4 mt-10">
+                <RealtimeData>
+                  <div className="flex flex-col space-y-8">
+                    <div className="grid grid-cols-3 gap-5">
+                      {data.map((item) => (
+                        <CardRealtimeVer
+                          key={item.id}
+                          name={item.title}
+                          total={item.total}
+                          icon={item.icon}
+                        />
+                      ))}
+                    </div>
+                    <div className="mt-5 border-none rounded-lg shadow-smooth  px-2 py-5">
+                      <CartComponentSingle />
+                    </div>
+                  </div>
+                </RealtimeData>
+                <PeriodikData>
+                  {dataPeriodik.map((item) => (
+                    <CardPeriodik
+                      key={item.id}
+                      name={item.name}
+                      icon={item?.icon}
+                      total={item.total}
+                    />
+                  ))}
+                </PeriodikData>
+              </div>
             </div>
           </div>
         </div>

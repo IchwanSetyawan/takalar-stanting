@@ -39,7 +39,7 @@ const Dashboard = () => {
   return (
     <>
       <Layout>
-        <div>
+        <div className="m-8">
           <div className="bg-white my-8 px-4 py-2  rounded-lg">
             <div className=" flex justify-between items-center">
               <h2 className="text-xl  text-dark font-bold">

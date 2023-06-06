@@ -11,7 +11,7 @@ const Layout = ({ children, back }) => {
       <Header />
       <Sidebar />
       <Content>
-        <div className="p-6 bg-[#F0F1F3]">
+        <div className="p-4 bg-[#F0F1F3]">
           <div className=" h-auto my-2 rounded-xl">{children}</div>
         </div>
       </Content>

@@ -6,7 +6,9 @@ const Recommendation = () => {
   return (
     <>
       <Layout>
-        <CardIntervensi />
+        <div className="m-8">
+          <CardIntervensi />
+        </div>
       </Layout>
     </>
   );
