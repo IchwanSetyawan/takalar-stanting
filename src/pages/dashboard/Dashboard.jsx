@@ -23,16 +23,77 @@ import "moment/locale/id";
 import { authContext } from "../../context/AuthContext";
 import LiveClock from "react-live-clock";
 import { SummaryContext } from "../../context/SummaryContext";
+import { KecamatanContext } from "../../context/KecamatanContext";
+import { KelurahanContext } from "../../context/KelurahanContext";
 
 const Dashboard = () => {
-  const { tabMenu, setTabMenu } = useContext(TabMenuContext);
-
   const { roles } = useContext(authContext);
   const { datas, fetchData } = useContext(SummaryContext);
 
+  const { kecamatanData, fetchData: fetchKecamatan } =
+    useContext(KecamatanContext);
+  const { kelurahanData, fetchData: fetchKelurahan } =
+    useContext(KelurahanContext);
+
+  const [kecamatanList, setKecamatanList] = useState([]);
+  const [kelurahanList, setKelurahanList] = useState([]);
+  const [selectedKecamatan, setSelectedKecamatan] = useState("");
+  const [selectedKelurahan, setSelectedKelurahan] = useState("");
+
+  const fetchDataKec = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = "https://stunting.ahadnikah.com/api/wilayah/kecamatan";
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setKecamatanList(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    fetchData();
+    // Mendapatkan data kecamatan dari API kecamatan
+    fetchDataKec();
+    // fetchDataKel();
   }, []);
+
+  const fetchDataKel = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = `https://stunting.ahadnikah.com/api/wilayah/desa/`;
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setKelurahanList(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleKecamatanChange = (event) => {
+    const kecamatan = event.target.value;
+    setSelectedKecamatan(kecamatan);
+    setSelectedKelurahan("");
+  };
+  useEffect(() => {
+    if (selectedKecamatan) {
+      // Mendapatkan data kelurahan berdasarkan kecamatan dari API kelurahan
+      fetchDataKel();
+    }
+  }, [selectedKecamatan]);
+
+  const handleKelurahanChange = (event) => {
+    const kelurahan = event.target.value;
+    setSelectedKelurahan(kelurahan);
+  };
 
   const currentDate = moment().format("dddd, D MMMM YYYY");
 
@@ -69,33 +130,28 @@ const Dashboard = () => {
               <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
               <div className=" flex justify-center items-center text-dark  gap-4">
                 <select
-                  defaultValue={"default"}
-                  className="border-none py-4 pl-4 pr-32   rounded-lg "
+                  value={selectedKecamatan}
+                  onChange={handleKecamatanChange}
                 >
-                  <option value="default" className="text-base" disabled>
-                    Kecamatan
-                  </option>
-                  <option className="text-base" value="1">
-                    Kecamatan 1
-                  </option>
-                  <option className="text-base" value="2">
-                    Kecamatan 2
-                  </option>
+                  <option value="">Pilih Kecamatan</option>
+                  {kecamatanList.map((kecamatan) => (
+                    <option key={kecamatan.id} value={kecamatan.id}>
+                      {kecamatan.kecamatan}
+                    </option>
+                  ))}
                 </select>
 
                 <select
-                  defaultValue={"default"}
-                  className="border-none py-4 pl-4 pr-32 rounded-lg "
+                  value={selectedKelurahan}
+                  onChange={handleKelurahanChange}
+                  disabled={!selectedKecamatan}
                 >
-                  <option className="text-base" value="default" disabled>
-                    Kelurahan
-                  </option>
-                  <option className="text-base" value="2">
-                    Kelurahan 1
-                  </option>
-                  <option className="text-base" value="3">
-                    Kelurahan 2
-                  </option>
+                  <option value="">Pilih Kelurahan</option>
+                  {kelurahanList.map((kelurahan) => (
+                    <option key={kelurahan.id} value={kelurahan.id}>
+                      {kelurahan.desa}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

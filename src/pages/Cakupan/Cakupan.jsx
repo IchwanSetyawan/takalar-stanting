@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import CakupanComponent from "../../components/CakupanComponent";
 import Layout from "../../layouts/Layout";
 import TitleComponent from "../../components/TitleComponent";
 import { CakupanModel } from "../../model/CakupanModel";
 import Pagination from "../../components/Pagination";
+import { CakupanContext } from "../../context/CakupanContext";
 
 const Cakupan = () => {
   const data = CakupanModel;
-  const itemsPerPage = 10;
+  const { datas, fetchData } = useContext(CakupanContext);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>

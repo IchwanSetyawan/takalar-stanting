@@ -6,14 +6,23 @@ import { BrowserRouter } from "react-router-dom";
 import TabMenuContextProvider from "./context/TabMenuContext.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { SummaryContextProvider } from "./context/SummaryContext.jsx";
+import { CakupanContextProvider } from "./context/CakupanContext.jsx";
+import { KecamatanContextProvider } from "./context/KecamatanContext.jsx";
+import { KelurahanContextProvider } from "./context/KelurahanContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AuthContextProvider>
       <TabMenuContextProvider>
-        <SummaryContextProvider>
-          <App />
-        </SummaryContextProvider>
+        <KecamatanContextProvider>
+          <KelurahanContextProvider>
+            <CakupanContextProvider>
+              <SummaryContextProvider>
+                <App />
+              </SummaryContextProvider>
+            </CakupanContextProvider>
+          </KelurahanContextProvider>
+        </KecamatanContextProvider>
       </TabMenuContextProvider>
     </AuthContextProvider>
   </BrowserRouter>

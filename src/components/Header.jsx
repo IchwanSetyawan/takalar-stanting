@@ -33,6 +33,8 @@ export const Header = () => {
     }
   }, []);
 
+  const { username } = useContext(authContext);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("isLogin");
@@ -67,7 +69,7 @@ export const Header = () => {
                 </div>
                 <button onClick={handlerShowDropdown}>
                   <div className="flex gap-2 items-center">
-                    <span className=" text-sm">Admin</span>
+                    <span className=" text-sm">{username}</span>
                     {showDropdown ? (
                       <div className="rotate-180">
                         <img src={ArrowButtonIcon} />
