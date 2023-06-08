@@ -1,43 +1,52 @@
-import React, { useState } from "react";
-import { convertPercent } from "../utills/convertPercent";
+import React from "react";
 
-const Pagination = ({ data, itemsPerPage }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-
-  const handleClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = data.slice(startIndex, endIndex);
-
+export default function Pagination({
+  postsPerPage,
+  totalPosts,
+  paginateFront,
+  paginateBack,
+  currentPage,
+}) {
   return (
-    <div>
-      <ul>
-        {currentItems.map((item, index) => (
-          <li key={index}>
-            {item.title}: {convertPercent(item.total) + "%"}
-          </li>
-        ))}
-      </ul>
+    <div className="py-2">
       <div>
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-          (pageNumber) => (
-            <button
-              className="p-3 bg-slate-500"
-              key={pageNumber}
-              onClick={() => handleClick(pageNumber)}
-              disabled={currentPage === pageNumber}
-            >
-              {pageNumber}
-            </button>
-          )
-        )}
+        <p className="text-sm text-gray-700">
+          Showing
+          <span className="font-medium">{currentPage * postsPerPage - 10}</span>
+          to
+          <span className="font-medium"> {currentPage * postsPerPage} </span>
+          of
+          <span className="font-medium"> {totalPosts} </span>
+          results
+        </p>
+      </div>
+      <nav className="block"></nav>
+      <div>
+        <nav
+          className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+          aria-label="Pagination"
+        >
+          <a
+            onClick={() => {
+              paginateBack();
+            }}
+            href="#"
+            className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+          >
+            <span>Previous</span>
+          </a>
+
+          <a
+            onClick={() => {
+              paginateFront();
+            }}
+            href="#"
+            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+          >
+            <span>Next</span>
+          </a>
+        </nav>
       </div>
     </div>
   );
-};
-
-export default Pagination;
+}

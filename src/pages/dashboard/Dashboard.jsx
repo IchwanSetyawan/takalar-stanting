@@ -65,7 +65,7 @@ const Dashboard = () => {
   const fetchDataKel = async () => {
     try {
       const token = localStorage.getItem("token");
-      const url = `https://stunting.ahadnikah.com/api/wilayah/desa/`;
+      const url = `https://stunting.ahadnikah.com/api/wilayah/desa`;
 
       const response = await axios.get(url, {
         headers: {

@@ -8,11 +8,7 @@ import { CakupanContext } from "../../context/CakupanContext";
 
 const Cakupan = () => {
   const data = CakupanModel;
-  const { datas, fetchData } = useContext(CakupanContext);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // const { datas, fetchData } = useContext(CakupanContext);
 
   return (
     <>
@@ -46,7 +42,7 @@ const Cakupan = () => {
             </div>
           </div>
           <div>
-            <CakupanComponent data={data} />
+            <CakupanComponent />
           </div>
           {/* <div className="flex justify-center items-center">
           <Pagination data={data} itemsPerPage={itemsPerPage} />

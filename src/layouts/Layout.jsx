@@ -15,6 +15,7 @@ const Layout = ({ children, back }) => {
           <div className=" h-auto my-2 rounded-xl">{children}</div>
         </div>
       </Content>
+
       <Footer />
     </>
   );
