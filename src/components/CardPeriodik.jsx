@@ -3,7 +3,7 @@ import React from "react";
 const CardPeriodik = ({ name, total, icon }) => {
   return (
     <>
-      <div className="hover:bg-gray-50 rounded-lg border border-darkSmooth flex items-center justify-between ">
+      <div className="hover:bg-gray-50 rounded-lg shadow-smooth flex items-center justify-between ">
         <div className="z-10">
           <div className="justify-start flex p-6 items-center gap-4 ">
             <div className="w-8 h-auto">

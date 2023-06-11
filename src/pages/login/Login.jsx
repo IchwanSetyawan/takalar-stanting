@@ -3,6 +3,7 @@ import Logo from "../../assets/image/logo.png";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { authContext } from "../../context/AuthContext";
 import axios from "axios";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,6 +17,12 @@ const Login = () => {
     username,
     setUsername,
     setUser,
+    handleLogin,
+    handleFormLogin,
+    formData,
+    getLogin,
+
+    roles,
   } = useContext(authContext);
 
   const handleShowPassword = (e) => {
@@ -23,47 +30,11 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const defaultData = {
-    username: "",
-    password: "",
-  };
-
-  const [formData, setFormData] = useState({ ...defaultData });
-
-  const handleFormLogin = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const requestBody = {
-    username: formData.username,
-    password: formData.password,
-  };
-
-  const getLogin = () => {
-    const URL = "http://103.150.120.21:8000/api/auth/login";
-    axios
-      .post(URL, requestBody)
-      .then((response) => {
-        setIsLogin(true);
-        setTokenFunc(response.data.access);
-        setUsername(response.data.first_name);
-        console.log("login sukses");
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        setIsLogin(false);
-        alert("Username atau Password Salah");
-        console.log(err);
-      });
-  };
-
   function handleSubmit(e) {
     e.preventDefault();
     // setIsloading(true);
 
-    getLogin();
+    handleLogin();
   }
   return (
     <>
@@ -103,7 +74,7 @@ const Login = () => {
                     />
                     <button
                       onClick={handleShowPassword}
-                      class="absolute right-4 top-3 flex items-center cursor-pointer  "
+                      className="absolute right-4 top-3 flex items-center cursor-pointer  "
                     >
                       {showPassword ? (
                         <svg

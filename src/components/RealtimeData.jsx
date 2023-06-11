@@ -4,7 +4,7 @@ import RealtImeIcon from "../assets/icon/realtime-icon.svg";
 const RealtimeData = ({ children }) => {
   return (
     <>
-      <div className="col-span-2 border border-gray-200 shadow-md w-full rounded-lg p-6 ">
+      <div className="col-span-2 border bg-white border-gray-200 shadow-sm w-full rounded-lg p-4 ">
         <div className="flex gap-4 items-center">
           <div>
             <img src={RealtImeIcon} alt="icon realtime" />

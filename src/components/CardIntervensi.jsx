@@ -5,7 +5,7 @@ import TitleComponent from "./TitleComponent";
 const CardIntervensi = () => {
   return (
     <>
-      <div className="border rounded-lg border-darkSmooth h-auto px-6 pt-8 pb-10">
+      <div className="border rounded-lg bg-white  h-auto px-6 pt-8 pb-10">
         <div className=" flex justify-between items-center">
           <TitleComponent title="Rekomendasi Perbaikan Intervensi" />
         </div>

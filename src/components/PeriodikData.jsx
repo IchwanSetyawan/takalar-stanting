@@ -5,7 +5,7 @@ import CardPeriodik from "./CardPeriodik";
 const PeriodikData = ({ children }) => {
   return (
     <>
-      <div className=" border border-gray-200 shadow-md w-full p-6 rounded-lg">
+      <div className=" shadow-sm shadow-[#ececec] bg-white w-full p-6 rounded-lg">
         <div className="flex gap-4 items-center">
           <div>
             <img src={PeriodikIcon} alt="periodik icon" />
@@ -14,29 +14,35 @@ const PeriodikData = ({ children }) => {
         </div>
         <div className="flex  justify-between items-center text-sm mb-8 mt-2">
           <div className=" flex mt-4 w-full justify-between items-center text-dark  gap-4">
-            <select className="border p-4 w-full text-md  rounded-lg border-darkHard">
-              <option className="text-xs" selected disabled>
+            <select
+              defaultValue="default"
+              className="border-none shadow-smooth p-4 w-full text-md  rounded-lg "
+            >
+              <option className="text-base" selected value="default" disabled>
                 Bulan
               </option>
-              <option className="text-xs" value="1">
+              <option className="text-base" value="1">
                 Februari
               </option>
-              <option className="text-xs" value="2">
+              <option className="text-base" value="2">
                 Agustus
               </option>
             </select>
 
-            <select className="border p-4 w-full rounded-lg border-darkHard">
-              <option selected disabled className="text-xs" value="1">
+            <select
+              defaultValue="default"
+              className="border-none p-4 w-full rounded-lg shadow-smooth"
+            >
+              <option selected disabled className="text-base" lue="default">
                 Tahun
               </option>
-              <option className="text-xs" value="2">
+              <option className="text-base" value="2">
                 2021
               </option>
-              <option className="text-xs" value="3">
+              <option className="text-base" value="3">
                 2022
               </option>
-              <option className="text-xs" value="3">
+              <option className="text-base" value="3">
                 2023
               </option>
             </select>

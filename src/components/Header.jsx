@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TabMenuContext } from "../context/TabMenuContext";
 import UserIcon from "../assets/icon/user-icon.svg";
 import ArrowButtonIcon from "../assets/icon/arrow-bottom-icon.svg";
 import moment from "moment/moment";
 import { authContext } from "../context/AuthContext";
+import LiveClock from "react-live-clock";
 
 export const Header = () => {
+  const currentDate = moment().format("dddd, D MMMM YYYY");
+
+  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
+  const { username } = useContext(authContext);
 
   const handlerShowDropdown = (e) => {
     e.preventDefault();
@@ -32,6 +37,13 @@ export const Header = () => {
     }
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("roles");
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="sm:ml-60 sticky top-0 z-50">
@@ -52,42 +64,50 @@ export const Header = () => {
                 ? "Wilayah"
                 : ""}
             </h1>
-            <div className=" cursor-pointer hover:text-gray-100">
-              <div className="flex justify-end gap-2 text-white ">
-                <div>
-                  <img src={UserIcon} alt="user icon" />
-                </div>
-                <button onClick={handlerShowDropdown}>
-                  <div className="flex gap-2 items-center">
-                    <span className=" text-sm">Admin</span>
-                    {showDropdown ? (
-                      <div className="rotate-180">
-                        <img src={ArrowButtonIcon} />
-                      </div>
-                    ) : (
-                      <div>
-                        <img src={ArrowButtonIcon} />
-                      </div>
-                    )}
+            <div className="flex gap-4 items-center">
+              <div className="text-white text-sm ">
+                <span>{currentDate} | </span>
+                <LiveClock format="HH:mm:ss" ticking={true} />
+              </div>
+
+              <div className=" cursor-pointer hover:text-gray-100">
+                <div className="flex justify-end gap-2 text-white ">
+                  <div>
+                    <img src={UserIcon} alt="user icon" />
                   </div>
-                </button>
+                  <button onClick={handlerShowDropdown}>
+                    <div className="flex gap-2 items-center">
+                      <span className=" text-sm">{username}</span>
+                      {showDropdown ? (
+                        <div className="rotate-180">
+                          <img src={ArrowButtonIcon} />
+                        </div>
+                      ) : (
+                        <div>
+                          <img src={ArrowButtonIcon} />
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
           {showDropdown && (
-            <div className="absolute  right-4 top-14 flex items-center cursor-pointer ">
+            <button
+              onClick={handleLogout}
+              className="absolute  right-4 top-14 flex items-center cursor-pointer "
+            >
               <div className="bg-white rounded-md shadow-md w-36  flex j">
                 <ul className="w-full">
                   <li className="hover:bg-slate-100 hover:rounded-md py-2 px-2 text-sm justify-end flex gap-2">
-                    <button>
-                      <Link to="/login">Logout</Link>
-                    </button>
+                    <div>Logout</div>
                     <div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="w-5 h-5"
+                        className="w-5 h-5"
                       >
                         <path
                           fillRule="evenodd"
@@ -99,7 +119,7 @@ export const Header = () => {
                   </li>
                 </ul>
               </div>
-            </div>
+            </button>
           )}
         </div>
       </div>

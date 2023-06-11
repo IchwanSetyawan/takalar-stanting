@@ -19,6 +19,10 @@ export default {
         textError: "#F04438",
         orangeDark: "#FBAE47",
       },
+
+      boxShadow: {
+        smooth: "0px 0px 4px rgba(37, 37, 37, 0.25);",
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],

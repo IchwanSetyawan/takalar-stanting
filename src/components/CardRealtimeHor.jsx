@@ -3,7 +3,7 @@ import React from "react";
 const CardRealtimeHor = ({ name, total, icon }) => {
   return (
     <>
-      <div className="rounded-lg border border-darkSmooth flex items-center justify-between hover:bg-gray-50 ">
+      <div className="rounded-lg border shadow-smooth flex items-center justify-between hover:bg-gray-50 ">
         <div className="z-10">
           <div className="justify-start flex p-6 items-center gap-4 ">
             <div className="w-8 h-auto">

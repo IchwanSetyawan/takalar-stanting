@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { SummaryContext } from "../context/SummaryContext";
 
 ChartJS.register(
   CategoryScale,
@@ -20,18 +21,29 @@ ChartJS.register(
 );
 
 const CartComponentSingle = () => {
+  const { datas, fetchData } = useContext(SummaryContext);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const labels = [
     "0 - 5 bulan",
     "6 - 11 bulan",
     "12 - 23 bulan",
-    "12 - 23 bulan",
+    "24 - 59 bulan",
   ];
   const data = {
     labels: labels,
     datasets: [
       {
         label: "Anak",
-        data: [10, 80, 120, 280],
+        data: [
+          datas.jumlah_anak_umur_0_5_bulan,
+          datas.jumlah_anak_umur_6_11_bulan,
+          datas.jumlah_anak_umur_12_23_bulan,
+          datas.jumlah_anak_umur_24_59_bulan,
+        ],
         indexAxis: "x",
         backgroundColor: "#168EEA",
         borderColor: "#168EEA",
