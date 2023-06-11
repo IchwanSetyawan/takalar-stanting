@@ -11,7 +11,7 @@
 // };
 
 function formattedNumber(number) {
-  return number.toLocaleString("id-ID");
+  return number?.toLocaleString("id-ID");
 }
 
 export default formattedNumber;

@@ -16,6 +16,7 @@ import MotherPregnantIcon from "../../assets/icon/mother-pregnant-icon.svg";
 import BreastFeedingMothers from "../../assets/icon/ibu-menyusui-icon.svg";
 import BabyStroller from "../../assets/icon/baby-stroller-icon.svg";
 import { SummaryContext } from "../../context/SummaryContext";
+import formattedNumber from "../../utills/formattedNumber ";
 
 const DashboardBalita = () => {
   const { datas, fetchData } = useContext(SummaryContext);
@@ -72,17 +73,17 @@ const DashboardBalita = () => {
                     <div className="grid grid-cols-3 gap-5">
                       <CardRealtimeVer
                         name="Total Balita Tercatat"
-                        total={datas.jumlah_balita_tercatat}
+                        total={formattedNumber(datas.jumlah_balita_tercatat)}
                         icon={PersonsIcon}
                       />
                       <CardRealtimeVer
                         name="Laki-laki"
-                        total={datas.jumlah_anak_laki_laki}
+                        total={formattedNumber(datas.jumlah_anak_laki_laki)}
                         icon={PersonMan}
                       />
                       <CardRealtimeVer
                         name="Perempuan"
-                        total={datas.jumlah_anak_perempuan}
+                        total={formattedNumber(datas.jumlah_anak_perempuan)}
                         icon={PersonWoman}
                       />
                     </div>
@@ -94,22 +95,22 @@ const DashboardBalita = () => {
                 <PeriodikData>
                   <CardPeriodik
                     name="Jumlah Remaja"
-                    total={datas.jumlah_remaja}
+                    total={formattedNumber(datas.jumlah_remaja)}
                     icon={RemajaIcon}
                   />
                   <CardPeriodik
                     name="Jumlah Calon Pengantin"
-                    total={datas.jumlah_calon_pengantin}
+                    total={formattedNumber(datas.jumlah_calon_pengantin)}
                     icon={CalonPengantinIcon}
                   />
                   <CardPeriodik
                     name="Jumlah Ibu Hamil"
-                    total={datas.jumlah_ibu_hamil}
+                    total={formattedNumber(datas.jumlah_ibu_hamil)}
                     icon={MotherPregnantIcon}
                   />
                   <CardPeriodik
                     name="Jumlah Ibu Menyusui"
-                    total={datas.jumlah_ibu_menyusui}
+                    total={formattedNumber(datas.jumlah_ibu_menyusui)}
                     icon={BreastFeedingMothers}
                   />
                   <CardPeriodik

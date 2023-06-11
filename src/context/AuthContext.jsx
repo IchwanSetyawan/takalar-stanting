@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import Login from "../pages/login/Login";
 import axios from "axios";
-import { Redirect, useNavigate } from "react-router-dom";
+import { Navigate, Redirect, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 export const authContext = createContext();
@@ -11,23 +11,38 @@ export const AuthContextProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
-  const getLogin = localStorage.getItem("isLogin");
+  // const getLogin = localStorage.getItem("isLogin", isLogin);
   const [roles, setRoles] = useState(null);
 
   const getToken = () => {
     const generateToken = localStorage.getItem("token");
     setToken(generateToken);
-    setIsLogin(true);
+    // setIsLogin(true);
   };
 
   const setTokenFunc = (token) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("isLogin", true);
     setIsLogin(true);
   };
 
   useEffect(() => {
+    if (isLogin) {
+      navigate("/dashboard");
+    }
+
     getToken();
+
+    const timeout = setTimeout(() => {
+      setIsLogin(false);
+      localStorage.removeItem("token");
+      // localStorage.removeItem("isLogin");
+      localStorage.removeItem("roles");
+      navigate("/login");
+    }, 60 * 60 * 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
   // LOGIN
@@ -54,18 +69,16 @@ export const AuthContextProvider = ({ children }) => {
     axios
       .post(URL, requestBody)
       .then((response) => {
-        console.log(response.data);
         setIsLogin(true);
         setRoles(response.data.roles);
         localStorage.setItem("roles", response.data.roles);
         setTokenFunc(response.data.access);
-        setUsername(response.data.first_name);
-        console.log("login sukses");
+        setUsername(response?.data?.first_name);
         navigate("/dashboard");
       })
       .catch((err) => {
         setIsLogin(false);
-        alert("Username atau Password Salah");
+        alert("err");
         console.log(err);
       });
   };
@@ -75,7 +88,7 @@ export const AuthContextProvider = ({ children }) => {
       value={{
         isLogin,
         setIsLogin,
-        getLogin,
+        // getLogin,
         username,
         setUsername,
         setToken,
@@ -90,7 +103,7 @@ export const AuthContextProvider = ({ children }) => {
         setRoles,
       }}
     >
-      {getLogin ? children : <Login />}
+      {isLogin ? children : <Login />}
     </authContext.Provider>
   );
 };

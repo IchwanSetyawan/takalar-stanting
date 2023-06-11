@@ -5,12 +5,16 @@ import UserIcon from "../assets/icon/user-icon.svg";
 import ArrowButtonIcon from "../assets/icon/arrow-bottom-icon.svg";
 import moment from "moment/moment";
 import { authContext } from "../context/AuthContext";
+import LiveClock from "react-live-clock";
 
 export const Header = () => {
+  const currentDate = moment().format("dddd, D MMMM YYYY");
+
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
+  const { username } = useContext(authContext);
 
   const handlerShowDropdown = (e) => {
     e.preventDefault();
@@ -32,8 +36,6 @@ export const Header = () => {
       setTabMenu(6);
     }
   }, []);
-
-  const { username } = useContext(authContext);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -62,25 +64,32 @@ export const Header = () => {
                 ? "Wilayah"
                 : ""}
             </h1>
-            <div className=" cursor-pointer hover:text-gray-100">
-              <div className="flex justify-end gap-2 text-white ">
-                <div>
-                  <img src={UserIcon} alt="user icon" />
-                </div>
-                <button onClick={handlerShowDropdown}>
-                  <div className="flex gap-2 items-center">
-                    <span className=" text-sm">{username}</span>
-                    {showDropdown ? (
-                      <div className="rotate-180">
-                        <img src={ArrowButtonIcon} />
-                      </div>
-                    ) : (
-                      <div>
-                        <img src={ArrowButtonIcon} />
-                      </div>
-                    )}
+            <div className="flex gap-4 items-center">
+              <div className="text-white text-sm ">
+                <span>{currentDate} | </span>
+                <LiveClock format="HH:mm:ss" ticking={true} />
+              </div>
+
+              <div className=" cursor-pointer hover:text-gray-100">
+                <div className="flex justify-end gap-2 text-white ">
+                  <div>
+                    <img src={UserIcon} alt="user icon" />
                   </div>
-                </button>
+                  <button onClick={handlerShowDropdown}>
+                    <div className="flex gap-2 items-center">
+                      <span className=" text-sm">{username}</span>
+                      {showDropdown ? (
+                        <div className="rotate-180">
+                          <img src={ArrowButtonIcon} />
+                        </div>
+                      ) : (
+                        <div>
+                          <img src={ArrowButtonIcon} />
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -29,7 +29,7 @@ const CartComponent = () => {
     fetchData();
   }, []);
 
-  const labels = ["2021", "2022", "2023"];
+  const labels = ["2021", "2022"];
   const data = {
     labels: labels,
     datasets: [
@@ -77,7 +77,7 @@ const CartComponent = () => {
       },
       title: {
         display: true,
-        text: "Angka Prevalensi Stunting  ",
+        text: "Angka Prevalensi Stunting (%) ",
       },
     },
     maintainAspectRatio: false,

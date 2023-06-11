@@ -1,5 +1,4 @@
 import React, { useContext, createContext, useEffect, useState } from "react";
-import { TabMenuContext } from "../../context/TabMenuContext";
 import Layout from "../../layouts/Layout";
 import RealtimeData from "../../components/RealtimeData";
 import PeriodikData from "../../components/PeriodikData";
@@ -8,94 +7,117 @@ import CardRealtimeHor from "../../components/CardRealtimeHor";
 import FamilyIcon from "../../assets/icon/family-icon.svg";
 import WarningIcon from "../../assets/icon/warning-icon.svg";
 import CurveIcon from "../../assets/icon/curve-icon.svg";
-import StuntingIcon from "../../assets/icon/stunting-icon.svg";
+import FamilyTargetIcon from "../../assets/icon/family-target-icon.svg";
 import CartComponent from "../../cart/CartComponent";
 import Persons from "../../assets/icon/persons.svg";
 import SortIcon from "../../assets/icon/sort-icon.svg";
-import FatherIcon from "../../assets/icon/father-icon.svg";
-import ChildIcon from "../../assets/icon/child-icon.svg";
 import AccesibleIcon from "../../assets/icon/accessible-icon.svg";
-import CardPeriodik from "../../components/CardPeriodik";
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/id";
 
 import { authContext } from "../../context/AuthContext";
-import LiveClock from "react-live-clock";
 import { SummaryContext } from "../../context/SummaryContext";
 import { KecamatanContext } from "../../context/KecamatanContext";
 import { KelurahanContext } from "../../context/KelurahanContext";
+import formattedNumber from "../../utills/formattedNumber ";
+import CardRealtimeVer2 from "../../components/CardRealtimeVer2";
 
 const Dashboard = () => {
-  const { roles } = useContext(authContext);
-  const { datas, fetchData } = useContext(SummaryContext);
-
-  const { kecamatanData, fetchData: fetchKecamatan } =
-    useContext(KecamatanContext);
-  const { kelurahanData, fetchData: fetchKelurahan } =
-    useContext(KelurahanContext);
+  // const { roles } = useContext(authContext);
+  // const { datas, fetchData } = useContext(SummaryContext);
 
   const [kecamatanList, setKecamatanList] = useState([]);
   const [kelurahanList, setKelurahanList] = useState([]);
-  const [selectedKecamatan, setSelectedKecamatan] = useState("");
-  const [selectedKelurahan, setSelectedKelurahan] = useState("");
-
-  const fetchDataKec = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const url = "https://stunting.ahadnikah.com/api/wilayah/kecamatan";
-
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setKecamatanList(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [kecamatanId, setKecamatanId] = useState("");
+  const [kelurahanId, setKelurahanId] = useState("");
+  const [datas, setDatas] = useState([]);
 
   useEffect(() => {
-    // Mendapatkan data kecamatan dari API kecamatan
+    const fetchDataAll = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (kecamatanId && kelurahanId) {
+          const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}/${kelurahanId}`;
+          const response = await axios.get(url, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setDatas(response.data);
+        } else if (kecamatanId) {
+          const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}`;
+          const response = await axios.get(url, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setDatas(response.data);
+        } else {
+          const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary`;
+
+          const response = await axios.get(url, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setDatas(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDataAll();
+  }, [kecamatanId, kelurahanId]);
+
+  useEffect(() => {
+    const fetchDataKec = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const url = "https://stunting.ahadnikah.com/api/wilayah/kecamatan";
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setKecamatanList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchDataKec();
-    // fetchDataKel();
   }, []);
 
-  const fetchDataKel = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const url = `https://stunting.ahadnikah.com/api/wilayah/desa`;
-
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setKelurahanList(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleKecamatanChange = (event) => {
-    const kecamatan = event.target.value;
-    setSelectedKecamatan(kecamatan);
-    setSelectedKelurahan("");
+    const getkecamatanid = event.target.value;
+    setKecamatanId(getkecamatanid);
   };
-  useEffect(() => {
-    if (selectedKecamatan) {
-      // Mendapatkan data kelurahan berdasarkan kecamatan dari API kelurahan
-      fetchDataKel();
-    }
-  }, [selectedKecamatan]);
-
   const handleKelurahanChange = (event) => {
-    const kelurahan = event.target.value;
-    setSelectedKelurahan(kelurahan);
+    const getkelurahanid = event.target.value;
+    setKelurahanId(getkelurahanid);
   };
 
-  const currentDate = moment().format("dddd, D MMMM YYYY");
+  useEffect(() => {
+    const fetchDataKelurahan = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const url = `https://stunting.ahadnikah.com/api/wilayah/desa`;
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setKelurahanList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataKelurahan();
+  }, []);
 
   return (
     <>
@@ -106,10 +128,6 @@ const Dashboard = () => {
               <h2 className="text-xl  text-dark font-bold">
                 Ringkasan Per Wilayah
               </h2>
-              <div className="text-dark mt-2 text-lg ">
-                <span>{currentDate} | </span>
-                <LiveClock format="HH:mm:ss" ticking={true} />
-              </div>
             </div>
 
             <div className="flex justify-between gap-x-5 my-8">
@@ -118,10 +136,13 @@ const Dashboard = () => {
                 title="Desa/Kelurahan"
                 total={datas.total_kelurahan}
               />
-              <CardWilayah title="Dusun" total={datas.total_dusun} />
+              <CardWilayah
+                title="Dusun"
+                total={formattedNumber(datas.total_dusun)}
+              />
               <CardWilayah
                 title="Jumlah Penduduk"
-                total={datas.total_penduduk}
+                total={formattedNumber(datas.total_penduduk)}
               />
             </div>
           </div>
@@ -130,28 +151,32 @@ const Dashboard = () => {
               <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
               <div className=" flex justify-center items-center text-dark  gap-4">
                 <select
-                  value={selectedKecamatan}
-                  onChange={handleKecamatanChange}
+                  className="w-72"
+                  value={kecamatanId}
+                  onChange={(e) => handleKecamatanChange(e)}
                 >
-                  <option value="">Pilih Kecamatan</option>
-                  {kecamatanList.map((kecamatan) => (
-                    <option key={kecamatan.id} value={kecamatan.id}>
-                      {kecamatan.kecamatan}
+                  <option value="">Kecamatan</option>
+                  {kecamatanList.map((kec, idx) => (
+                    <option key={idx} value={kec.id}>
+                      {kec.kecamatan}
                     </option>
                   ))}
                 </select>
 
                 <select
-                  value={selectedKelurahan}
-                  onChange={handleKelurahanChange}
-                  disabled={!selectedKecamatan}
+                  className="w-72"
+                  value={kelurahanId}
+                  onChange={(e) => handleKelurahanChange(e)}
+                  disabled={!kecamatanId}
                 >
-                  <option value="">Pilih Kelurahan</option>
-                  {kelurahanList.map((kelurahan) => (
-                    <option key={kelurahan.id} value={kelurahan.id}>
-                      {kelurahan.desa}
-                    </option>
-                  ))}
+                  <option value="">Kelurahan</option>
+                  {kelurahanList
+                    ?.filter((item) => item.id_kecamatan == kecamatanId)
+                    .map((kel, idx) => (
+                      <option key={idx} value={kel.id}>
+                        {kel.desa}
+                      </option>
+                    ))}
                 </select>
               </div>
             </div>
@@ -161,18 +186,18 @@ const Dashboard = () => {
                 <div className="grid grid-cols-2 gap-5">
                   <CardRealtimeHor
                     name="Jumlah Keluarga"
-                    total={datas.jumlah_keluarga}
+                    total={formattedNumber(datas.jumlah_keluarga)}
                     icon={FamilyIcon}
                   />
                   <CardRealtimeHor
                     name="Keluarga beresiko Stunting"
-                    total={datas.jumlah_keluarga_beresiko}
+                    total={formattedNumber(datas.jumlah_keluarga_beresiko)}
                     icon={WarningIcon}
                   />
                   <CardRealtimeHor
-                    name="Jumlah Anak Stunting"
-                    total={datas.jumlah_anak_stunting}
-                    icon={StuntingIcon}
+                    name="Jumlah Keluarga Sasaran"
+                    total={formattedNumber(datas.jumlah_keluarga_sasaran)}
+                    icon={FamilyTargetIcon}
                   />
                   <CardRealtimeHor
                     name="Prevalensi"
@@ -185,30 +210,23 @@ const Dashboard = () => {
                 </div>
               </RealtimeData>
               <PeriodikData>
-                <CardPeriodik
+                <CardRealtimeVer2
                   name="Jumlah Balita yang Diukur"
                   icon={Persons}
-                  total={datas.jumlah_balita_terukur}
+                  total={formattedNumber(datas.jumlah_balita_terukur)}
                 />
-                <CardPeriodik
-                  name="Jumlah Balita Stunting"
+                <CardRealtimeVer2
                   icon={AccesibleIcon}
-                  total={datas.jumlah_anak_stunting}
+                  total={formattedNumber(
+                    datas.jumlah_anak_pendek_sangat_pendek
+                  )}
+                  name="Jumlah Balita Pendek dan Sangat Pendek"
                 />
-                <CardPeriodik
+
+                <CardRealtimeVer2
                   name="Prevalensi Balita Stunting"
                   icon={SortIcon}
                   total={`${datas.prevalensi_balita_stunting} %`}
-                />
-                <CardPeriodik
-                  name="Total Bapak Asuh"
-                  icon={FatherIcon}
-                  total={datas.jumlah_bapak_asuh}
-                />
-                <CardPeriodik
-                  name="Total Anak Asuh"
-                  icon={ChildIcon}
-                  total={datas.jumlah_anak_asuh}
                 />
               </PeriodikData>
             </div>

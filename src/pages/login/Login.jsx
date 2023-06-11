@@ -25,8 +25,6 @@ const Login = () => {
     roles,
   } = useContext(authContext);
 
-  console.log(getLogin);
-
   const handleShowPassword = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
