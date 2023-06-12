@@ -3,6 +3,8 @@ import Logo from "../assets/image/logo.png";
 import { TabMenuContext } from "../context/TabMenuContext";
 import { Link, useLocation, useParams } from "react-router-dom";
 import BalitaIcon from "../assets/icon/balita-side-icon.svg";
+import BapakAsuhIcon from "../assets/icon/bapakasuh-sidebar-icon.svg";
+import BapakAsuhLightIcon from "../assets/icon/bapakasuhlight-sidebar-icon.svg";
 import BalitaLightIcon from "../assets/icon/balita-side-light-icon.svg";
 import SebaranIcon from "../assets/icon/sebaran-icon.svg";
 import SebaranLightIcon from "../assets/icon/sebaran-light-icon.svg";
@@ -46,15 +48,15 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="mt-9">
-              <ul className="font-medium flex flex-col  gap-2 text-sm">
+              <ul className="font-medium flex flex-col  text-sm">
                 <li>
                   <Link
                     to="/dashboard"
                     onClick={() => setTabMenu(1)}
                     className={`${
                       tabMenu === 1
-                        ? "flex items-center p-5 text-white rounded-lg  bg-primary"
-                        : "flex items-center p-5 text-textGray rounded-lg   hover:bg-[#F7F7F6]"
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary"
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6]"
                     }`}
                   >
                     <div className="flex items-center ">
@@ -81,8 +83,8 @@ const Sidebar = () => {
                     onClick={() => setTabMenu(2)}
                     className={`${
                       tabMenu === 2
-                        ? "flex items-center p-5 text-white rounded-lg  bg-primary  "
-                        : "flex items-center p-5 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
                     }`}
                   >
                     <div className="flex items-center text-red ">
@@ -102,12 +104,37 @@ const Sidebar = () => {
                 </li>
                 <li>
                   <Link
+                    to="/dashboard-bapakasuh"
+                    onClick={() => setTabMenu(7)}
+                    className={`${
+                      tabMenu === 7
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                    }`}
+                  >
+                    <div className="flex items-center text-red ">
+                      <div className="text-white">
+                        {tabMenu === 7 ? (
+                          <img src={BapakAsuhLightIcon} className="w-10 p-0" />
+                        ) : (
+                          <img src={BapakAsuhIcon} className="w-10 p-0" />
+                        )}
+                      </div>
+
+                      <span className="ml-3 text-base font-bold">
+                        Dashboard Bapak Asuh
+                      </span>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     to="/location"
                     onClick={() => setTabMenu(6)}
                     className={`${
                       tabMenu === 6
-                        ? "flex items-center p-5 text-white rounded-lg  bg-primary  "
-                        : "flex items-center p-5 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
                     }`}
                   >
                     <div className="flex items-center ">
@@ -129,8 +156,8 @@ const Sidebar = () => {
                     onClick={() => setTabMenu(3)}
                     className={`${
                       tabMenu === 3
-                        ? "flex items-center p-5 text-white rounded-lg  bg-primary  "
-                        : "flex items-center p-5 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
                     }`}
                   >
                     <div className="flex items-center ">
@@ -152,8 +179,8 @@ const Sidebar = () => {
                     onClick={() => setTabMenu(4)}
                     className={`${
                       tabMenu === 4
-                        ? "flex items-center p-5 text-white rounded-lg  bg-primary  "
-                        : "flex items-center p-5 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
                     }`}
                   >
                     <div className="flex items-center ">
@@ -174,8 +201,8 @@ const Sidebar = () => {
                     onClick={() => setTabMenu(5)}
                     className={`${
                       tabMenu === 5
-                        ? "flex items-center p-5 text-white rounded-lg  bg-primary  "
-                        : "flex items-center p-5 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
                     }`}
                   >
                     <div className="flex items-center ">

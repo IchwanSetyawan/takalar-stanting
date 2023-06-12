@@ -14,6 +14,7 @@ import { useContext } from "react";
 import { authContext } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import { Fragment } from "react";
+import DashboardBapakAsuh from "./pages/dashboard-bapakasuh/DashboardBapakAsuh";
 
 function App() {
   const { isLogin, setIsLogin } = useContext(authContext);
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route path="/cakupan" element={<Cakupan />} />
           <Route path="/dashboard-balita" element={<DashboardBalita />} />
+          <Route path="/dashboard-bapakasuh" element={<DashboardBapakAsuh />} />
           <Route path="/recommendation" element={<Recommendation />} />
           <Route path="/sebaran" element={<Sebaran />} />
           <Route path="/location" element={<Location />} />

@@ -12,7 +12,7 @@ const Layout = ({ children, back }) => {
       <Sidebar />
       <Content>
         <div className="p-4 bg-[#F0F1F3]">
-          <div className=" h-auto my-2 rounded-xl">{children}</div>
+          <div className=" min-h-screen my-2 rounded-xl">{children}</div>
         </div>
       </Content>
 

@@ -36,6 +36,13 @@ const Login = () => {
 
     handleLogin();
   }
+
+  // useEffect(() => {
+  //   if (isLogin) {
+  //     navigate("/dashboard");
+  //   }
+  // }, []);
+
   return (
     <>
       <div className="bg-primary h-screen flex justify-center items-center">
@@ -64,7 +71,7 @@ const Login = () => {
                 </div>
                 <div className="flex flex-col justify-center gap-2 ">
                   <label className="text-[#434D5C] text-xs ">Password</label>
-                  <div class="relative text-gray-600 focus-within:text-gray-400">
+                  <div className="relative text-gray-600 focus-within:text-gray-400">
                     <input
                       name="password"
                       onChange={handleFormLogin}
