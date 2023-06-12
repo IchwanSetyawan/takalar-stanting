@@ -10,16 +10,19 @@ const TableComponent = ({ name, handleLink, data }) => {
           <table className="w-full text-sm text-left text-blue-100 ">
             <thead className="text-xs text-white uppercase bg-primary border-b border-gray-200 dark:text-white">
               <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 text-center py-3">
                   No.
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 text-center py-3">
                   Nama {name}
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Balita Stunting
+                <th scope="col" className="px-6 text-center py-3">
+                  Jumah Keluarga Berisiko Stunting
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 text-center py-3">
+                  Jumah Balita Stunting (Pendek & Sangat Pendek)
+                </th>
+                <th scope="col" className="px-6 text-center py-3">
                   Proporsi Stunting
                 </th>
               </tr>
@@ -39,17 +42,24 @@ const TableComponent = ({ name, handleLink, data }) => {
                   </th>
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-dark whitespace-nowrap "
+                    className="px-6 py-4 font-medium text-dark whitespace-nowrap  "
                   >
                     {item.name}
                   </th>
-                  <td className="px-6 py-4 text-dark">
+                  <td className="px-6 py-4 text-dark flex justify-center ">
                     <div className="flex gap-2 items-center">
-                      <p className="font-bold">{item.total}</p>
+                      <p className="font-bold text-center">
+                        {item.familyTotal}
+                      </p>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-dark">
-                    <div className="flex items-center gap-2">
+                  <td className="px-6 py-4 text-dark  ">
+                    <div className=" gap-2 items-center flex justify-center">
+                      <p className="font-bold text-center">{item.total}</p>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-dark  ">
+                    <div className="flex items-center gap-2 flex justify-center">
                       <p
                         className={
                           item.status === "success"

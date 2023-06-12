@@ -21,11 +21,7 @@ ChartJS.register(
 );
 
 const CartComponentSingle = () => {
-  const { datas, fetchData } = useContext(SummaryContext);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { datas } = useContext(SummaryContext);
 
   const labels = [
     "0 - 5 bulan",

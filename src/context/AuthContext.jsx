@@ -20,17 +20,18 @@ export const AuthContextProvider = ({ children }) => {
     // setIsLogin(true);
   };
 
+  const isAuthenticated = localStorage.getItem("token");
+
   const setTokenFunc = (token) => {
     localStorage.setItem("token", token);
-    setIsLogin(true);
+    // setIsLogin(true);
   };
 
   useEffect(() => {
-    if (isLogin) {
+    getToken();
+    if (isAuthenticated) {
       navigate("/dashboard");
     }
-
-    getToken();
 
     const timeout = setTimeout(() => {
       setIsLogin(false);
@@ -43,7 +44,7 @@ export const AuthContextProvider = ({ children }) => {
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, [isLogin]);
 
   // LOGIN
   const defaultData = {
@@ -77,7 +78,6 @@ export const AuthContextProvider = ({ children }) => {
         navigate("/dashboard");
       })
       .catch((err) => {
-        setIsLogin(false);
         alert("err");
         console.log(err);
       });
@@ -103,7 +103,7 @@ export const AuthContextProvider = ({ children }) => {
         setRoles,
       }}
     >
-      {isLogin ? children : <Login />}
+      {isAuthenticated ? children : <Login />}
     </authContext.Provider>
   );
 };

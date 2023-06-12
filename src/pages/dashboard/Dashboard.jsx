@@ -12,8 +12,7 @@ import CartComponent from "../../cart/CartComponent";
 import Persons from "../../assets/icon/persons.svg";
 import SortIcon from "../../assets/icon/sort-icon.svg";
 import AccesibleIcon from "../../assets/icon/accessible-icon.svg";
-import axios from "axios";
-import moment from "moment";
+
 import "moment/locale/id";
 
 import { authContext } from "../../context/AuthContext";
@@ -25,70 +24,15 @@ import CardRealtimeVer2 from "../../components/CardRealtimeVer2";
 
 const Dashboard = () => {
   // const { roles } = useContext(authContext);
-  // const { datas, fetchData } = useContext(SummaryContext);
-
-  const [kecamatanList, setKecamatanList] = useState([]);
-  const [kelurahanList, setKelurahanList] = useState([]);
-  const [kecamatanId, setKecamatanId] = useState("");
-  const [kelurahanId, setKelurahanId] = useState("");
-  const [datas, setDatas] = useState([]);
-
-  useEffect(() => {
-    const fetchDataAll = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (kecamatanId && kelurahanId) {
-          const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}/${kelurahanId}`;
-          const response = await axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setDatas(response.data);
-        } else if (kecamatanId) {
-          const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}`;
-          const response = await axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setDatas(response.data);
-        } else {
-          const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary`;
-
-          const response = await axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setDatas(response.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchDataAll();
-  }, [kecamatanId, kelurahanId]);
-
-  useEffect(() => {
-    const fetchDataKec = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const url = "https://stunting.ahadnikah.com/api/wilayah/kecamatan";
-
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setKecamatanList(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchDataKec();
-  }, []);
+  const {
+    datas,
+    kecamatanList,
+    kelurahanList,
+    kecamatanId,
+    setKecamatanId,
+    kelurahanId,
+    setKelurahanId,
+  } = useContext(SummaryContext);
 
   const handleKecamatanChange = (event) => {
     const getkecamatanid = event.target.value;
@@ -98,26 +42,6 @@ const Dashboard = () => {
     const getkelurahanid = event.target.value;
     setKelurahanId(getkelurahanid);
   };
-
-  useEffect(() => {
-    const fetchDataKelurahan = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const url = `https://stunting.ahadnikah.com/api/wilayah/desa`;
-
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setKelurahanList(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchDataKelurahan();
-  }, []);
 
   return (
     <>

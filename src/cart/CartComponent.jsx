@@ -23,11 +23,11 @@ ChartJS.register(
 );
 
 const CartComponent = () => {
-  const { datas, fetchData } = useContext(SummaryContext);
+  const { datas } = useContext(SummaryContext);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const labels = ["2021", "2022"];
   const data = {
@@ -38,7 +38,6 @@ const CartComponent = () => {
         data: [
           datas.prevalensi_stunting_ssgi_2021,
           datas.prevalensi_stunting_ssgi_2021,
-          datas.prevalensi_stunting_ssgi_2023,
         ],
         indexAxis: "x",
         backgroundColor: "#168EEA",
@@ -51,7 +50,6 @@ const CartComponent = () => {
         data: [
           datas.prevalensi_stunting_eppgbm_2021,
           datas.prevalensi_stunting_eppgbm_2022,
-          datas.prevalensi_stunting_eppgbm_2023,
         ],
         indexAxis: "x",
         backgroundColor: "#FBAE47",
