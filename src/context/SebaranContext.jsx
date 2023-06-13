@@ -3,22 +3,22 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 
-export const KecamatanContext = createContext();
+export const SebaranContext = createContext();
 
-export const KecamatanContextProvider = ({ children }) => {
-  const [kecamatanData, setKecamatanData] = useState([]);
+export const SebaranContextProvider = ({ children }) => {
+  const [sebaranData, setSebaranData] = useState([]);
 
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const url = "https://stunting.ahadnikah.com/api/wilayah/kecamatan";
+      const url = "https://stunting.ahadnikah.com/api/admin/dashboard/sebaran";
 
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setKecamatanData(response.data);
+      setSebaranData(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -29,8 +29,8 @@ export const KecamatanContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <KecamatanContext.Provider value={{ kecamatanData, fetchData }}>
+    <SebaranContext.Provider value={{ sebaranData, fetchData }}>
       {children}
-    </KecamatanContext.Provider>
+    </SebaranContext.Provider>
   );
 };

@@ -14,7 +14,12 @@ export const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
-  const { username } = useContext(authContext);
+  // const { username } = useContext(authContext);
+  const username = localStorage.getItem("1");
+
+  useEffect(() => {
+    username;
+  }, []);
 
   const handlerShowDropdown = (e) => {
     e.preventDefault();
@@ -34,12 +39,14 @@ export const Header = () => {
       setTabMenu(5);
     } else if (location.pathname === "/location") {
       setTabMenu(6);
+    } else if (location.pathname === "/dashboard-bapakasuh") {
+      setTabMenu(7);
     }
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("isLogin");
+    localStorage.removeItem("1");
     localStorage.removeItem("roles");
     navigate("/login");
   };
@@ -62,6 +69,8 @@ export const Header = () => {
                 ? "Rekomendasi"
                 : tabMenu === 6
                 ? "Wilayah"
+                : tabMenu === 7
+                ? "Dashboard Bapak ASuh"
                 : ""}
             </h1>
             <div className="flex gap-4 items-center">
