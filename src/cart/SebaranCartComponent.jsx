@@ -100,7 +100,7 @@ const SebaranChartComponent = () => {
         borderRadius: 10,
       },
       {
-        label: "2021",
+        label: "Pattalassang",
         data: [sebaranData.pk_21_patalassang, sebaranData.pk_22_patalassang],
         indexAxis: "x",
         backgroundColor: "#DDAAFF",
@@ -109,7 +109,7 @@ const SebaranChartComponent = () => {
         borderRadius: 10,
       },
       {
-        label: "Pattalassang",
+        label: "Sanrobone",
         data: [sebaranData.pk_21_sanrobone, sebaranData.pk_22_sanrobone],
         indexAxis: "x",
         backgroundColor: "#DA7C8D",
