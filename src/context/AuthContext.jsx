@@ -11,7 +11,6 @@ export const AuthContextProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
-  // const getLogin = localStorage.getItem("isLogin", isLogin);
   const [roles, setRoles] = useState(null);
 
   const getToken = () => {
@@ -36,7 +35,7 @@ export const AuthContextProvider = ({ children }) => {
     const timeout = setTimeout(() => {
       setIsLogin(false);
       localStorage.removeItem("token");
-      // localStorage.removeItem("isLogin");
+      localStorage.removeItem("1");
       localStorage.removeItem("roles");
       navigate("/login");
     }, 60 * 60 * 1000);
@@ -74,7 +73,8 @@ export const AuthContextProvider = ({ children }) => {
         setRoles(response.data.roles);
         localStorage.setItem("roles", response.data.roles);
         setTokenFunc(response.data.access);
-        setUsername(response?.data?.first_name);
+        localStorage.setItem("1", response?.data?.first_name);
+        // setUsername(response?.data?.first_name);
         navigate("/dashboard");
       })
       .catch((err) => {
@@ -82,6 +82,10 @@ export const AuthContextProvider = ({ children }) => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    username;
+  }, []);
 
   return (
     <authContext.Provider
