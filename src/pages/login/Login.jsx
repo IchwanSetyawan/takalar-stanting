@@ -4,6 +4,7 @@ import { Link, redirect, useNavigate } from "react-router-dom";
 import { authContext } from "../../context/AuthContext";
 import axios from "axios";
 import { useEffect } from "react";
+import { Toaster, toast } from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ const Login = () => {
     handleFormLogin,
     formData,
     getLogin,
+    isLoading,
+    setIsLoading,
 
     roles,
   } = useContext(authContext);
@@ -32,16 +35,11 @@ const Login = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // setIsloading(true);
+    setIsLoading(true);
+    toast.success("Berhasil login!");
 
     handleLogin();
   }
-
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     navigate("/dashboard");
-  //   }
-  // }, []);
 
   return (
     <>
@@ -113,18 +111,40 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className="bg-primary text-white rounded-md text-xs px-6 py-2 hover:bg-[#5B8DAC]"
-                  >
-                    Login
-                  </button>
+                  {isLoading ? (
+                    <button
+                      disabled
+                      type="submit"
+                      className={`${
+                        formData.username === "" || formData.password === ""
+                          ? "bg-[#8babbe] text-white rounded-md text-xs px-6 py-2 "
+                          : "bg-primary text-white rounded-md text-xs px-6 py-2 "
+                      } `}
+                    >
+                      Login
+                    </button>
+                  ) : (
+                    <button
+                      disabled={
+                        formData.username === "" || formData.password === ""
+                      }
+                      type="submit"
+                      className={`${
+                        formData.username === "" || formData.password === ""
+                          ? "bg-[#8babbe] text-white rounded-md text-xs px-6 py-2 "
+                          : "bg-primary text-white rounded-md text-xs px-6 py-2 "
+                      } `}
+                    >
+                      Login
+                    </button>
+                  )}
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+      <Toaster position="top-center" reverseOrder={true} />
     </>
   );
 };

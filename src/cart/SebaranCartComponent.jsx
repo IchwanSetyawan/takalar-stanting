@@ -25,10 +25,6 @@ ChartJS.register(
 
 const SebaranChartComponent = () => {
   const { sebaranData } = useContext(SebaranContext);
-  console.log(
-    "🚀 ~ file: SebaranCartComponent.jsx:27 ~ CartComponent ~ sebaranData:",
-    sebaranData
-  );
 
   // useEffect(() => {
   //   fetchData();

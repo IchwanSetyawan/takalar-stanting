@@ -23,7 +23,7 @@ import formattedNumber from "../../utills/formattedNumber ";
 import CardRealtimeVer2 from "../../components/CardRealtimeVer2";
 
 const Dashboard = () => {
-  // const { roles } = useContext(authContext);
+  const { isLoading } = useContext(authContext);
   const {
     datas,
     kecamatanList,
