@@ -8,6 +8,62 @@ import "moment/locale/id";
 import { SummaryContext } from "../../context/SummaryContext";
 
 const DashboardBapakAsuh = () => {
+  const data = [
+    {
+      title: "Jumlah anak asuh yang tidak ASI",
+      total: "876",
+    },
+    {
+      title: "Rata-rata pertumbuhan panjang    dan berat badan Anak",
+      total: "123",
+    },
+    {
+      title: "Jumlah Baduta yang bertambah panjang badannya",
+      total: "124",
+    },
+    {
+      title: "Jumlah Baduta yang bertambah berat badannya",
+      total: "124",
+    },
+    {
+      title: "Rata-rata komsumsi anak asuh baduta mengkomsumsi protein hewani",
+      total: "124",
+    },
+    {
+      title: "Persentase anak asuh baduta yang mengkomsumsi protein hewani",
+      total: "87%",
+    },
+  ];
+  const data2 = [
+    {
+      title:
+        "Jumlah Anak Asuh yang status Bumil KEK yang mengkonsumsi PMT yang tidak ASI",
+      total: "876",
+    },
+    {
+      title: "Jumlah Anak Asuh yang status Bumil KEK yang mengkonsumsi TTD/MMS",
+      total: "123",
+    },
+    {
+      title:
+        "Jumlah Anak Asuh yang status Bumil KEK yang bertambah ukuran LILAnya",
+      total: "124",
+    },
+    {
+      title: "Rata-rata makan per hari Anak Asuh yang status Bumil KEK",
+      total: "124",
+    },
+    {
+      title:
+        "Presentase Anak Asuh yang status Bumil KEK yang mengkonsumsi buah-buahan",
+      total: "64%",
+    },
+    {
+      title:
+        "Presentase Anak Asuh yang status Bumil KEK yang mengkonsumsi protein hewani",
+      total: "87%",
+    },
+  ];
   // const { roles } = useContext(authContext);
   const {
     datas,
@@ -88,15 +144,15 @@ const DashboardBapakAsuh = () => {
                 </h2>
               </div>
               <div className="mt-8 border border-[#dddddd] rounded-md ">
-                {[1, 2, 3, 4, 5, 6, 7].map((item, idx) => (
+                {data.map((item, idx) => (
                   <div
                     key={idx}
                     className="flex justify-between items-center border-b border-[#dddddd] px-6 h-20"
                   >
-                    <p className="text-base text-[#252525]">
-                      Jumlah anak asuh yang tidak ASI
+                    <p className="text-base text-[#252525]">{item.title}</p>
+                    <p className="text-base text-primary font-bold">
+                      {item.total}
                     </p>
-                    <p className="text-base text-primary font-bold">876</p>
                   </div>
                 ))}
               </div>
@@ -109,16 +165,15 @@ const DashboardBapakAsuh = () => {
                 </h2>
               </div>
               <div className="mt-8 border border-[#dddddd] rounded-md ">
-                {[1, 2, 3, 4, 5, 6, 7].map((item, idx) => (
+                {data2.map((item, idx) => (
                   <div
                     key={idx}
                     className="flex justify-between items-center border-b border-[#dddddd] px-6 h-20"
                   >
-                    <p className="text-base text-[#252525]">
-                      Jumlah Anak Asuh yang status Bumil KEK yang mengkonsumsi
-                      PMT yang tidak ASI
+                    <p className="text-base text-[#252525]">{item.title}</p>
+                    <p className="text-base text-primary font-bold">
+                      {item.total}
                     </p>
-                    <p className="text-base text-primary font-bold">876</p>
                   </div>
                 ))}
               </div>

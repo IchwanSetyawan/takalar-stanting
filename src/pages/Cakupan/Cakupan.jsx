@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import CakupanComponent from "../../components/CakupanComponent";
+
 import Layout from "../../layouts/Layout";
 import TitleComponent from "../../components/TitleComponent";
 import { CakupanModel } from "../../model/CakupanModel";
 import Pagination from "../../components/Pagination";
 import { CakupanContext } from "../../context/CakupanContext";
+import CakupanComponent from "../../components/CakupanComponent";
 
 const Cakupan = () => {
   const data = CakupanModel;
