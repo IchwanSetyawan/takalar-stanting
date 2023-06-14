@@ -1,41 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
-import TableComponent from "../../components/TableComponent";
-import { dataTable } from "../../model/TableComponentModel";
 import { useNavigate, useParams } from "react-router-dom";
-import { KecamatanContext } from "../../context/KecamatanContext";
-import { SummaryContext } from "../../context/SummaryContext";
 import axios from "axios";
 import formattedNumber from "../../utills/formattedNumber ";
 
 const Location = () => {
   const navigate = useNavigate();
 
-  const { kecamatanData, fetchData } = useContext(KecamatanContext);
-  const { datas } = useContext(SummaryContext);
   const [dataKec, setDataKec] = useState([]);
 
-  const kecamatanId = kecamatanData.map((item) => item.id);
-  let params;
-
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const fetchData = async () => {
-      const request = kecamatanId.map((id) =>
-        axios.get(
-          `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-      );
-
       try {
-        const responses = await axios.all(request);
-        const responseData = responses.map((response) => response.data);
-        setDataKec(responseData);
+        const token = localStorage.getItem("token");
+        const url =
+          "https://stunting.ahadnikah.com/api/admin/dashboard/wilayah";
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setDataKec(response.data);
       } catch (error) {
         console.log("error fetching data", error);
       }
@@ -76,10 +62,10 @@ const Location = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {kecamatanData.map((item, idx) => (
+                  {dataKec.map((item, idx) => (
                     <tr
-                      onClick={() => handleNavigateLink(item.id)}
-                      key={item.id}
+                      key={idx}
+                      onClick={() => handleNavigateLink(item.kecamatan)}
                       className="bg-white border-b border-gray-200 hover:bg-gray-100 hover:text-white hover:cursor-pointer"
                     >
                       <th
@@ -92,24 +78,20 @@ const Location = () => {
                         scope="row"
                         className="px-6 py-4 font-medium text-dark whitespace-nowrap  "
                       >
-                        {item?.kecamatan}
+                        {item.nama_kecamatan}
                       </th>
 
                       <td className="px-6 py-4 text-dark flex justify-center ">
                         <div className="flex gap-2 items-center">
                           <p className="font-bold text-center">
-                            {formattedNumber(
-                              dataKec[idx]?.jumlah_keluarga_beresiko
-                            )}
+                            {formattedNumber(item.jumlah_krs)}
                           </p>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-dark  ">
                         <div className=" gap-2 items-center flex justify-center">
                           <p className="font-bold text-center">
-                            {formattedNumber(
-                              dataKec[idx]?.jumlah_anak_pendek_sangat_pendek
-                            )}
+                            {formattedNumber(item.anak_stunting)}
                           </p>
                         </div>
                       </td>
@@ -117,14 +99,14 @@ const Location = () => {
                         <div className=" items-center gap-2 flex justify-center">
                           <p
                             className={
-                              item.status === "success"
+                              item.persentase_stunting >= 66
                                 ? "text-green-500 font-bold"
-                                : item.status === "warning"
+                                : item.persentase_stunting >= 33
                                 ? "text-yellow-500 font-bold"
                                 : "text-red-500 font-bold"
                             }
                           >
-                            {dataKec[idx]?.prevalensi_balita_stunting} %
+                            {item.persentase_stunting} %
                           </p>
                         </div>
                       </td>
@@ -134,11 +116,6 @@ const Location = () => {
               </table>
             </div>
           </div>
-          {/* <TableComponent
-            data={dataTable}
-            handleLink={(id) => handleNavigateLink(id)}
-            name="Kecamatan"
-          /> */}
         </div>
       </Layout>
     </>

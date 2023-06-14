@@ -15,87 +15,37 @@ const LocationDetail = () => {
   let { id } = useParams();
 
   const navigate = useNavigate();
-
-  const { kecamatanData } = useContext(KecamatanContext);
-
-  const datasName = dataTable.find((item) => item.id === Number(id));
+  const { kecamatanData, fetchData } = useContext(KecamatanContext);
 
   const [datas, setDatas] = useState([]);
 
-  const handleNavigateLink = () => {
-    return;
-    // navigate(`/location/${id}/cakupan/${eId}`);
-  };
-  const [kelurahanList, setKelurahanList] = useState([]);
-  const [kelurahanData, setKelurahanData] = useState([]);
+  const datasName = kecamatanData.find((item) => item.id == id).kecamatan;
+  const alertInfo = datas.find((item) => item.persentase_stunting < 33);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const url = `https://stunting.ahadnikah.com/api/wilayah/desa/`;
+        const url = `https://stunting.ahadnikah.com/api/admin/dashboard/wilayah/${id}`;
 
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setKelurahanList(response.data);
+        setDatas(response.data);
       } catch (error) {
-        console.log(error);
+        console.log("error fetching data", error);
       }
     };
     fetchData();
   }, []);
 
-  const dataKel = kelurahanList.filter(
-    (item) => item.id_kecamatan === Number(id)
-  );
-
-  const nameKecamatan = kecamatanData.find((item) => item.id === Number(id));
-
-  const kelurahanId = dataKel.map((item) => item.id);
-
-  useEffect(() => {
-    const fetchSummaryKelurahan = async () => {
-      const token = localStorage.getItem("token");
-      const request = kelurahanId.map((eId) =>
-        axios.get(
-          `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${id}/${eId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-      );
-      try {
-        const response = await axios.all(request);
-        const responseData = response.map((response) => response.data);
-        console.log(
-          "🚀 ~ file: LocationDetail.jsx:69 ~ fetchSummaryKelurahan ~ responseData:",
-          responseData
-        );
-
-        setKelurahanData(responseData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchSummaryKelurahan();
-  }, []);
-
-  // useEffect(() => {
-  //   const dataKel = dataTable.filter((item) => item.id === Number(id));
-  //   setDatas(dataKel);
-  //   kelurahanData;
-  // }, [id]);
-
   return (
     <>
       <Layout>
         <div className="">
-          {datasName.status === "warning" && <AlertComponent />}
+          {alertInfo && <AlertComponent />}
           <div className="flex items-center justify-start">
             <Link to="/location">
               <div className="w-8 h-8 rounded-lg  flex justify-center items-center mr-3 cursor-pointer hover:text-primary">
@@ -114,7 +64,7 @@ const LocationDetail = () => {
               </div>
             </Link>
             <h1 className="text-2xl font-semibold my-4 mr-2">
-              Kecamatan {datasName?.name}
+              Kecamatan {datasName}
             </h1>
           </div>
 
@@ -144,10 +94,9 @@ const LocationDetail = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {dataKel.map((item, idx) => (
+                    {datas.map((item, idx) => (
                       <tr
-                        onClick={() => handleNavigateLink(item.id)}
-                        key={item.id}
+                        key={idx}
                         className="bg-white border-b border-gray-200 hover:bg-gray-100 hover:text-white hover:cursor-pointer"
                       >
                         <th
@@ -160,25 +109,20 @@ const LocationDetail = () => {
                           scope="row"
                           className="px-6 py-4 font-medium text-dark whitespace-nowrap  "
                         >
-                          {item?.desa}
+                          {item?.nama_kelurahan}
                         </th>
 
                         <td className="px-6 py-4 text-dark flex justify-center ">
                           <div className="flex gap-2 items-center">
                             <p className="font-bold text-center">
-                              {formattedNumber(
-                                kelurahanData[idx]?.jumlah_keluarga_beresiko
-                              )}
+                              {formattedNumber(item.jumlah_krs)}
                             </p>
                           </div>
                         </td>
                         <td className="px-6 py-4 text-dark  ">
                           <div className=" gap-2 items-center flex justify-center">
                             <p className="font-bold text-center">
-                              {formattedNumber(
-                                kelurahanData[idx]
-                                  ?.jumlah_anak_pendek_sangat_pendek
-                              )}
+                              {formattedNumber(item.anak_stunting)}
                             </p>
                           </div>
                         </td>
@@ -186,14 +130,14 @@ const LocationDetail = () => {
                           <div className=" items-center gap-2 flex justify-center">
                             <p
                               className={
-                                item.status === "success"
+                                item.persentase_stunting >= 66
                                   ? "text-green-500 font-bold"
-                                  : item.status === "warning"
+                                  : item.persentase_stunting >= 33
                                   ? "text-yellow-500 font-bold"
                                   : "text-red-500 font-bold"
                               }
                             >
-                              {kelurahanData[idx]?.prevalensi_balita_stunting} %
+                              {item.persentase_stunting} %
                             </p>
                           </div>
                         </td>
