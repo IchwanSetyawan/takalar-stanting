@@ -57,6 +57,9 @@ const Location = () => {
                       Jumah Balita Stunting (Pendek & Sangat Pendek)
                     </th>
                     <th scope="col" className="px-6 text-center py-3">
+                      Total Balita
+                    </th>
+                    <th scope="col" className="px-6 text-center py-3">
                       Prevelensi Stunting
                     </th>
                   </tr>
@@ -96,14 +99,21 @@ const Location = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 text-dark  ">
+                        <div className=" gap-2 items-center flex justify-center">
+                          <p className="font-bold text-center">
+                            {formattedNumber(item.total_balita)}
+                          </p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-dark  ">
                         <div className=" items-center gap-2 flex justify-center">
                           <p
                             className={
                               item.persentase_stunting >= 66
-                                ? "text-green-500 font-bold"
+                                ? "text-red-500 font-bold"
                                 : item.persentase_stunting >= 33
                                 ? "text-yellow-500 font-bold"
-                                : "text-red-500 font-bold"
+                                : "text-green-500 font-bold"
                             }
                           >
                             {item.persentase_stunting} %
