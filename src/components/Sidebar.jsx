@@ -17,6 +17,7 @@ import LocationIcon from "../assets/icon/location-icon.svg";
 
 const Sidebar = () => {
   const location = useLocation();
+  console.log("🚀 ~ file: Sidebar.jsx:20 ~ Sidebar ~ location:", location);
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
   useEffect(() => {
     if (location.pathname === "/") {
@@ -32,7 +33,8 @@ const Sidebar = () => {
     } else if (location.pathname === "/location") {
       setTabMenu(6);
     }
-  }, []);
+  }, [location]);
+
   return (
     <>
       <aside

@@ -10,6 +10,7 @@ import { CakupanContextProvider } from "./context/CakupanContext.jsx";
 import { KecamatanContextProvider } from "./context/KecamatanContext.jsx";
 import { KelurahanContextProvider } from "./context/KelurahanContext.jsx";
 import { SebaranContextProvider } from "./context/SebaranContext.jsx";
+import { BapakAsuhContextProvider } from "./context/BapakAsuhContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -20,7 +21,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <CakupanContextProvider>
               <SummaryContextProvider>
                 <SebaranContextProvider>
-                  <App />
+                  <BapakAsuhContextProvider>
+                    <App />
+                  </BapakAsuhContextProvider>
                 </SebaranContextProvider>
               </SummaryContextProvider>
             </CakupanContextProvider>

@@ -12,6 +12,7 @@ export const AuthContextProvider = ({ children }) => {
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
   const [roles, setRoles] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getToken = () => {
     const generateToken = localStorage.getItem("token");
@@ -66,6 +67,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const handleLogin = () => {
     const URL = "https://stunting.ahadnikah.com/api/auth/login";
+    setIsLoading(true);
     axios
       .post(URL, requestBody)
       .then((response) => {
@@ -75,10 +77,12 @@ export const AuthContextProvider = ({ children }) => {
         setTokenFunc(response.data.access);
         localStorage.setItem("1", response?.data?.first_name);
         // setUsername(response?.data?.first_name);
-        navigate("/dashboard");
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 2000);
+        setIsLoading(false);
       })
       .catch((err) => {
-        alert("err");
         console.log(err);
       });
   };
@@ -105,6 +109,9 @@ export const AuthContextProvider = ({ children }) => {
 
         roles,
         setRoles,
+
+        isLoading,
+        setIsLoading,
       }}
     >
       {isAuthenticated ? children : <Login />}

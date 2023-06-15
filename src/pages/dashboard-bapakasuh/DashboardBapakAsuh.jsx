@@ -6,8 +6,67 @@ import childCareIcon from "../../assets/icon/child-care-icon.svg";
 import "moment/locale/id";
 
 import { SummaryContext } from "../../context/SummaryContext";
+import formattedNumber from "../../utills/formattedNumber ";
+import AsuhComponentList from "../../components/AsuhComponentList";
+import { BapakAsuhContext } from "../../context/BapakAsuhContext";
 
 const DashboardBapakAsuh = () => {
+  const data = [
+    {
+      title: "Jumlah anak asuh yang tidak ASI",
+      total: "876",
+    },
+    {
+      title: "Rata-rata pertumbuhan panjang    dan berat badan Anak",
+      total: "123",
+    },
+    {
+      title: "Jumlah Baduta yang bertambah panjang badannya",
+      total: "124",
+    },
+    {
+      title: "Jumlah Baduta yang bertambah berat badannya",
+      total: "124",
+    },
+    {
+      title: "Rata-rata komsumsi anak asuh baduta mengkomsumsi protein hewani",
+      total: "124",
+    },
+    {
+      title: "Persentase anak asuh baduta yang mengkomsumsi protein hewani",
+      total: "87%",
+    },
+  ];
+  const data2 = [
+    {
+      title:
+        "Jumlah Anak Asuh yang status Bumil KEK yang mengkonsumsi PMT yang tidak ASI",
+      total: "876",
+    },
+    {
+      title: "Jumlah Anak Asuh yang status Bumil KEK yang mengkonsumsi TTD/MMS",
+      total: "123",
+    },
+    {
+      title:
+        "Jumlah Anak Asuh yang status Bumil KEK yang bertambah ukuran LILAnya",
+      total: "124",
+    },
+    {
+      title: "Rata-rata makan per hari Anak Asuh yang status Bumil KEK",
+      total: "124",
+    },
+    {
+      title:
+        "Presentase Anak Asuh yang status Bumil KEK yang mengkonsumsi buah-buahan",
+      total: "64%",
+    },
+    {
+      title:
+        "Presentase Anak Asuh yang status Bumil KEK yang mengkonsumsi protein hewani",
+      total: "87%",
+    },
+  ];
   // const { roles } = useContext(authContext);
   const {
     datas,
@@ -17,7 +76,11 @@ const DashboardBapakAsuh = () => {
     setKecamatanId,
     kelurahanId,
     setKelurahanId,
-  } = useContext(SummaryContext);
+  } = useContext(BapakAsuhContext);
+  console.log(
+    "🚀 ~ file: DashboardBapakAsuh.jsx:79 ~ DashboardBapakAsuh ~ datas:",
+    datas
+  );
 
   const handleKecamatanChange = (event) => {
     const getkecamatanid = event.target.value;
@@ -73,9 +136,18 @@ const DashboardBapakAsuh = () => {
             </div>
 
             <div className="flex justify-between gap-x-5 my-8">
-              <CardWilayah title="Jumlah Bapak Asuh" total="26" />
-              <CardWilayah title="Jumlah Anak Asuh" total="35" />
-              <CardWilayah title="Rata-rata kunjungan" total="277" />
+              <CardWilayah
+                title="Jumlah Bapak Asuh"
+                total={formattedNumber(datas.jml_bapak_asuh)}
+              />
+              <CardWilayah
+                title="Jumlah Anak Asuh"
+                total={formattedNumber(datas.jml_anak_asuh)}
+              />
+              <CardWilayah
+                title="Rata-rata kunjungan"
+                total={formattedNumber(datas.rt_kunjungan)}
+              />
             </div>
           </div>
 
@@ -88,17 +160,58 @@ const DashboardBapakAsuh = () => {
                 </h2>
               </div>
               <div className="mt-8 border border-[#dddddd] rounded-md ">
-                {[1, 2, 3, 4, 5, 6, 7].map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex justify-between items-center border-b border-[#dddddd] px-6 h-20"
-                  >
-                    <p className="text-base text-[#252525]">
-                      Jumlah anak asuh yang tidak ASI
-                    </p>
-                    <p className="text-base text-primary font-bold">876</p>
-                  </div>
-                ))}
+                <AsuhComponentList
+                  title="Jumlah anak asuh yang tidak ASI"
+                  total={
+                    datas.jml_anak_yang_tidak_asi
+                      ? formattedNumber(datas.jml_anak_yang_tidak_asi)
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Rata-rata pertumbuhan panjang dan berat badan Anak"
+                  total={
+                    datas.rt_pertumbuhan_panjang_berat_anak
+                      ? formattedNumber(datas.rt_pertumbuhan_panjang_berat_anak)
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Jumlah yang bertambah panjang badannya"
+                  total={
+                    datas.jml_baduta_bertambah_panjang_badan
+                      ? formattedNumber(
+                          datas.jml_baduta_bertambah_panjang_badan
+                        )
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Jumlah yang bertambah berat badannya"
+                  total={
+                    datas.jml_baduta_bertambah_berat_badan
+                      ? formattedNumber(datas.jml_baduta_bertambah_berat_badan)
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Rata-rata komsumsi protein hewani"
+                  total={
+                    datas.rt_komsumsi_baduta_protein_hewani
+                      ? formattedNumber(datas.rt_komsumsi_baduta_protein_hewani)
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Persentase yang mengkomsumsi protein hewani"
+                  total={`${
+                    datas.persentase_baduta_komsumsi_protein
+                      ? formattedNumber(
+                          datas.persentase_baduta_komsumsi_protein
+                        )
+                      : 0
+                  }%`}
+                />
               </div>
             </div>
             <div className="p-6 bg-white h-auto rounded-lg ">
@@ -109,18 +222,55 @@ const DashboardBapakAsuh = () => {
                 </h2>
               </div>
               <div className="mt-8 border border-[#dddddd] rounded-md ">
-                {[1, 2, 3, 4, 5, 6, 7].map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex justify-between items-center border-b border-[#dddddd] px-6 h-20"
-                  >
-                    <p className="text-base text-[#252525]">
-                      Jumlah Anak Asuh yang status Bumil KEK yang mengkonsumsi
-                      PMT yang tidak ASI
-                    </p>
-                    <p className="text-base text-primary font-bold">876</p>
-                  </div>
-                ))}
+                <AsuhComponentList
+                  title="Jumlah yang mengkonsumsi PMT yang tidak ASI"
+                  total={
+                    datas.jml_bumil_komsumsi_pmt_tidak_asi
+                      ? formattedNumber(datas.jml_bumil_komsumsi_pmt_tidak_asi)
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Jumlah yang mengkonsumsi TTD/MMS"
+                  total={
+                    datas.jml_bumil_komsumsi_ttd_mms
+                      ? formattedNumber(datas.jml_bumil_komsumsi_ttd_mms)
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Jumlah yang bertambah ukuran LILAnya"
+                  total={
+                    datas.jml_bumil_yang_bertambah_lila
+                      ? formattedNumber(datas.jml_bumil_yang_bertambah_lila)
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Rata-rata makan per hari"
+                  total={
+                    datas.rt_makan_perhari_bumilkek
+                      ? formattedNumber(datas.rt_makan_perhari_bumilkek)
+                      : 0
+                  }
+                />
+                <AsuhComponentList
+                  title="Presentase yang mengkonsumsi buah-buahan"
+                  total={`${
+                    datas.persentase_bumilkek_komsumsi_buah
+                      ? formattedNumber(datas.persentase_bumilkek_komsumsi_buah)
+                      : 0
+                  }%`}
+                />
+
+                <AsuhComponentList
+                  title="Presentase yang mengkonsumsi protein hewani"
+                  total={`${
+                    datas.persentase_bumilkek_komsumsi_buah
+                      ? formattedNumber(datas.persentase_bumilkek_komsumsi_buah)
+                      : 0
+                  }%`}
+                />
               </div>
             </div>
           </div>

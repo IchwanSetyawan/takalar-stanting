@@ -6,6 +6,7 @@ import ArrowButtonIcon from "../assets/icon/arrow-bottom-icon.svg";
 import moment from "moment/moment";
 import { authContext } from "../context/AuthContext";
 import LiveClock from "react-live-clock";
+import { Toaster, toast } from "react-hot-toast";
 
 export const Header = () => {
   const currentDate = moment().format("dddd, D MMMM YYYY");
@@ -48,7 +49,10 @@ export const Header = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("1");
     localStorage.removeItem("roles");
-    navigate("/login");
+    toast.success("Berhasil logout!");
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
   };
 
   return (
@@ -132,6 +136,7 @@ export const Header = () => {
           )}
         </div>
       </div>
+      <Toaster position="top-center" reverseOrder={true} />
     </>
   );
 };
