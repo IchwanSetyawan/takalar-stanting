@@ -87,21 +87,27 @@ const Location = () => {
                       <td className="px-6 py-4 text-dark flex justify-center ">
                         <div className="flex gap-2 items-center">
                           <p className="font-bold text-center">
-                            {formattedNumber(item.jumlah_krs)}
+                            {item.jumlah_krs !== null
+                              ? formattedNumber(item.jumlah_krs)
+                              : 0}
                           </p>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-dark  ">
                         <div className=" gap-2 items-center flex justify-center">
                           <p className="font-bold text-center">
-                            {formattedNumber(item.anak_stunting)}
+                            {item.anak_stunting !== null
+                              ? formattedNumber(item.anak_stunting)
+                              : 0}
                           </p>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-dark  ">
                         <div className=" gap-2 items-center flex justify-center">
                           <p className="font-bold text-center">
-                            {formattedNumber(item.total_balita)}
+                            {item.total_balita !== null
+                              ? formattedNumber(item.total_balita)
+                              : 0}
                           </p>
                         </div>
                       </td>

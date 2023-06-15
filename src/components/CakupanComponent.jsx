@@ -1,14 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { convertPercent, maxWidthConvert } from "../utills/convertPercent";
+import InfoIcon from "../assets/icon/info-icon.svg";
 import ReactPaginate from "react-paginate";
+import InfoComponent from "./InfoComponent";
 
 const CakupanComponent = () => {
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
   const [pageSize, setPageSize] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
+
       try {
         const token = localStorage.getItem("token");
         const url =
@@ -21,6 +27,7 @@ const CakupanComponent = () => {
         setCount(response.data.count);
         setPageSize(response.data.page_size);
         setData(response.data.results);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -48,43 +55,91 @@ const CakupanComponent = () => {
   const handlePageClick = (data) => {
     console.log(data.selected);
     const currentPage = data.selected + 1;
-    console.log("🚀 ~currentPage:", currentPage);
     fetchingData(currentPage);
   };
 
-  console.log("dataNew", data);
-  console.log("count", count);
-  console.log("PageSize", pageSize);
+  const [showInfo, setShowInfo] = React.useState(false);
+  const [showInfoId, setShowInfoId] = React.useState(null);
+
+  const handleShowInfo = (id) => {
+    setShowInfo(true);
+    setShowInfoId(id);
+  };
+  const handleCloseInfo = (id) => {
+    setShowInfo(false);
+  };
 
   return (
-    <div>
-      {data.map((item, idx) => (
-        <div key={idx} className="flex gap-2">
-          <p>{item.id}</p>
-          <p>{item.indikator}</p>
-          <p>{item.nilai}</p>
+    <div className="h-auto">
+      <div className=" p-10 pb-16  rounded-xl h-[950px] bg-white border border-gray-200">
+        <div className="flex flex-row flex-wrap gap-4">
+          <div className="w-11/12">
+            {data.map((item, id) => (
+              <div className="mt-4 relative z-10 " key={id}>
+                <div className=" text flex justify-start  mb-1 gap-5">
+                  <div className="mt-1 nomor ">
+                    <div className="text-white text-sm rounded-full font-bold h-6 w-6 flex justify-center items-center  bg-primary ">
+                      {item.id}
+                    </div>
+                  </div>
+                  <p className="w-11/12">{item.indikator}</p>
+                  {item.nilai <= 55 && (
+                    <button onClick={() => handleShowInfo(item.id)}>
+                      <img src={InfoIcon} alt="info icon" />
+                    </button>
+                  )}
+                </div>
+                <div className="bar ml-10 mt-2 flex justify-between items-center">
+                  <div className="w-full bg-gray-200 rounded-full h-5 dark:bg-gray-700">
+                    <div
+                      className={`${
+                        item.nilai <= 33
+                          ? "bg-[#F2725D]"
+                          : item.nilai <= 60
+                          ? "bg-[#FCCF4B]"
+                          : "bg-[#3acf49]"
+                      } h-5 rounded-full `}
+                      style={{
+                        width: `${maxWidthConvert(item.nilai.toFixed(0))}%`,
+                      }}
+                    ></div>
+                  </div>
+                  <p className="text-sm text-dark font-semibold ml-4">
+                    {convertPercent(item.nilai.toFixed(0))}%
+                  </p>
+                </div>
+                {showInfo && showInfoId === item.id ? (
+                  <div className="block">
+                    <InfoComponent
+                      id={item.id}
+                      handleClose={() => handleCloseInfo(item.id)}
+                    />
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-
-      <div className="mt-5 flex justify-center">
+      </div>
+      <div className="mt-5 flex justify-start ">
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
           breakLabel={"..."}
-          pageCount={Math.ceil(count / pageSize)}
+          pageCount={Math.ceil(Number(count / pageSize))}
           marginPagesDisplayed={2}
           pageRangeDisplayed={6}
           onPageChange={handlePageClick}
-          activeClassName={"bg-primary text-white"}
-          containerClassName={"container flex justify-center"}
+          containerClassName={"container flex justify-start"}
           pageClassName="p-1"
-          pageLinkClassName="bg-white text-primary py-1 px-3 "
+          pageLinkClassName=" bg-white text-primary py-1 px-3 "
+          activeClassName={"bg-primary text-white"}
           previousClassName="p-1"
           previousLinkClassName="bg-white text-primary py-1 px-3 "
           nextClassName="p-1"
           nextLinkClassName="bg-white text-primary py-1 px-3 "
           breakClassName="p-1"
-          breakLinkClassName=" text-primary py-1 px-3 "
+          breakLinkClassName=" text-primary  "
         />
       </div>
     </div>
