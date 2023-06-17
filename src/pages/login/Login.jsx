@@ -37,8 +37,6 @@ const Login = () => {
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    toast.success("Berhasil login!");
-
     handleLogin();
   }
 
@@ -47,8 +45,6 @@ const Login = () => {
       navigate("/dashboard");
     }
   });
-
-  console.log("login", isLogin);
 
   return (
     <>
@@ -130,7 +126,7 @@ const Login = () => {
                           : "bg-primary text-white rounded-md text-xs px-6 py-2 "
                       } `}
                     >
-                      Login
+                      {isLoading ? "Loading..." : "Login"}
                     </button>
                   ) : (
                     <button

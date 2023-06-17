@@ -10,8 +10,6 @@ import DompetImage from "../../assets/landingpage/dompet-image.png";
 import TakalarImage from "../../assets/landingpage/takalar-image.png";
 import Chart1 from "../../assets/landingpage/chart1.jpeg";
 import Chart2 from "../../assets/landingpage/chart2.jpeg";
-import CartComponent from "../../cart/CartComponent";
-// import SebaranChartComponent from "../../cart/SebaranCartComponent";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -46,10 +44,7 @@ const Beranda = () => {
     datasets: [
       {
         label: "SSGI",
-        data: [
-          datas.prevalensi_stunting_ssgi_2021,
-          datas.prevalensi_stunting_ssgi_2022,
-        ],
+        data: ["34.7", "31.3"],
         indexAxis: "x",
         backgroundColor: "#168EEA",
         borderColor: "#168EEA",
@@ -58,10 +53,7 @@ const Beranda = () => {
       },
       {
         label: "E-PPGBM",
-        data: [
-          datas.prevalensi_stunting_eppgbm_2021,
-          datas.prevalensi_stunting_eppgbm_2022,
-        ],
+        data: ["11.4", "9.9"],
         indexAxis: "x",
         backgroundColor: "#FBAE47",
         borderColor: "#FBAE47",
@@ -247,11 +239,7 @@ const Beranda = () => {
         const url =
           "https://stunting.ahadnikah.com/api/admin/dashboard/sebaran";
 
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(url);
         setSebaranData(response.data);
       } catch (error) {
         console.log(error);
@@ -326,10 +314,8 @@ const Beranda = () => {
             Waspada Kenaikan Angka Stunting di Kabupaten Takalar
           </p>
           <div className="grid grid-cols-2 items-center gap-10">
-            <div className=" px-2 py-4 rounded-lg">
-              {/* <CartComponent /> */}
-              {/* <Bar data={data} options={options} height={388} /> */}
-              <img src={Chart1} />
+            <div className=" px-2 py-4 rounded-lg border border-darkSmooth">
+              <Bar data={data} options={options} height={388} />
             </div>
             <div>
               <p className="text-2xl text-start leading-loose">
@@ -347,9 +333,7 @@ const Beranda = () => {
           <p className="text-2xl mb-16 font-bold">Wilayah Terdampak Stunting</p>
           <div className="grid grid-cols-1 items-center gap-10">
             <div className=" px-2 py-4 rounded-lg bg-white">
-              {/* <SebaranChartComponent /> */}
-              {/* <Bar data={dataSebaran} options={optionsSebaran} height={388} /> */}
-              <img src={Chart2} />
+              <Bar data={dataSebaran} options={optionsSebaran} height={388} />
             </div>
           </div>
         </div>

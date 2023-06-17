@@ -11,6 +11,9 @@ export const SummaryContextProvider = ({ children }) => {
   const [kecamatanId, setKecamatanId] = useState("");
   const [kelurahanId, setKelurahanId] = useState("");
   const [datas, setDatas] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const dataStotalbalita =
     datas.jumlah_anak_umur_0_5_bulan +
     datas.jumlah_anak_umur_6_11_bulan +
@@ -23,31 +26,61 @@ export const SummaryContextProvider = ({ children }) => {
         const token = localStorage.getItem("token");
         if (kecamatanId && kelurahanId) {
           const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}/${kelurahanId}`;
-          const response = await axios.get(url, {
+          const payload = {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          });
-          setDatas(response.data);
+          };
+
+          axios
+            .get(url, payload)
+            .then((response) => {
+              setIsLoading(true);
+              setDatas(response.data);
+            })
+            .catch((error) => {
+              setIsLoading(false);
+              console.log(error);
+            });
         } else if (kecamatanId) {
           const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}`;
-          const response = await axios.get(url, {
+          const payload = {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          });
-          setDatas(response.data);
+          };
+
+          axios
+            .get(url, payload)
+            .then((response) => {
+              setIsLoading(true);
+              setDatas(response.data);
+            })
+            .catch((error) => {
+              setIsLoading(false);
+              console.log(error);
+            });
         } else {
           const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary`;
-
-          const response = await axios.get(url, {
+          const payload = {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          });
-          setDatas(response.data);
+          };
+
+          axios
+            .get(url, payload)
+            .then((response) => {
+              setIsLoading(true);
+              setDatas(response.data);
+            })
+            .catch((error) => {
+              setIsLoading(false);
+              console.log(error);
+            });
         }
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
       }
     };
@@ -112,6 +145,8 @@ export const SummaryContextProvider = ({ children }) => {
 
         kelurahanId,
         setKelurahanId,
+
+        isLoading,
       }}
     >
       {children}

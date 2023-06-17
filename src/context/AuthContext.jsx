@@ -4,6 +4,7 @@ import axios from "axios";
 import { Navigate, Redirect, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Beranda from "../pages/LandingPage/Beranda";
+import { toast } from "react-hot-toast";
 
 export const authContext = createContext();
 
@@ -68,7 +69,6 @@ export const AuthContextProvider = ({ children }) => {
 
   const handleLogin = () => {
     const URL = "https://stunting.ahadnikah.com/api/auth/login";
-    setIsLoading(true);
     axios
       .post(URL, requestBody)
       .then((response) => {
@@ -81,9 +81,13 @@ export const AuthContextProvider = ({ children }) => {
         setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
-        setIsLoading(false);
+        toast.success("Berhasil login!");
+        console.log(isLogin);
+        setIsLoading(true);
       })
       .catch((err) => {
+        setIsLogin(false);
+        setIsLoading(false);
         console.log(err);
       });
   };

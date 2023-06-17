@@ -23,7 +23,6 @@ import formattedNumber from "../../utills/formattedNumber ";
 import CardRealtimeVer2 from "../../components/CardRealtimeVer2";
 
 const Dashboard = () => {
-  const { isLoading } = useContext(authContext);
   const {
     datas,
     kecamatanList,
@@ -32,6 +31,8 @@ const Dashboard = () => {
     setKecamatanId,
     kelurahanId,
     setKelurahanId,
+
+    isLoading,
   } = useContext(SummaryContext);
 
   const handleKecamatanChange = (event) => {
@@ -55,103 +56,145 @@ const Dashboard = () => {
             </div>
 
             <div className="flex justify-between gap-x-5 my-8">
-              <CardWilayah title="kecamatan" total={datas.total_kecamatan} />
-              <CardWilayah
-                title="Desa/Kelurahan"
-                total={datas.total_kelurahan}
-              />
-              <CardWilayah
-                title="Dusun"
-                total={formattedNumber(datas.total_dusun)}
-              />
-              <CardWilayah
-                title="Jumlah Penduduk"
-                total={formattedNumber(datas.total_penduduk)}
-              />
+              {isLoading ? (
+                <>
+                  <CardWilayah
+                    title="kecamatan"
+                    total={datas.total_kecamatan}
+                  />
+                  <CardWilayah
+                    title="Desa/Kelurahan"
+                    total={datas.total_kelurahan}
+                  />
+                  <CardWilayah
+                    title="Dusun"
+                    total={formattedNumber(datas.total_dusun)}
+                  />
+                  <CardWilayah
+                    title="Jumlah Penduduk"
+                    total={formattedNumber(datas.total_penduduk)}
+                  />
+                </>
+              ) : (
+                <div role="status" className="max-w-sm animate-pulse">
+                  <div className="h-24 bg-gray-200 rounded-lg  dark:bg-gray-700 w-[900px] mb-4"></div>
+                </div>
+              )}
             </div>
           </div>
           <div className="mt-8">
             <div className="flex justify-between items-center mb-8">
               <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
-              <div className=" flex justify-center items-center text-dark  gap-4">
-                <select
-                  className="w-72"
-                  value={kecamatanId}
-                  onChange={(e) => handleKecamatanChange(e)}
-                >
-                  <option value="">Kecamatan</option>
-                  {kecamatanList.map((kec, idx) => (
-                    <option key={idx} value={kec.id}>
-                      {kec.kecamatan}
-                    </option>
-                  ))}
-                </select>
 
-                <select
-                  className="w-72"
-                  value={kelurahanId}
-                  onChange={(e) => handleKelurahanChange(e)}
-                  disabled={!kecamatanId}
-                >
-                  <option value="">Kelurahan</option>
-                  {kelurahanList
-                    ?.filter((item) => item.id_kecamatan == kecamatanId)
-                    .map((kel, idx) => (
-                      <option key={idx} value={kel.id}>
-                        {kel.desa}
-                      </option>
-                    ))}
-                </select>
+              <div className=" flex justify-center items-center text-dark  gap-4">
+                {isLoading ? (
+                  <>
+                    <select
+                      className="w-72"
+                      value={kecamatanId}
+                      onChange={(e) => handleKecamatanChange(e)}
+                    >
+                      <option value="">Kecamatan</option>
+                      {kecamatanList.map((kec, idx) => (
+                        <option key={idx} value={kec.id}>
+                          {kec.kecamatan}
+                        </option>
+                      ))}
+                    </select>
+
+                    <select
+                      className="w-72"
+                      value={kelurahanId}
+                      onChange={(e) => handleKelurahanChange(e)}
+                      disabled={!kecamatanId}
+                    >
+                      <option value="">Kelurahan</option>
+                      {kelurahanList
+                        ?.filter((item) => item.id_kecamatan == kecamatanId)
+                        .map((kel, idx) => (
+                          <option key={idx} value={kel.id}>
+                            {kel.desa}
+                          </option>
+                        ))}
+                    </select>
+                  </>
+                ) : (
+                  <div role="status" className="max-w-sm animate-pulse">
+                    <div className="h-[50px] bg-gray-200 rounded-lg  dark:bg-gray-700 w-[350px] mb-4"></div>
+                  </div>
+                )}
               </div>
             </div>
 
             <div className=" grid grid-cols-3 gap-4 mt-10">
               <RealtimeData>
                 <div className="grid grid-cols-2 gap-5">
-                  <CardRealtimeHor
-                    name="Jumlah Keluarga"
-                    total={formattedNumber(datas.jumlah_keluarga)}
-                    icon={FamilyIcon}
-                  />
-                  <CardRealtimeHor
-                    name="Keluarga beresiko Stunting"
-                    total={formattedNumber(datas.jumlah_keluarga_beresiko)}
-                    icon={WarningIcon}
-                  />
-                  <CardRealtimeHor
-                    name="Jumlah Keluarga Sasaran"
-                    total={formattedNumber(datas.jumlah_keluarga_sasaran)}
-                    icon={FamilyTargetIcon}
-                  />
-                  <CardRealtimeHor
-                    name="Prevalensi"
-                    total={`${datas.prevalensi} %`}
-                    icon={CurveIcon}
-                  />
+                  {isLoading ? (
+                    <>
+                      <CardRealtimeHor
+                        name="Jumlah Keluarga"
+                        total={formattedNumber(datas.jumlah_keluarga)}
+                        icon={FamilyIcon}
+                      />
+                      <CardRealtimeHor
+                        name="Keluarga beresiko Stunting"
+                        total={formattedNumber(datas.jumlah_keluarga_beresiko)}
+                        icon={WarningIcon}
+                      />
+                      <CardRealtimeHor
+                        name="Jumlah Keluarga Sasaran"
+                        total={formattedNumber(datas.jumlah_keluarga_sasaran)}
+                        icon={FamilyTargetIcon}
+                      />
+                      <CardRealtimeHor
+                        name="Prevalensi"
+                        total={`${datas.prevalensi} %`}
+                        icon={CurveIcon}
+                      />
+                    </>
+                  ) : (
+                    <div role="status" className="max-w-sm animate-pulse">
+                      <div className="h-24 bg-gray-200 rounded-lg  dark:bg-gray-700 w-[600px] mb-4"></div>
+                    </div>
+                  )}
                 </div>
-                <div className="mt-4 shadow-smooth  border rounded-lg  px-2 py-5">
-                  <CartComponent />
-                </div>
+                {isLoading ? (
+                  <div className="mt-4 shadow-smooth  border rounded-lg  px-2 py-5">
+                    <CartComponent />
+                  </div>
+                ) : (
+                  <div role="status" className="max-w-sm animate-pulse">
+                    <div className="h-96 bg-gray-200 rounded-lg  dark:bg-gray-700 w-[600px] mb-4"></div>
+                  </div>
+                )}
               </RealtimeData>
               <PeriodikData>
-                <CardRealtimeVer2
-                  name="Jumlah Balita yang Diukur"
-                  icon={Persons}
-                  total={formattedNumber(datas.jumlah_balita_terukur)}
-                />
-                <CardRealtimeVer2
-                  icon={AccesibleIcon}
-                  total={formattedNumber(
-                    datas.jumlah_anak_pendek_sangat_pendek
-                  )}
-                  name="Jumlah Balita Pendek dan Sangat Pendek"
-                />
+                {isLoading ? (
+                  <>
+                    <CardRealtimeVer2
+                      name="Jumlah Balita yang Diukur"
+                      icon={Persons}
+                      total={formattedNumber(datas.jumlah_balita_terukur)}
+                    />
+                    <CardRealtimeVer2
+                      icon={AccesibleIcon}
+                      total={formattedNumber(
+                        datas.jumlah_anak_pendek_sangat_pendek
+                      )}
+                      name="Jumlah Balita Pendek dan Sangat Pendek"
+                    />
 
-                <CardRealtimeVer2
-                  name="Prevalensi Balita Stunting"
-                  icon={SortIcon}
-                  total={`${datas.prevalensi_balita_stunting} %`}
-                />
+                    <CardRealtimeVer2
+                      name="Prevalensi Balita Stunting"
+                      icon={SortIcon}
+                      total={`${datas.prevalensi_balita_stunting} %`}
+                    />
+                  </>
+                ) : (
+                  <div role="status" className="max-w-sm animate-pulse">
+                    <div className="h-[500px] bg-gray-200 rounded-lg  dark:bg-gray-700 w-[270px] mb-4"></div>
+                  </div>
+                )}
               </PeriodikData>
             </div>
           </div>
