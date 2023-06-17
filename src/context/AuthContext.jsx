@@ -3,6 +3,7 @@ import Login from "../pages/login/Login";
 import axios from "axios";
 import { Navigate, Redirect, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Beranda from "../pages/LandingPage/Beranda";
 
 export const authContext = createContext();
 
@@ -29,9 +30,9 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     getToken();
-    if (isAuthenticated) {
-      navigate("/dashboard");
-    }
+    // if (isAuthenticated) {
+    //   navigate("/dashboard");
+    // }
 
     const timeout = setTimeout(() => {
       setIsLogin(false);
@@ -112,9 +113,11 @@ export const AuthContextProvider = ({ children }) => {
 
         isLoading,
         setIsLoading,
+        isAuthenticated,
       }}
     >
-      {isAuthenticated ? children : <Login />}
+      {/* {isAuthenticated ? children : <Login />} */}
+      {children}
     </authContext.Provider>
   );
 };

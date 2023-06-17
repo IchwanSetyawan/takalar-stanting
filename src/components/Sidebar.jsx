@@ -17,7 +17,6 @@ import LocationIcon from "../assets/icon/location-icon.svg";
 
 const Sidebar = () => {
   const location = useLocation();
-  console.log("🚀 ~ file: Sidebar.jsx:20 ~ Sidebar ~ location:", location);
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
   useEffect(() => {
     if (location.pathname === "/") {
@@ -46,7 +45,9 @@ const Sidebar = () => {
           <div>
             <div className="flex justify-center">
               <div className="w-32 ">
-                <img src={Logo} alt="logo" />
+                <Link to="/">
+                  <img src={Logo} alt="logo" />
+                </Link>
               </div>
             </div>
             <div className="mt-9">

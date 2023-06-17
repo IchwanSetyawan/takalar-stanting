@@ -37,7 +37,7 @@ const CartComponent = () => {
         label: "SSGI",
         data: [
           datas.prevalensi_stunting_ssgi_2021,
-          datas.prevalensi_stunting_ssgi_2021,
+          datas.prevalensi_stunting_ssgi_2022,
         ],
         indexAxis: "x",
         backgroundColor: "#168EEA",
