@@ -24,6 +24,7 @@ const Login = () => {
     getLogin,
     isLoading,
     setIsLoading,
+    isAuthenticated,
 
     roles,
   } = useContext(authContext);
@@ -40,6 +41,14 @@ const Login = () => {
 
     handleLogin();
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  });
+
+  console.log("login", isLogin);
 
   return (
     <>

@@ -51,7 +51,7 @@ export const Header = () => {
     localStorage.removeItem("roles");
     toast.success("Berhasil logout!");
     setTimeout(() => {
-      navigate("/login");
+      navigate("/");
     }, 2000);
   };
 
