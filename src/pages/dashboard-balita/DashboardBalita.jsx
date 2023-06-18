@@ -88,17 +88,29 @@ const DashboardBalita = () => {
                       <div className="grid grid-cols-3 gap-5">
                         <CardRealtimeVer
                           name="Total Balita Tercatat"
-                          total={formattedNumber(datas.jumlah_balita_tercatat)}
+                          total={
+                            datas.jumlah_balita_tercatat
+                              ? formattedNumber(datas.jumlah_balita_tercatat)
+                              : 0
+                          }
                           icon={PersonsIcon}
                         />
                         <CardRealtimeVer
                           name="Laki-laki"
-                          total={formattedNumber(datas.jumlah_anak_laki_laki)}
+                          total={
+                            datas.jumlah_anak_laki_laki
+                              ? formattedNumber(datas.jumlah_anak_laki_laki)
+                              : 0
+                          }
                           icon={PersonMan}
                         />
                         <CardRealtimeVer
                           name="Perempuan"
-                          total={formattedNumber(datas.jumlah_anak_perempuan)}
+                          total={
+                            datas.jumlah_anak_perempuan
+                              ? formattedNumber(datas.jumlah_anak_perempuan)
+                              : 0
+                          }
                           icon={PersonWoman}
                         />
                       </div>
@@ -124,27 +136,47 @@ const DashboardBalita = () => {
                     <>
                       <CardPeriodik
                         name="Jumlah Remaja"
-                        total={formattedNumber(datas.jumlah_remaja)}
+                        total={
+                          datas.jumlah_remaja
+                            ? formattedNumber(datas.jumlah_remaja)
+                            : 0
+                        }
                         icon={RemajaIcon}
                       />
                       <CardPeriodik
                         name="Jumlah Calon Pengantin"
-                        total={formattedNumber(datas.jumlah_calon_pengantin)}
+                        total={
+                          datas.jumlah_calon_pengantin
+                            ? formattedNumber(datas.jumlah_calon_pengantin)
+                            : 0
+                        }
                         icon={CalonPengantinIcon}
                       />
                       <CardPeriodik
                         name="Jumlah Ibu Hamil"
-                        total={formattedNumber(datas.jumlah_ibu_hamil)}
+                        total={
+                          datas.jumlah_ibu_hamil
+                            ? formattedNumber(datas.jumlah_ibu_hamil)
+                            : 0
+                        }
                         icon={MotherPregnantIcon}
                       />
                       <CardPeriodik
                         name="Jumlah Ibu Menyusui"
-                        total={formattedNumber(datas.jumlah_ibu_menyusui)}
+                        total={
+                          datas.jumlah_ibu_menyusui
+                            ? formattedNumber(datas.jumlah_ibu_menyusui)
+                            : 0
+                        }
                         icon={BreastFeedingMothers}
                       />
                       <CardPeriodik
                         name="Jumlah Anak Usia 0-59 bulan"
-                        total={formattedNumber(dataStotalbalita)}
+                        total={
+                          dataStotalbalita
+                            ? formattedNumber(dataStotalbalita)
+                            : 0
+                        }
                         icon={BabyStroller}
                       />
                     </>

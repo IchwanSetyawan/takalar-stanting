@@ -52,7 +52,7 @@ export const Header = () => {
     setIsLoading(false);
     toast.success("Berhasil logout!");
     setTimeout(() => {
-      navigate("/");
+      navigate("/landing-page");
     }, 2000);
   };
 

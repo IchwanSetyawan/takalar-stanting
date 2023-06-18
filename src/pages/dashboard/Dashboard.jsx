@@ -91,8 +91,8 @@ const Dashboard = () => {
                   <>
                     <select
                       className="w-72"
-                      value={kecamatanId}
-                      onChange={(e) => handleKecamatanChange(e)}
+                      defaultValue={kecamatanId}
+                      onChange={handleKecamatanChange}
                     >
                       <option value="">Kecamatan</option>
                       {kecamatanList.map((kec, idx) => (
@@ -104,8 +104,8 @@ const Dashboard = () => {
 
                     <select
                       className="w-72"
-                      value={kelurahanId}
-                      onChange={(e) => handleKelurahanChange(e)}
+                      defaultValue={kelurahanId}
+                      onChange={handleKelurahanChange}
                       disabled={!kecamatanId}
                     >
                       <option value="">Kelurahan</option>
@@ -133,22 +133,36 @@ const Dashboard = () => {
                     <>
                       <CardRealtimeHor
                         name="Jumlah Keluarga"
-                        total={formattedNumber(datas.jumlah_keluarga)}
+                        total={
+                          datas.jumlah_keluarga
+                            ? formattedNumber(datas?.jumlah_keluarga)
+                            : 0
+                        }
                         icon={FamilyIcon}
                       />
                       <CardRealtimeHor
                         name="Keluarga beresiko Stunting"
-                        total={formattedNumber(datas.jumlah_keluarga_beresiko)}
+                        total={
+                          datas.jumlah_keluarga_beresiko
+                            ? formattedNumber(datas?.jumlah_keluarga_beresiko)
+                            : 0
+                        }
                         icon={WarningIcon}
                       />
                       <CardRealtimeHor
                         name="Jumlah Keluarga Sasaran"
-                        total={formattedNumber(datas.jumlah_keluarga_sasaran)}
+                        total={
+                          datas.jumlah_keluarga_sasaran
+                            ? formattedNumber(datas?.jumlah_keluarga_sasaran)
+                            : 0
+                        }
                         icon={FamilyTargetIcon}
                       />
                       <CardRealtimeHor
                         name="Prevalensi"
-                        total={`${datas.prevalensi} %`}
+                        total={
+                          datas.prevalensi ? `${datas?.prevalensi} %` : 0 + "%"
+                        }
                         icon={CurveIcon}
                       />
                     </>

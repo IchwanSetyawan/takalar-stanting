@@ -8,8 +8,6 @@ import ChildProgram from "../../assets/landingpage/child-program-icon.svg";
 import PkkImage from "../../assets/landingpage/pkk-image.png";
 import DompetImage from "../../assets/landingpage/dompet-image.png";
 import TakalarImage from "../../assets/landingpage/takalar-image.png";
-import Chart1 from "../../assets/landingpage/chart1.jpeg";
-import Chart2 from "../../assets/landingpage/chart2.jpeg";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -25,6 +23,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 ChartJS.register(
   CategoryScale,
@@ -86,20 +85,16 @@ const Beranda = () => {
 
   useEffect(() => {
     const fetchDataAll = async () => {
-      try {
-        const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
 
-        const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary`;
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary`;
 
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setDatas(response.data);
-      } catch (error) {
-        console.log(error);
-      }
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDatas(response.data);
     };
 
     fetchDataAll();
@@ -267,9 +262,11 @@ const Beranda = () => {
                 </p>
 
                 <div>
-                  <button className="bg-primary text-white rounded-lg px-6 py-4 mt-8">
-                    Daftar Sekarang
-                  </button>
+                  <Link to="/register-bapakasuh">
+                    <button className="bg-primary text-white rounded-lg px-6 py-4 mt-8">
+                      Daftar Sekarang
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -345,9 +342,11 @@ const Beranda = () => {
             </p>
           </div>
           <div>
-            <button className="bg-[#FBAE47] py-4 px-6 rounded-lg font-bold">
-              Daftar Program
-            </button>
+            <Link to="/register-bapakasuh">
+              <button className="bg-[#FBAE47] py-4 px-6 rounded-lg font-bold">
+                Daftar Program
+              </button>
+            </Link>
           </div>
         </div>
 
