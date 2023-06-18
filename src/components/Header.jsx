@@ -15,7 +15,7 @@ export const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
-  // const { username } = useContext(authContext);
+  const { setIsLoading } = useContext(authContext);
   const username = localStorage.getItem("1");
 
   useEffect(() => {
@@ -49,9 +49,10 @@ export const Header = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("1");
     localStorage.removeItem("roles");
+    setIsLoading(false);
     toast.success("Berhasil logout!");
     setTimeout(() => {
-      navigate("/");
+      navigate("/landing-page");
     }, 2000);
   };
 

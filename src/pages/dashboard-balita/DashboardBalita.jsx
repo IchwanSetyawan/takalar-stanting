@@ -29,6 +29,7 @@ const DashboardBalita = () => {
     kelurahanId,
     setKelurahanId,
     dataStotalbalita,
+    isLoading,
   } = useContext(SummaryContext);
 
   const handleKecamatanChange = (event) => {
@@ -83,54 +84,107 @@ const DashboardBalita = () => {
               <div className=" grid grid-cols-3 gap-4 mt-10">
                 <RealtimeData>
                   <div className="flex flex-col space-y-8">
-                    <div className="grid grid-cols-3 gap-5">
-                      <CardRealtimeVer
-                        name="Total Balita Tercatat"
-                        total={formattedNumber(datas.jumlah_balita_tercatat)}
-                        icon={PersonsIcon}
-                      />
-                      <CardRealtimeVer
-                        name="Laki-laki"
-                        total={formattedNumber(datas.jumlah_anak_laki_laki)}
-                        icon={PersonMan}
-                      />
-                      <CardRealtimeVer
-                        name="Perempuan"
-                        total={formattedNumber(datas.jumlah_anak_perempuan)}
-                        icon={PersonWoman}
-                      />
-                    </div>
-                    <div className="mt-5 border-none rounded-lg shadow-smooth  px-2 py-5">
-                      <CartComponentSingle />
-                    </div>
+                    {isLoading ? (
+                      <div className="grid grid-cols-3 gap-5">
+                        <CardRealtimeVer
+                          name="Total Balita Tercatat"
+                          total={
+                            datas.jumlah_balita_tercatat
+                              ? formattedNumber(datas.jumlah_balita_tercatat)
+                              : 0
+                          }
+                          icon={PersonsIcon}
+                        />
+                        <CardRealtimeVer
+                          name="Laki-laki"
+                          total={
+                            datas.jumlah_anak_laki_laki
+                              ? formattedNumber(datas.jumlah_anak_laki_laki)
+                              : 0
+                          }
+                          icon={PersonMan}
+                        />
+                        <CardRealtimeVer
+                          name="Perempuan"
+                          total={
+                            datas.jumlah_anak_perempuan
+                              ? formattedNumber(datas.jumlah_anak_perempuan)
+                              : 0
+                          }
+                          icon={PersonWoman}
+                        />
+                      </div>
+                    ) : (
+                      <div role="status" className="max-w-sm animate-pulse">
+                        <div className="h-24 bg-gray-200 rounded-lg  dark:bg-gray-700 w-[600px] mb-4"></div>
+                      </div>
+                    )}
+
+                    {isLoading ? (
+                      <div className="mt-5 border-none rounded-lg shadow-smooth  px-2 py-5">
+                        <CartComponentSingle />
+                      </div>
+                    ) : (
+                      <div role="status" className="max-w-sm animate-pulse">
+                        <div className="h-96 bg-gray-200 rounded-lg  dark:bg-gray-700 w-[600px] mb-4"></div>
+                      </div>
+                    )}
                   </div>
                 </RealtimeData>
                 <PeriodikData>
-                  <CardPeriodik
-                    name="Jumlah Remaja"
-                    total={formattedNumber(datas.jumlah_remaja)}
-                    icon={RemajaIcon}
-                  />
-                  <CardPeriodik
-                    name="Jumlah Calon Pengantin"
-                    total={formattedNumber(datas.jumlah_calon_pengantin)}
-                    icon={CalonPengantinIcon}
-                  />
-                  <CardPeriodik
-                    name="Jumlah Ibu Hamil"
-                    total={formattedNumber(datas.jumlah_ibu_hamil)}
-                    icon={MotherPregnantIcon}
-                  />
-                  <CardPeriodik
-                    name="Jumlah Ibu Menyusui"
-                    total={formattedNumber(datas.jumlah_ibu_menyusui)}
-                    icon={BreastFeedingMothers}
-                  />
-                  <CardPeriodik
-                    name="Jumlah Anak Usia 0-59 bulan"
-                    total={formattedNumber(dataStotalbalita)}
-                    icon={BabyStroller}
-                  />
+                  {isLoading ? (
+                    <>
+                      <CardPeriodik
+                        name="Jumlah Remaja"
+                        total={
+                          datas.jumlah_remaja
+                            ? formattedNumber(datas.jumlah_remaja)
+                            : 0
+                        }
+                        icon={RemajaIcon}
+                      />
+                      <CardPeriodik
+                        name="Jumlah Calon Pengantin"
+                        total={
+                          datas.jumlah_calon_pengantin
+                            ? formattedNumber(datas.jumlah_calon_pengantin)
+                            : 0
+                        }
+                        icon={CalonPengantinIcon}
+                      />
+                      <CardPeriodik
+                        name="Jumlah Ibu Hamil"
+                        total={
+                          datas.jumlah_ibu_hamil
+                            ? formattedNumber(datas.jumlah_ibu_hamil)
+                            : 0
+                        }
+                        icon={MotherPregnantIcon}
+                      />
+                      <CardPeriodik
+                        name="Jumlah Ibu Menyusui"
+                        total={
+                          datas.jumlah_ibu_menyusui
+                            ? formattedNumber(datas.jumlah_ibu_menyusui)
+                            : 0
+                        }
+                        icon={BreastFeedingMothers}
+                      />
+                      <CardPeriodik
+                        name="Jumlah Anak Usia 0-59 bulan"
+                        total={
+                          dataStotalbalita
+                            ? formattedNumber(dataStotalbalita)
+                            : 0
+                        }
+                        icon={BabyStroller}
+                      />
+                    </>
+                  ) : (
+                    <div role="status" className="max-w-sm animate-pulse">
+                      <div className="h-[600px] bg-gray-200 rounded-lg  dark:bg-gray-700 w-[270px] mb-4"></div>
+                    </div>
+                  )}
                 </PeriodikData>
               </div>
             </div>

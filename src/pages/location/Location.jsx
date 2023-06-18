@@ -8,6 +8,7 @@ const Location = () => {
   const navigate = useNavigate();
 
   const [dataKec, setDataKec] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,13 +17,24 @@ const Location = () => {
         const url =
           "https://stunting.ahadnikah.com/api/admin/dashboard/wilayah";
 
-        const response = await axios.get(url, {
+        const payload = {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        setDataKec(response.data);
+        };
+
+        axios
+          .get(url, payload)
+          .then((response) => {
+            setIsLoading(true);
+            setDataKec(response.data);
+          })
+          .catch((error) => {
+            setIsLoading(false);
+            console.log(error);
+          });
       } catch (error) {
+        setIsLoading(false);
         console.log("error fetching data", error);
       }
     };

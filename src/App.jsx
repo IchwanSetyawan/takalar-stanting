@@ -30,6 +30,7 @@ import { SebaranContextProvider } from "./context/SebaranContext";
 import { BapakAsuhContextProvider } from "./context/BapakAsuhContext";
 import { SummaryContextProvider } from "./context/SummaryContext";
 import PrivateRoute from "./components/PrivateRoute";
+import RegisterBapakAsuh from "./pages/LandingPage/RegisterBapakAsuh";
 
 function App() {
   // const { isLogin, setIsLogin } = useContext(authContext);
@@ -45,7 +46,11 @@ function App() {
                     <SebaranContextProvider>
                       <BapakAsuhContextProvider>
                         <Routes>
-                          <Route exact path="/" element={<Beranda />} />
+                          <Route
+                            exact
+                            path="/landing-page"
+                            element={<Beranda />}
+                          />
 
                           <Route path="/login" exact element={<Login />} />
                           <Route path="/dashboard" element={<Dashboard />} />
@@ -58,6 +63,10 @@ function App() {
                           <Route
                             path="/dashboard-bapakasuh"
                             element={<DashboardBapakAsuh />}
+                          />
+                          <Route
+                            path="/register-bapakasuh"
+                            element={<RegisterBapakAsuh />}
                           />
                           <Route
                             path="/recommendation"

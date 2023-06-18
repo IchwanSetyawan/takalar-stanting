@@ -13,11 +13,7 @@ export const SebaranContextProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       const url = "https://stunting.ahadnikah.com/api/admin/dashboard/sebaran";
 
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(url);
       setSebaranData(response.data);
     } catch (error) {
       console.log(error);
