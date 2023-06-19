@@ -74,16 +74,17 @@ export const AuthContextProvider = ({ children }) => {
       .then((response) => {
         setIsLogin(true);
         setRoles(response.data.roles);
-        localStorage.setItem("roles", response.data.roles);
         setTokenFunc(response.data.access);
         localStorage.setItem("1", response?.data?.first_name);
-        // setUsername(response?.data?.first_name);
+
         setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
         toast.success("Berhasil login!");
         console.log(isLogin);
         setIsLoading(true);
+        localStorage.setItem("kc", response.data.kecamatan);
+        localStorage.setItem("kl", response.data.kelurahan_desa);
       })
       .catch((err) => {
         setIsLogin(false);

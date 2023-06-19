@@ -3,7 +3,7 @@ import React from "react";
 const Form = ({ title, placeholder }) => {
   return (
     <>
-      <div className="mb-6 ">
+      <div className=" ">
         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
           {title}
         </label>

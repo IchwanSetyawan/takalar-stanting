@@ -38,11 +38,14 @@ const Dashboard = () => {
   const handleKecamatanChange = (event) => {
     const getkecamatanid = event.target.value;
     setKecamatanId(getkecamatanid);
+    setKelurahanId("");
   };
   const handleKelurahanChange = (event) => {
     const getkelurahanid = event.target.value;
     setKelurahanId(getkelurahanid);
   };
+
+  const getLocalKec = localStorage.getItem("kc");
 
   return (
     <>
@@ -82,7 +85,7 @@ const Dashboard = () => {
                   <select
                     className="w-72"
                     defaultValue={kecamatanId}
-                    onChange={handleKecamatanChange}
+                    onChange={(e) => handleKecamatanChange(e)}
                   >
                     <option value="">Kecamatan</option>
                     {kecamatanList.map((kec, idx) => (
@@ -94,11 +97,11 @@ const Dashboard = () => {
 
                   <select
                     className="w-72"
-                    defaultValue={kelurahanId}
-                    onChange={handleKelurahanChange}
+                    defaultValue=""
+                    onChange={(e) => handleKelurahanChange(e)}
                     disabled={!kecamatanId}
                   >
-                    <option value="">Kelurahan</option>
+                    <option value={kelurahanId}>Kelurahan</option>
                     {kelurahanList
                       ?.filter((item) => item.id_kecamatan == kecamatanId)
                       .map((kel, idx) => (
