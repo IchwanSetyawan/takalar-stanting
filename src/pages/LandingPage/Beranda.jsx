@@ -307,7 +307,7 @@ const Beranda = () => {
           </div>
         </div>
 
-        <div className="h-[700px] bg-white p-20">
+        <div className="h-auto bg-white p-20">
           <p className="text-2xl mb-16 font-bold">
             Waspada Kenaikan Angka Stunting di Kabupaten Takalar
           </p>
