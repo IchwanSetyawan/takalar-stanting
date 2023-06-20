@@ -31,6 +31,10 @@ import { BapakAsuhContextProvider } from "./context/BapakAsuhContext";
 import { SummaryContextProvider } from "./context/SummaryContext";
 import PrivateRoute from "./components/PrivateRoute";
 import RegisterBapakAsuh from "./pages/LandingPage/RegisterBapakAsuh";
+import { RekomendasiContextProvider } from "./context/RekomendasiContext";
+import TentangKami from "./pages/LandingPage/TentangKami";
+import NewsPage from "./pages/LandingPage/NewsPage";
+import NewsPageDetail from "./pages/LandingPage/NewsPageDetail";
 
 function App() {
   // const { isLogin, setIsLogin } = useContext(authContext);
@@ -45,45 +49,57 @@ function App() {
                   <SummaryContextProvider>
                     <SebaranContextProvider>
                       <BapakAsuhContextProvider>
-                        <Routes>
-                          <Route
-                            exact
-                            path="/landing-page"
-                            element={<Beranda />}
-                          />
+                        <RekomendasiContextProvider>
+                          <Routes>
+                            <Route path="/login" exact element={<Login />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/news" element={<NewsPage />} />
+                            <Route
+                              path="/news/:id"
+                              element={<NewsPageDetail />}
+                            />
 
-                          <Route path="/login" exact element={<Login />} />
-                          <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/cakupan" element={<Cakupan />} />
+                            <Route
+                              path="/dashboard-balita"
+                              element={<DashboardBalita />}
+                            />
+                            <Route
+                              path="/dashboard-bapakasuh"
+                              element={<DashboardBapakAsuh />}
+                            />
+                            <Route
+                              path="/register-bapakasuh"
+                              element={<RegisterBapakAsuh />}
+                            />
+                            <Route
+                              path="/recommendation"
+                              element={<Recommendation />}
+                            />
+                            <Route path="/sebaran" element={<Sebaran />} />
+                            <Route path="/location" element={<Location />} />
+                            <Route
+                              path="/location/:id"
+                              element={<LocationDetail />}
+                            />
+                            <Route
+                              path="/location/:id/cakupan/:id"
+                              element={<Cakupan />}
+                            />
 
-                          <Route path="/cakupan" element={<Cakupan />} />
-                          <Route
-                            path="/dashboard-balita"
-                            element={<DashboardBalita />}
-                          />
-                          <Route
-                            path="/dashboard-bapakasuh"
-                            element={<DashboardBapakAsuh />}
-                          />
-                          <Route
-                            path="/register-bapakasuh"
-                            element={<RegisterBapakAsuh />}
-                          />
-                          <Route
-                            path="/recommendation"
-                            element={<Recommendation />}
-                          />
-                          <Route path="/sebaran" element={<Sebaran />} />
-                          <Route path="/location" element={<Location />} />
-                          <Route
-                            path="/location/:id"
-                            element={<LocationDetail />}
-                          />
-                          <Route
-                            path="/location/:id/cakupan/:id"
-                            element={<Cakupan />}
-                          />
-                          <Route path="*" element={<Notfound />} />
-                        </Routes>
+                            <Route
+                              exact
+                              path="/landing-page"
+                              element={<Beranda />}
+                            />
+                            <Route
+                              exact
+                              path="/tentang-kami"
+                              element={<TentangKami />}
+                            />
+                            <Route path="*" element={<Notfound />} />
+                          </Routes>
+                        </RekomendasiContextProvider>
                       </BapakAsuhContextProvider>
                     </SebaranContextProvider>
                   </SummaryContextProvider>

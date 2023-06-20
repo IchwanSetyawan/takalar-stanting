@@ -38,7 +38,6 @@ const Dashboard = () => {
   const handleKecamatanChange = (event) => {
     const getkecamatanid = event.target.value;
     setKecamatanId(getkecamatanid);
-    setKelurahanId("");
   };
   const handleKelurahanChange = (event) => {
     const getkelurahanid = event.target.value;

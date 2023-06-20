@@ -13,7 +13,7 @@ const Navbar = () => {
       <div className="text-dark flex items-center gap-16">
         <Link to="/landing-page">Beranda</Link>
         <Link to="#">Daftar Wilayah</Link>
-        <Link to="#">Tentang Kami</Link>
+        <Link to="/tentang-kami">Tentang Kami</Link>
         <Link to="/login">
           <button className="px-6 py-2 border border-primary rounded-lg">
             Login

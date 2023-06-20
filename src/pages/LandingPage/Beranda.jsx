@@ -9,6 +9,7 @@ import PkkImage from "../../assets/landingpage/pkk-image.png";
 import DompetImage from "../../assets/landingpage/dompet-image.png";
 import TakalarImage from "../../assets/landingpage/takalar-image.png";
 import NewsImage from "../../assets/landingpage/news-image.png";
+import StuntingImage from "../../assets/landingpage/dukung-stunting-image.png";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -25,6 +26,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { NewsPageModel } from "../../model/NewsPageModel";
 
 ChartJS.register(
   CategoryScale,
@@ -342,14 +344,16 @@ const Beranda = () => {
         <div className="bg-white p-24 ">
           <div className=" mb-8 flex justify-between  items-center">
             <p className="text-2xl font-bold">Artikel Berita</p>
-            <button className="text-xl font-bold text-primary">
-              Lihat semua{" "}
-            </button>
+            <Link to="/news">
+              <button className="text-xl font-bold text-primary">
+                Lihat semua
+              </button>
+            </Link>
           </div>
-          <div className="flex gap-6">
-            {[1, 2, 3].map((x) => (
+          <div className="flex justify-center gap-6">
+            {NewsPageModel.map((item, idx) => (
               <div
-                key={x}
+                key={item.id}
                 className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow "
               >
                 <a href="#">
@@ -359,25 +363,27 @@ const Beranda = () => {
                     alt="news image"
                   />
                 </a>
-                <div className="mt-4">
-                  <a href="#">
-                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      Dampak Kenaikan Angka Stunting Terhadap Kesejahteraan
-                      Masyarakat
-                    </h5>
-                  </a>
-                  <p className="mb-3 text-sm font-normal text-[#858D9D]">
-                    Norem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                    dignissim, metus nec fringilla accumsan, risus sem
-                    sollicitudin lacus, ut interdum tellus elit sed risus.
-                    Maecenas
-                  </p>
-                  <div className="flex justify-between mt-10">
+                <div>
+                  <div className="mt-4 h-72 ">
+                    <a href="#">
+                      <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {item.title}
+                      </h5>
+                    </a>
+
+                    <div className="">
+                      <p className="mb-3  text-sm font-normal text-[#858D9D]">
+                        {item.description.slice(0, 150) + "..."}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center ">
                     <p className="text-sm text-[#858D9D]">
                       Posted 17 June 2023
                     </p>
-                    <button className="text-primary text-sm ">Details</button>
+                    <Link to={`/news/${item.id}`}>
+                      <button className="text-primary text-sm ">Details</button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -408,6 +414,7 @@ const Beranda = () => {
             <img src={PkkImage} />
             <img src={DompetImage} />
             <img src={TakalarImage} />
+            <img src={StuntingImage} />
           </div>
         </div>
       </Layout>

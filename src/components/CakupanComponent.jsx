@@ -4,6 +4,7 @@ import { convertPercent, maxWidthConvert } from "../utills/convertPercent";
 import InfoIcon from "../assets/icon/info-icon.svg";
 import ReactPaginate from "react-paginate";
 import InfoComponent from "./InfoComponent";
+import { datasTarget } from "../model/CakupanModel";
 
 const CakupanComponent = () => {
   const [data, setData] = useState([]);
@@ -71,36 +72,58 @@ const CakupanComponent = () => {
 
   return (
     <div className="h-auto">
-      <div className=" p-10 pb-16  rounded-xl h-[950px] bg-white border border-gray-200">
+      <div className=" p-10 pb-16  rounded-xl h-auto bg-white border border-gray-200">
         <div className="flex flex-row flex-wrap gap-4">
           <div className="w-11/12">
             {data.map((item, id) => (
-              <div className="mt-4 relative z-10 " key={id}>
+              <div className="mt-10 relative z-10 " key={id}>
                 <div className=" text flex justify-start  mb-1 gap-5">
                   <div className="mt-1 nomor ">
                     <div className="text-white text-sm rounded-full font-bold h-6 w-6 flex justify-center items-center  bg-primary ">
                       {item.id}
                     </div>
                   </div>
-                  <p className="w-11/12">{item.indikator}</p>
-                  {item.nilai <= 55 && (
-                    <button onClick={() => handleShowInfo(item.id)}>
-                      <img src={InfoIcon} alt="info icon" />
-                    </button>
-                  )}
+                  <div className="flex items-center justify-between w-full">
+                    <div className="w-full">
+                      <p className="w-11/12">{item.indikator}</p>
+                      {/* buatkan saya looping data perpres dari datas target jika id datas target sama dengan id data cakupan maka tampilkan targetnya */}
+                      {datasTarget
+                        .filter((data) => data.id === item.id)
+                        .map((data, idx) => (
+                          <p className="mt-2 text-sm font-normal text-[#252525]">
+                            Target Nasional (Perpres) : {data.target}
+                          </p>
+                        ))}
+                    </div>
+                    {item.nilai <= 55 && (
+                      <div className="w-8 h-8">
+                        <button onClick={() => handleShowInfo(item.id)}>
+                          <img src={InfoIcon} alt="info icon" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div className="bar ml-10 mt-2 flex justify-between items-center">
                   <div className="w-full bg-gray-200 rounded-full h-5 dark:bg-gray-700">
                     <div
                       className={`${
-                        item.nilai <= 33
+                        item.id === 12 || item.id === 13
+                          ? item.nilai <= 33
+                            ? "bg-[#3acf49]"
+                            : item.nilai <= 60
+                            ? "bg-[#FCCF4B]"
+                            : "bg-[#F2725D]"
+                          : item.nilai <= 33
                           ? "bg-[#F2725D]"
                           : item.nilai <= 60
                           ? "bg-[#FCCF4B]"
                           : "bg-[#3acf49]"
                       } h-5 rounded-full `}
                       style={{
-                        width: `${maxWidthConvert(item.nilai.toFixed(0))}%`,
+                        width: `${maxWidthConvert(
+                          item.nilai ? item.nilai.toFixed(0) : 0
+                        )}%`,
                       }}
                     ></div>
                   </div>

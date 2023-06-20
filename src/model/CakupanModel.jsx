@@ -1,80 +1,118 @@
-export const CakupanModel = [
+export const datasTarget = [
   {
     id: 1,
-    title: "loremp ipsum",
-    content: "Cakupan bumil KEK yang mendapati pemulihan",
-    total: 5433,
+    target: 58,
   },
   {
     id: 2,
-    title: "ipsum reprehenderit",
-    content: "Reprehenderit nulla ipsum ",
-    total: 90,
+    target: 90,
   },
   {
     id: 3,
-    title: " commodo cupidata",
-    content: "Nostrud sunt ipsum eiusmod adipisicing ",
-    total: 40,
+    target: 90,
   },
   {
     id: 4,
-    title: " magna veniam sint aliquip ",
-    content: "Eiusmod elit magna veniam sint aliquip",
-    total: 30,
+    target: 90,
   },
   {
     id: 5,
-    title: "tempor ut. Est laborum",
-    content: "In qui mollit tempor ut. Est laborum exercitation ",
-    total: 20,
+    target: 90,
   },
   {
     id: 6,
-    title: "loremp ipsum",
-    content: "Cakupan bumil KEK yang mendapati pemulihan",
-    total: 5433,
+    target: 90,
   },
   {
     id: 7,
-    title: "ipsum reprehenderit",
-    content: "Reprehenderit nulla ipsum ",
-    total: 90,
+    target: 90,
   },
   {
     id: 8,
-    title: " commodo cupidata",
-    content: "Nostrud sunt ipsum eiusmod adipisicing ",
-    total: 40,
+    target: 90,
   },
   {
     id: 9,
-    title: " magna veniam sint aliquip ",
-    content: "Eiusmod elit magna veniam sint aliquip",
-    total: 30,
+    target: 90,
   },
   {
     id: 10,
-    title: "tempor ut. Est laborum",
-    content: "In qui mollit tempor ut. Est laborum exercitation ",
-    total: 20,
+    target: 80,
   },
   {
     id: 11,
-    title: " commodo cupidata",
-    content: "Nostrud sunt ipsum eiusmod adipisicing ",
-    total: 12,
+    target: 80,
   },
   {
     id: 12,
-    title: " magna veniam sint aliquip ",
-    content: "Eiusmod elit magna veniam sint aliquip",
-    total: 13,
+    target: 7.4,
   },
   {
     id: 13,
-    title: "tempor ut. Est laborum",
-    content: "In qui mollit tempor ut. Est laborum exercitation ",
-    total: 20,
+    target: 15.5,
+  },
+  {
+    id: 14,
+    target: 80,
+  },
+  {
+    id: 15,
+    target: 90,
+  },
+  {
+    id: 16,
+    target: 90,
+  },
+  {
+    id: 17,
+    target: 90,
+  },
+  {
+    id: 18,
+    target: 90,
+  },
+  {
+    id: 19,
+    target: 90,
+  },
+  {
+    id: 20,
+    target: 70,
+  },
+  {
+    id: 21,
+    target: 90,
+  },
+  {
+    id: 22,
+    target: 90,
+  },
+  {
+    id: 23,
+    target: 70,
+  },
+  {
+    id: 24,
+    target: 90,
+  },
+  {
+    id: 25,
+    target: 50,
+  },
+  {
+    id: 26,
+    target: 100,
+  },
+  {
+    id: 27,
+    target: 90,
+  },
+  {
+    id: 28,
+    target: 90,
+  },
+  {
+    id: 29,
+    target: 90,
   },
 ];
