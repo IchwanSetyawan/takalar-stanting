@@ -20,6 +20,20 @@ export const SummaryContextProvider = ({ children }) => {
     datas.jumlah_anak_umur_12_23_bulan +
     datas.jumlah_anak_umur_24_59_bulan;
 
+  const getKecLocalstorage = localStorage.getItem("kc");
+  console.log(
+    "🚀 ~ file: SummaryContext.jsx:24 ~ SummaryContextProvider ~ getKecLocalstorage:",
+    getKecLocalstorage
+  );
+  useEffect(() => {
+    const findKecamatan = kecamatanList.filter(
+      (data) => data.id == getKecLocalstorage
+    );
+
+    setKecamatanList(findKecamatan);
+    console.log({ kecamatanList });
+  }, [getKecLocalstorage]);
+
   useEffect(() => {
     const fetchDataAll = async () => {
       try {
@@ -35,11 +49,9 @@ export const SummaryContextProvider = ({ children }) => {
           axios
             .get(url, payload)
             .then((response) => {
-              setIsLoading(true);
               setDatas(response.data);
             })
             .catch((error) => {
-              setIsLoading(false);
               console.log(error);
             });
         } else if (kecamatanId) {
@@ -53,11 +65,9 @@ export const SummaryContextProvider = ({ children }) => {
           axios
             .get(url, payload)
             .then((response) => {
-              setIsLoading(true);
               setDatas(response.data);
             })
             .catch((error) => {
-              setIsLoading(false);
               console.log(error);
             });
         } else {
@@ -71,16 +81,13 @@ export const SummaryContextProvider = ({ children }) => {
           axios
             .get(url, payload)
             .then((response) => {
-              setIsLoading(true);
               setDatas(response.data);
             })
             .catch((error) => {
-              setIsLoading(false);
               console.log(error);
             });
         }
       } catch (error) {
-        setIsLoading(false);
         console.log(error);
       }
     };
@@ -147,6 +154,7 @@ export const SummaryContextProvider = ({ children }) => {
         setKelurahanId,
 
         isLoading,
+        getKecLocalstorage,
       }}
     >
       {children}

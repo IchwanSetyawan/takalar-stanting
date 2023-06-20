@@ -38,11 +38,14 @@ const Dashboard = () => {
   const handleKecamatanChange = (event) => {
     const getkecamatanid = event.target.value;
     setKecamatanId(getkecamatanid);
+    setKelurahanId("");
   };
   const handleKelurahanChange = (event) => {
     const getkelurahanid = event.target.value;
     setKelurahanId(getkelurahanid);
   };
+
+  const getLocalKec = localStorage.getItem("kc");
 
   return (
     <>
@@ -56,30 +59,21 @@ const Dashboard = () => {
             </div>
 
             <div className="flex justify-between gap-x-5 my-8">
-              {isLoading ? (
-                <>
-                  <CardWilayah
-                    title="kecamatan"
-                    total={datas.total_kecamatan}
-                  />
-                  <CardWilayah
-                    title="Desa/Kelurahan"
-                    total={datas.total_kelurahan}
-                  />
-                  <CardWilayah
-                    title="Dusun"
-                    total={formattedNumber(datas.total_dusun)}
-                  />
-                  <CardWilayah
-                    title="Jumlah Penduduk"
-                    total={formattedNumber(datas.total_penduduk)}
-                  />
-                </>
-              ) : (
-                <div role="status" className="max-w-sm animate-pulse">
-                  <div className="h-24 bg-gray-200 rounded-lg  dark:bg-gray-700 w-[900px] mb-4"></div>
-                </div>
-              )}
+              <>
+                <CardWilayah title="kecamatan" total={datas.total_kecamatan} />
+                <CardWilayah
+                  title="Desa/Kelurahan"
+                  total={datas.total_kelurahan}
+                />
+                <CardWilayah
+                  title="Dusun"
+                  total={formattedNumber(datas.total_dusun)}
+                />
+                <CardWilayah
+                  title="Jumlah Penduduk"
+                  total={formattedNumber(datas.total_penduduk)}
+                />
+              </>
             </div>
           </div>
           <div className="mt-8">
@@ -87,128 +81,107 @@ const Dashboard = () => {
               <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
 
               <div className=" flex justify-center items-center text-dark  gap-4">
-                {isLoading ? (
-                  <>
-                    <select
-                      className="w-72"
-                      defaultValue={kecamatanId}
-                      onChange={handleKecamatanChange}
-                    >
-                      <option value="">Kecamatan</option>
-                      {kecamatanList.map((kec, idx) => (
-                        <option key={idx} value={kec.id}>
-                          {kec.kecamatan}
+                <>
+                  <select
+                    className="w-72"
+                    defaultValue={kecamatanId}
+                    onChange={(e) => handleKecamatanChange(e)}
+                  >
+                    <option value="">Kecamatan</option>
+                    {kecamatanList.map((kec, idx) => (
+                      <option key={idx} value={kec.id}>
+                        {kec.kecamatan}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    className="w-72"
+                    defaultValue=""
+                    onChange={(e) => handleKelurahanChange(e)}
+                    disabled={!kecamatanId}
+                  >
+                    <option value={kelurahanId}>Kelurahan</option>
+                    {kelurahanList
+                      ?.filter((item) => item.id_kecamatan == kecamatanId)
+                      .map((kel, idx) => (
+                        <option key={idx} value={kel.id}>
+                          {kel.desa}
                         </option>
                       ))}
-                    </select>
-
-                    <select
-                      className="w-72"
-                      defaultValue={kelurahanId}
-                      onChange={handleKelurahanChange}
-                      disabled={!kecamatanId}
-                    >
-                      <option value="">Kelurahan</option>
-                      {kelurahanList
-                        ?.filter((item) => item.id_kecamatan == kecamatanId)
-                        .map((kel, idx) => (
-                          <option key={idx} value={kel.id}>
-                            {kel.desa}
-                          </option>
-                        ))}
-                    </select>
-                  </>
-                ) : (
-                  <div role="status" className="max-w-sm animate-pulse">
-                    <div className="h-[50px] bg-gray-200 rounded-lg  dark:bg-gray-700 w-[350px] mb-4"></div>
-                  </div>
-                )}
+                  </select>
+                </>
               </div>
             </div>
 
             <div className=" grid grid-cols-3 gap-4 mt-10">
               <RealtimeData>
                 <div className="grid grid-cols-2 gap-5">
-                  {isLoading ? (
-                    <>
-                      <CardRealtimeHor
-                        name="Jumlah Keluarga"
-                        total={
-                          datas.jumlah_keluarga
-                            ? formattedNumber(datas?.jumlah_keluarga)
-                            : 0
-                        }
-                        icon={FamilyIcon}
-                      />
-                      <CardRealtimeHor
-                        name="Keluarga beresiko Stunting"
-                        total={
-                          datas.jumlah_keluarga_beresiko
-                            ? formattedNumber(datas?.jumlah_keluarga_beresiko)
-                            : 0
-                        }
-                        icon={WarningIcon}
-                      />
-                      <CardRealtimeHor
-                        name="Jumlah Keluarga Sasaran"
-                        total={
-                          datas.jumlah_keluarga_sasaran
-                            ? formattedNumber(datas?.jumlah_keluarga_sasaran)
-                            : 0
-                        }
-                        icon={FamilyTargetIcon}
-                      />
-                      <CardRealtimeHor
-                        name="Prevalensi"
-                        total={
-                          datas.prevalensi ? `${datas?.prevalensi} %` : 0 + "%"
-                        }
-                        icon={CurveIcon}
-                      />
-                    </>
-                  ) : (
-                    <div role="status" className="max-w-sm animate-pulse">
-                      <div className="h-24 bg-gray-200 rounded-lg  dark:bg-gray-700 w-[600px] mb-4"></div>
-                    </div>
-                  )}
-                </div>
-                {isLoading ? (
-                  <div className="mt-4 shadow-smooth  border rounded-lg  px-2 py-5">
-                    <CartComponent />
-                  </div>
-                ) : (
-                  <div role="status" className="max-w-sm animate-pulse">
-                    <div className="h-96 bg-gray-200 rounded-lg  dark:bg-gray-700 w-[600px] mb-4"></div>
-                  </div>
-                )}
-              </RealtimeData>
-              <PeriodikData>
-                {isLoading ? (
                   <>
-                    <CardRealtimeVer2
-                      name="Jumlah Balita yang Diukur"
-                      icon={Persons}
-                      total={formattedNumber(datas.jumlah_balita_terukur)}
+                    <CardRealtimeHor
+                      name="Jumlah Keluarga"
+                      total={
+                        datas.jumlah_keluarga
+                          ? formattedNumber(datas?.jumlah_keluarga)
+                          : 0
+                      }
+                      icon={FamilyIcon}
                     />
-                    <CardRealtimeVer2
-                      icon={AccesibleIcon}
-                      total={formattedNumber(
-                        datas.jumlah_anak_pendek_sangat_pendek
-                      )}
-                      name="Jumlah Balita Pendek dan Sangat Pendek"
+                    <CardRealtimeHor
+                      name="Keluarga beresiko Stunting"
+                      total={
+                        datas.jumlah_keluarga_beresiko
+                          ? formattedNumber(datas?.jumlah_keluarga_beresiko)
+                          : 0
+                      }
+                      icon={WarningIcon}
                     />
-
-                    <CardRealtimeVer2
-                      name="Prevalensi Balita Stunting"
-                      icon={SortIcon}
-                      total={`${datas.prevalensi_balita_stunting} %`}
+                    <CardRealtimeHor
+                      name="Jumlah Keluarga Sasaran"
+                      total={
+                        datas.jumlah_keluarga_sasaran
+                          ? formattedNumber(datas?.jumlah_keluarga_sasaran)
+                          : 0
+                      }
+                      icon={FamilyTargetIcon}
+                    />
+                    <CardRealtimeHor
+                      name="Prevalensi"
+                      total={
+                        datas.prevalensi
+                          ? `${datas?.prevalensi.toFixed(2)} %`
+                          : 0 + "%"
+                      }
+                      icon={CurveIcon}
                     />
                   </>
-                ) : (
-                  <div role="status" className="max-w-sm animate-pulse">
-                    <div className="h-[500px] bg-gray-200 rounded-lg  dark:bg-gray-700 w-[270px] mb-4"></div>
-                  </div>
-                )}
+                </div>
+
+                <div className="mt-4 shadow-smooth  border rounded-lg  px-2 py-5">
+                  <CartComponent />
+                </div>
+              </RealtimeData>
+              <PeriodikData>
+                <>
+                  <CardRealtimeVer2
+                    name="Jumlah Balita yang Diukur"
+                    icon={Persons}
+                    total={formattedNumber(datas.jumlah_balita_terukur)}
+                  />
+                  <CardRealtimeVer2
+                    icon={AccesibleIcon}
+                    total={formattedNumber(
+                      datas.jumlah_anak_pendek_sangat_pendek
+                    )}
+                    name="Jumlah Balita Pendek dan Sangat Pendek"
+                  />
+
+                  <CardRealtimeVer2
+                    name="Prevalensi Balita Stunting"
+                    icon={SortIcon}
+                    total={`${datas?.prevalensi_balita_stunting} %`}
+                  />
+                </>
               </PeriodikData>
             </div>
           </div>

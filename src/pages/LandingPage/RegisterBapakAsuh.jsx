@@ -68,12 +68,12 @@ const RegisterBapakAsuh = () => {
 
         <div className="flex justify-center gap-10">
           <div className="w-[735px]">
-            <div>
+            <div className="flex flex-col gap-6">
               <Form title="Nama Lengkap" placeholder="Input Nama Lengkap" />
-              <Form
-                title="Alamat"
-                placeholder="Desa, Kelurahan, Kecamatan, Kabupaten, Provinsi"
-              />
+              <Form title="Alamat" placeholder="Desa" />
+              <SelectComponent title="Kelurahan" placeholder="- Kelurahan -" />
+              <SelectComponent title="Kecamatan" placeholder="- Kecamatan -" />
+
               <Form title="No. HP/WA" placeholder="08xxxxxxxxxx" />
               <Form title="Alamat Email" placeholder="contohemail@mail.com" />
               <Form
@@ -81,7 +81,7 @@ const RegisterBapakAsuh = () => {
                 placeholder="Input Profesi/Satuan Kerja"
               />
             </div>
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-10 mt-10">
               <SelectComponent
                 title="Apakah Anda bersedia untuk menjadi Bapak Asuh Anak Stunting untuk anak-anak di Kab. Takalar, Sulawesi Selatan?"
                 placeholder="- Pilih Status Ketersediaan -"

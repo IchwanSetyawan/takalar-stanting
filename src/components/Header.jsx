@@ -48,7 +48,8 @@ export const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("1");
-    localStorage.removeItem("roles");
+    localStorage.removeItem("kc");
+    localStorage.removeItem("kl");
     setIsLoading(false);
     toast.success("Berhasil logout!");
     setTimeout(() => {

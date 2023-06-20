@@ -8,6 +8,7 @@ import ChildProgram from "../../assets/landingpage/child-program-icon.svg";
 import PkkImage from "../../assets/landingpage/pkk-image.png";
 import DompetImage from "../../assets/landingpage/dompet-image.png";
 import TakalarImage from "../../assets/landingpage/takalar-image.png";
+import NewsImage from "../../assets/landingpage/news-image.png";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -332,6 +333,52 @@ const Beranda = () => {
             <div className=" px-2 py-4 rounded-lg bg-white">
               <Bar data={dataSebaran} options={optionsSebaran} height={388} />
             </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-24 ">
+          <div className=" mb-8 flex justify-between  items-center">
+            <p className="text-2xl font-bold">Artikel Berita</p>
+            <button className="text-xl font-bold text-primary">
+              Lihat semua{" "}
+            </button>
+          </div>
+          <div className="flex gap-6">
+            {[1, 2, 3].map((x) => (
+              <div
+                key={x}
+                className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              >
+                <a href="#">
+                  <img
+                    className="rounded-t-lg w-full"
+                    src={NewsImage}
+                    alt="news image"
+                  />
+                </a>
+                <div className="mt-4">
+                  <a href="#">
+                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      Dampak Kenaikan Angka Stunting Terhadap Kesejahteraan
+                      Masyarakat
+                    </h5>
+                  </a>
+                  <p className="mb-3 text-sm font-normal text-[#858D9D]">
+                    Norem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
+                    dignissim, metus nec fringilla accumsan, risus sem
+                    sollicitudin lacus, ut interdum tellus elit sed risus.
+                    Maecenas
+                  </p>
+                  <div className="flex justify-between mt-10">
+                    <p className="text-sm text-[#858D9D]">
+                      Posted 17 June 2023
+                    </p>
+                    <button className="text-primary text-sm ">Details</button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
