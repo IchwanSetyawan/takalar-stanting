@@ -307,7 +307,7 @@ const Beranda = () => {
           </div>
         </div>
 
-        <div className="h-[700px] bg-white p-20">
+        <div className="h-auto bg-white p-20">
           <p className="text-2xl mb-16 font-bold">
             Waspada Kenaikan Angka Stunting di Kabupaten Takalar
           </p>
@@ -317,11 +317,14 @@ const Beranda = () => {
             </div>
             <div>
               <p className="text-2xl text-start leading-loose">
-                Berdasarkan chart bisa kita lihat penurunan angka prevalensi
-                stunting di Kabupaten Takalar cenderung menurun. Dengan adanya
-                aplikasi mobile dan web monitoring Ayo Atasi Stunting ini
-                diharapkan angka prevalensinya terus menurun hingga tahun
-                berikutnya.
+                Data pengukuran E-PPGBM prevalensi stunting tahun 2021 adalah
+                11,41 %, menurun di tahun 2022 menjadi 9,94 %, sedangkan data
+                pengukuran berdasarkan SSGI pada tahun 2021 berada pada angka
+                34,7 % dan menurun ditahun 2022 menjadi 31,1 %. Namun walaupun
+                terjadi penurunan tetapi capaian ini belum sesuai dengan target
+                yang harus dicapai pada tahun 2022 yaitu sebesar 29,60%, tahun
+                2023, target prevalensi stunting yang harus dicapai oleh Kab.
+                Takalar sebesar 24,74% dan target tahun 2024 sebesar 14 %.
               </p>
             </div>
           </div>
@@ -347,7 +350,7 @@ const Beranda = () => {
             {[1, 2, 3].map((x) => (
               <div
                 key={x}
-                className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow "
               >
                 <a href="#">
                   <img
