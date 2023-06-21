@@ -29,8 +29,6 @@ export const RekomendasiContextProvider = ({ children }) => {
     fetchDataRekomendasi();
   }, []);
 
-  console.log({ rekomendasiData });
-
   return (
     <RekomendasiContext.Provider value={{ rekomendasiData }}>
       {children}

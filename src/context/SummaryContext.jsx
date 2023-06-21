@@ -22,13 +22,14 @@ export const SummaryContextProvider = ({ children }) => {
 
   const getKecLocalstorage = localStorage.getItem("kc");
 
-  useEffect(() => {
-    const findKecamatan = kecamatanList.filter(
-      (data) => data.id == getKecLocalstorage
-    );
-    setKecamatanList(findKecamatan);
-    console.log({ kecamatanList });
-  }, [getKecLocalstorage]);
+  // useEffect(() => {
+  //   const findKecamatan = kecamatanList.filter(
+  //     (data) => data.id == getKecLocalstorage
+  //   );
+  //   setKecamatanList(findKecamatan);
+  //   console.log({ findKecamatan });
+  //   console.log({ kecamatanList });
+  // }, [getKecLocalstorage]);
 
   useEffect(() => {
     const fetchDataAll = async () => {
@@ -45,7 +46,7 @@ export const SummaryContextProvider = ({ children }) => {
           axios
             .get(url, payload)
             .then((response) => {
-              setDatas(response.data);
+              setDatas(response?.data);
             })
             .catch((error) => {
               console.log(error);
@@ -61,7 +62,7 @@ export const SummaryContextProvider = ({ children }) => {
           axios
             .get(url, payload)
             .then((response) => {
-              setDatas(response.data);
+              setDatas(response?.data);
             })
             .catch((error) => {
               console.log(error);
@@ -77,7 +78,7 @@ export const SummaryContextProvider = ({ children }) => {
           axios
             .get(url, payload)
             .then((response) => {
-              setDatas(response.data);
+              setDatas(response?.data);
             })
             .catch((error) => {
               console.log(error);
@@ -88,28 +89,38 @@ export const SummaryContextProvider = ({ children }) => {
       }
     };
     fetchDataAll();
-    console.log(
-      "🚀 ~ file: SummaryContext.jsx:54 ~ fetchDataAll ~ kecamatanId:",
-      kecamatanId
-    );
   }, [kecamatanId, kelurahanId]);
 
-  useEffect(() => {
-    const fetchDataKec = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const url = "https://stunting.ahadnikah.com/api/wilayah/kecamatan";
+  // const getLocalKel = localStorage.getItem("kl");
+  // const getLocalKec = JSON.parse(localStorage.getItem("kc"));
 
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setKecamatanList(response.data);
-      } catch (error) {
-        console.log(error);
+  const fetchDataKec = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = "https://stunting.ahadnikah.com/api/wilayah/kecamatan";
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      let responseData = response?.data;
+      const getLocalKec = JSON.parse(localStorage.getItem("kc"));
+
+      if (getLocalKec == null) {
+        // console.log("getLocalKec:", getLocalKec);
+        responseData = responseData.filter(
+          (val) => val.id.toString() === getLocalKec.toString()
+        );
       }
-    };
+      setKecamatanList(responseData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     fetchDataKec();
   }, []);
 
@@ -154,6 +165,9 @@ export const SummaryContextProvider = ({ children }) => {
 
         isLoading,
         getKecLocalstorage,
+
+        // getLocalKec,
+        fetchDataKec,
       }}
     >
       {children}

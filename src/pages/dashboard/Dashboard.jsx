@@ -21,30 +21,160 @@ import { KecamatanContext } from "../../context/KecamatanContext";
 import { KelurahanContext } from "../../context/KelurahanContext";
 import formattedNumber from "../../utills/formattedNumber ";
 import CardRealtimeVer2 from "../../components/CardRealtimeVer2";
+import axios from "axios";
 
 const Dashboard = () => {
-  const {
-    datas,
-    kecamatanList,
-    kelurahanList,
-    kecamatanId,
-    setKecamatanId,
-    kelurahanId,
-    setKelurahanId,
+  // const {
+  //   datas,
+  //   kecamatanList,
+  //   kelurahanList,
+  //   kecamatanId,
+  //   setKecamatanId,
+  //   kelurahanId,
+  //   setKelurahanId,
+  //   getLocalKec,
+  //   fetchDataKec,
 
-    isLoading,
-  } = useContext(SummaryContext);
+  //   isLoading,
+  // } = useContext(SummaryContext);
+
+  const [kecamatanList, setKecamatanList] = useState([]);
+  const [kelurahanList, setKelurahanList] = useState([]);
+  const [kecamatanId, setKecamatanId] = useState("");
+  const [kelurahanId, setKelurahanId] = useState("");
+  const [datas, setDatas] = useState([]);
+
+  const fetchDataAll = async () => {
+    const token = localStorage.getItem("token");
+    if (kecamatanId && kelurahanId) {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}/${kelurahanId}`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (kecamatanId) {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  useEffect(() => {
+    fetchDataAll();
+  }, [kecamatanId, kelurahanId]);
+
+  const fetchDataKec = async () => {
+    const token = localStorage.getItem("token");
+    const url = "https://stunting.ahadnikah.com/api/wilayah/kecamatan";
+
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    let responseData = response?.data;
+    const getLocalKec = JSON.parse(localStorage.getItem("kc"));
+
+    if (getLocalKec !== null) {
+      console.log("getLocalKec", getLocalKec);
+      responseData = responseData.filter(
+        (val) => val.id.toString() === getLocalKec.toString()
+      );
+    }
+    setKecamatanList(responseData);
+  };
+
+  const fetchDataKelurahan = async () => {
+    const token = localStorage.getItem("token");
+    const url = `https://stunting.ahadnikah.com/api/wilayah/desa`;
+
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    let responseData = response?.data;
+    const getLocalKel = JSON.parse(localStorage.getItem("kl"));
+
+    if (getLocalKel !== null) {
+      console.log("getLocalKel", getLocalKel);
+      responseData = responseData.filter(
+        (val) => val.id.toString() === getLocalKel.toString()
+      );
+    }
+    setKelurahanList(responseData);
+  };
 
   const handleKecamatanChange = (event) => {
-    const getkecamatanid = event.target.value;
-    setKecamatanId(getkecamatanid);
-  };
-  const handleKelurahanChange = (event) => {
-    const getkelurahanid = event.target.value;
-    setKelurahanId(getkelurahanid);
+    const value = event.target.value;
+    setKecamatanId(value);
+    resetKelurahan(value);
   };
 
-  const getLocalKec = localStorage.getItem("kc");
+  const resetKelurahan = (val) => {
+    if (kecamatanId !== val) {
+      setKelurahanId("");
+    }
+  };
+
+  const handleKelurahanChange = (event) => {
+    const value = event.target.value;
+    setKelurahanId(value);
+    console.log({ kelurahanId });
+  };
+
+  useEffect(() => {
+    fetchDataKec();
+    fetchDataKelurahan();
+  }, [kecamatanId, kelurahanId]);
+
+  const getLocalSingle = localStorage.getItem("kc");
+
+  const getKecSingle = kecamatanList.find(
+    (item) => item.id == getLocalSingle
+  )?.id;
+  console.log(
+    "🚀 ~ file: Dashboard.jsx:172 ~ Dashboard ~ getKecSingle:",
+    getKecSingle
+  );
 
   return (
     <>
@@ -82,9 +212,9 @@ const Dashboard = () => {
               <div className=" flex justify-center items-center text-dark  gap-4">
                 <>
                   <select
+                    value={kecamatanId}
                     className="w-72"
-                    defaultValue={kecamatanId}
-                    onChange={(e) => handleKecamatanChange(e)}
+                    onChange={handleKecamatanChange}
                   >
                     <option value="">Kecamatan</option>
                     {kecamatanList.map((kec, idx) => (
@@ -95,12 +225,12 @@ const Dashboard = () => {
                   </select>
 
                   <select
+                    value={kelurahanId}
                     className="w-72"
-                    defaultValue=""
-                    onChange={(e) => handleKelurahanChange(e)}
+                    onChange={handleKelurahanChange}
                     disabled={!kecamatanId}
                   >
-                    <option value={kelurahanId}>Kelurahan</option>
+                    <option value="">Kelurahan</option>
                     {kelurahanList
                       ?.filter((item) => item.id_kecamatan == kecamatanId)
                       .map((kel, idx) => (

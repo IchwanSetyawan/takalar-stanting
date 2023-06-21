@@ -351,7 +351,7 @@ const Beranda = () => {
             </Link>
           </div>
           <div className="flex justify-center gap-6">
-            {NewsPageModel.map((item, idx) => (
+            {NewsPageModel.slice(0, 3).map((item, idx) => (
               <div
                 key={item.id}
                 className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow "
