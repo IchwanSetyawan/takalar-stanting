@@ -2,8 +2,11 @@ import React from "react";
 import { intervensiModel } from "../model/IntervensiModel";
 import TitleComponent from "./TitleComponent";
 import DownloadIcon from "../assets/icon/download-icon.svg";
+import { useContext } from "react";
+import { RekomendasiContext } from "../context/RekomendasiContext";
 
 const CardIntervensi = () => {
+  const { rekomendasiData } = useContext(RekomendasiContext);
   return (
     <>
       <div className="border rounded-lg bg-white  h-auto px-6 pt-8 pb-10">
@@ -17,38 +20,21 @@ const CardIntervensi = () => {
           </button>
         </div>
         <div className=" px-10 py-6 border border-darkSmooth rounded-lg">
-          <div className="">
-            <div>
-              <h2 className="text-base text-primary font-bold">
-                Remaja putri yang mengonsumsi Tablet Tambah Darah (TTD)
-              </h2>
-            </div>
-            <div className="flex flex-col gap-2 mt-5 text-dark font-medium text-sm">
-              {intervensiModel.map((item, idx) => (
-                <div key={item.id} className="flex gap-2 ">
+          {rekomendasiData.map((item, idx) => (
+            <div className="mb-8" key={idx}>
+              <div>
+                <h2 className="text-base text-primary font-bold">
+                  {item.nama_cakupan}
+                </h2>
+              </div>
+              <div className="flex flex-col gap-2 mt-5 text-dark font-medium text-sm">
+                <div className="flex gap-2 ">
                   <span>{idx + 1}.</span>
-                  <span>{item.caption}</span>
+                  <span>{item.rekomendasi}</span>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-
-          <div className="mt-8 ">
-            <div>
-              <h2 className="text-base text-primary font-bold">
-                Remaja putri yang menerima layanan pemeriksaan status anemia
-                (hemoglobin)
-              </h2>
-            </div>
-            <div className="flex flex-col gap-2 mt-5  text-dark font-medium text-sm">
-              {intervensiModel.map((item, idx) => (
-                <div key={item.id} className="flex gap-2 ">
-                  <span>{idx + 1}.</span>
-                  <span>{item.caption}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

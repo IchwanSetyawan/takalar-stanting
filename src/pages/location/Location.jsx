@@ -69,7 +69,7 @@ const Location = () => {
                       Jumah Balita Stunting (Pendek & Sangat Pendek)
                     </th>
                     <th scope="col" className="px-6 text-center py-3">
-                      Total Balita
+                      Total Balita Yang Diukur
                     </th>
                     <th scope="col" className="px-6 text-center py-3">
                       Prevelensi Stunting

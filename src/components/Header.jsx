@@ -76,7 +76,7 @@ export const Header = () => {
                 : tabMenu === 6
                 ? "Wilayah"
                 : tabMenu === 7
-                ? "Dashboard Bapak ASuh"
+                ? "Dashboard Bapak Asuh"
                 : ""}
             </h1>
             <div className="flex gap-4 items-center">

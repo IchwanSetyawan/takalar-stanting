@@ -21,15 +21,11 @@ export const SummaryContextProvider = ({ children }) => {
     datas.jumlah_anak_umur_24_59_bulan;
 
   const getKecLocalstorage = localStorage.getItem("kc");
-  console.log(
-    "🚀 ~ file: SummaryContext.jsx:24 ~ SummaryContextProvider ~ getKecLocalstorage:",
-    getKecLocalstorage
-  );
+
   useEffect(() => {
     const findKecamatan = kecamatanList.filter(
       (data) => data.id == getKecLocalstorage
     );
-
     setKecamatanList(findKecamatan);
     console.log({ kecamatanList });
   }, [getKecLocalstorage]);
@@ -91,8 +87,11 @@ export const SummaryContextProvider = ({ children }) => {
         console.log(error);
       }
     };
-
     fetchDataAll();
+    console.log(
+      "🚀 ~ file: SummaryContext.jsx:54 ~ fetchDataAll ~ kecamatanId:",
+      kecamatanId
+    );
   }, [kecamatanId, kelurahanId]);
 
   useEffect(() => {
