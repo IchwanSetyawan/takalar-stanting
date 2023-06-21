@@ -93,9 +93,6 @@ const CakupanComponent = () => {
                             Target Nasional (Perpres) : {data.target}
                           </p>
                         ))}
-                      <p className="mt-2 text-sm font-normal text-[#252525]">
-                        Target Nasional (Perpres) : 80
-                      </p>
                     </div>
                     {item.nilai <= 55 && (
                       <div className="w-8 h-8">
