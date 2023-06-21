@@ -5,12 +5,6 @@ import { useContext } from "react";
 import { RekomendasiContext } from "../../context/RekomendasiContext";
 
 const Recommendation = () => {
-  const { rekomendasiData } = useContext(RekomendasiContext);
-  console.log(
-    "🚀 ~ file: Recommendation.jsx:9 ~ Recommendation ~ rekomendasiData:",
-    rekomendasiData
-  );
-
   return (
     <>
       <Layout>

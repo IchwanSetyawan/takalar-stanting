@@ -20,7 +20,7 @@ const CardIntervensi = () => {
           </button>
         </div>
         <div className=" px-10 py-6 border border-darkSmooth rounded-lg">
-          {rekomendasiData.results.map((item, idx) => (
+          {rekomendasiData.map((item, idx) => (
             <div className="mb-8" key={idx}>
               <div>
                 <h2 className="text-base text-primary font-bold">
@@ -29,7 +29,7 @@ const CardIntervensi = () => {
               </div>
               <div className="flex flex-col gap-2 mt-5 text-dark font-medium text-sm">
                 <div className="flex gap-2 ">
-                  {/* <span>{idx + 1}.</span> */}
+                  <span>{idx + 1}.</span>
                   <span>{item.rekomendasi}</span>
                 </div>
               </div>

@@ -20,8 +20,7 @@ export const RekomendasiContextProvider = ({ children }) => {
           },
         };
         const response = await axios.get(url, payload);
-
-        setRekomendasiData(response.data);
+        setRekomendasiData(response?.data);
       } catch (error) {
         console.log(error);
       }
@@ -29,6 +28,8 @@ export const RekomendasiContextProvider = ({ children }) => {
 
     fetchDataRekomendasi();
   }, []);
+
+  console.log({ rekomendasiData });
 
   return (
     <RekomendasiContext.Provider value={{ rekomendasiData }}>
