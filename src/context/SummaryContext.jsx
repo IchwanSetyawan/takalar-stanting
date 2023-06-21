@@ -88,6 +88,10 @@ export const SummaryContextProvider = ({ children }) => {
       }
     };
     fetchDataAll();
+    console.log(
+      "🚀 ~ file: SummaryContext.jsx:54 ~ fetchDataAll ~ kecamatanId:",
+      kecamatanId
+    );
   }, [kecamatanId, kelurahanId]);
 
   useEffect(() => {

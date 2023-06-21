@@ -27,7 +27,7 @@ const CakupanComponent = () => {
         });
         setCount(response.data.count);
         setPageSize(response.data.page_size);
-        setData(response.data.results);
+        setData(response?.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -86,7 +86,6 @@ const CakupanComponent = () => {
                   <div className="flex items-center justify-between w-full">
                     <div className="w-full">
                       <p className="w-11/12">{item.indikator}</p>
-                      {/* buatkan saya looping data perpres dari datas target jika id datas target sama dengan id data cakupan maka tampilkan targetnya */}
                       {datasTarget
                         .filter((data) => data.id === item.id)
                         .map((data, idx) => (
@@ -94,6 +93,9 @@ const CakupanComponent = () => {
                             Target Nasional (Perpres) : {data.target}
                           </p>
                         ))}
+                      <p className="mt-2 text-sm font-normal text-[#252525]">
+                        Target Nasional (Perpres) : 80
+                      </p>
                     </div>
                     {item.nilai <= 55 && (
                       <div className="w-8 h-8">
