@@ -21,15 +21,14 @@ const CardIntervensi = () => {
         </div>
         <div className=" px-10 py-6 border border-darkSmooth rounded-lg">
           {rekomendasiData.map((item, idx) => (
-            <div className="mb-8" key={idx}>
-              <div>
-                <h2 className="text-base text-primary font-bold">
-                  {item.nama_cakupan}
-                </h2>
-              </div>
-              <div className="flex flex-col gap-2 mt-5 text-dark font-medium text-sm">
-                <div className="flex gap-2 ">
-                  <span>{idx + 1}.</span>
+            <div className="mb-8 " key={idx}>
+              <div className="flex flex-row gap-2  mt-5 text-dark font-medium text-base">
+                <div className="  rounded-full w-10 ">
+                  <div className="text-white w-8 h-8 bg-primary flex items-center rounded-full justify-center">
+                    <span>{idx + 1}</span>
+                  </div>
+                </div>
+                <div className="w-full text-justify leading-8">
                   <span>{item.rekomendasi}</span>
                 </div>
               </div>

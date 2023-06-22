@@ -1,17 +1,10 @@
 import React from "react";
 
-const InfoComponent = ({ id, handleClose }) => {
+const InfoComponent = ({ children }) => {
   return (
     <>
-      <div className="border absolute w-full  right-0 top-6 z-50 bg-primary rounded-lg px-4 flex-col flex justify-start text-white text-sm">
-        <div className="flex justify-end pt-2">
-          <button onClick={handleClose} className="text-xs text-white">
-            X
-          </button>
-        </div>
-        <div className="pb-3">
-          <p>ini adalah halaman info-{id}</p>
-        </div>
+      <div className="border absolute w-10/12  right-0 top-6 z-50 bg-primary rounded-lg shadow-xl px-8 pt-2 pb-4 flex-col flex justify-start text-white text-sm">
+        {children}
       </div>
     </>
   );
