@@ -20,8 +20,13 @@ ChartJS.register(
   Legend
 );
 
-const CartComponentSingle = () => {
-  const { datas } = useContext(SummaryContext);
+const CartComponentSingle = ({
+  datas_0_5_bulan,
+  datas_6_11_bulan,
+  datas_12_23_bulan,
+  datas_24_59_bulan,
+}) => {
+  // const { datas } = useContext(SummaryContext);
 
   const labels = [
     "0 - 5 bulan",
@@ -35,10 +40,14 @@ const CartComponentSingle = () => {
       {
         label: "Anak",
         data: [
-          datas.jumlah_anak_umur_0_5_bulan,
-          datas.jumlah_anak_umur_6_11_bulan,
-          datas.jumlah_anak_umur_12_23_bulan,
-          datas.jumlah_anak_umur_24_59_bulan,
+          datas_0_5_bulan,
+          datas_6_11_bulan,
+          datas_12_23_bulan,
+          datas_24_59_bulan,
+          // datas.jumlah_anak_umur_0_5_bulan,
+          // datas.jumlah_anak_umur_6_11_bulan,
+          // datas.jumlah_anak_umur_12_23_bulan,
+          // datas.jumlah_anak_umur_24_59_bulan,
         ],
         indexAxis: "x",
         backgroundColor: "#168EEA",

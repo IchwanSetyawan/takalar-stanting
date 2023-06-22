@@ -70,6 +70,8 @@ const CakupanComponent = () => {
     setShowInfo(false);
   };
 
+  console.log({ data });
+
   return (
     <div className="h-auto">
       <div className=" p-10 pb-16  rounded-xl h-auto bg-white border border-gray-200">
