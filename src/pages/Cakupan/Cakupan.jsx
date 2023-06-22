@@ -106,7 +106,7 @@ const Cakupan = () => {
                               <p className="w-11/12">{item.indikator}</p>
 
                               <p className="mt-2 text-sm font-normal text-[#252525]">
-                                Target Nasional (Perpres) : {data.target}
+                                Target Nasional (Perpres) : {item.target}
                               </p>
                             </div>
                             {item.nilai <= 55 && (
