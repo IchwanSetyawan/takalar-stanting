@@ -184,6 +184,11 @@ const Dashboard = () => {
     fetchDataKelurahan();
   }, [kecamatanId, kelurahanId]);
 
+  const prevalensi_stunting_ssgi_2021 = datas.prevalensi_stunting_ssgi_2021;
+  const prevalensi_stunting_ssgi_2022 = datas.prevalensi_stunting_ssgi_2022;
+  const prevalensi_stunting_eppgbm_2021 = datas.prevalensi_stunting_eppgbm_2021;
+  const prevalensi_stunting_eppgbm_2022 = datas.prevalensi_stunting_eppgbm_2022;
+
   return (
     <>
       <Layout>
@@ -309,7 +314,20 @@ const Dashboard = () => {
                 </div>
 
                 <div className="mt-4 shadow-smooth  border rounded-lg  px-2 py-5">
-                  <CartComponent />
+                  <CartComponent
+                    prevalensi_stunting_ssgi_2021={
+                      prevalensi_stunting_ssgi_2021
+                    }
+                    prevalensi_stunting_ssgi_2022={
+                      prevalensi_stunting_ssgi_2022
+                    }
+                    prevalensi_stunting_eppgbm_2021={
+                      prevalensi_stunting_eppgbm_2021
+                    }
+                    prevalensi_stunting_eppgbm_2022={
+                      prevalensi_stunting_eppgbm_2022
+                    }
+                  />
                 </div>
               </RealtimeData>
               <PeriodikData>
