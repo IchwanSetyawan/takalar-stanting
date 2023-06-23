@@ -22,8 +22,13 @@ ChartJS.register(
   Legend
 );
 
-const CartComponent = () => {
-  const { datas } = useContext(SummaryContext);
+const CartComponent = ({
+  prevalensi_stunting_ssgi_2021,
+  prevalensi_stunting_ssgi_2022,
+  prevalensi_stunting_eppgbm_2021,
+  prevalensi_stunting_eppgbm_2022,
+}) => {
+  // const { datas } = useContext(SummaryContext);
 
   // useEffect(() => {
   //   fetchData();
@@ -35,10 +40,7 @@ const CartComponent = () => {
     datasets: [
       {
         label: "SSGI",
-        data: [
-          datas.prevalensi_stunting_ssgi_2021,
-          datas.prevalensi_stunting_ssgi_2022,
-        ],
+        data: [prevalensi_stunting_ssgi_2021, prevalensi_stunting_ssgi_2022],
         indexAxis: "x",
         backgroundColor: "#168EEA",
         borderColor: "#168EEA",
@@ -48,8 +50,8 @@ const CartComponent = () => {
       {
         label: "E-PPGBM",
         data: [
-          datas.prevalensi_stunting_eppgbm_2021,
-          datas.prevalensi_stunting_eppgbm_2022,
+          prevalensi_stunting_eppgbm_2021,
+          prevalensi_stunting_eppgbm_2022,
         ],
         indexAxis: "x",
         backgroundColor: "#FBAE47",
