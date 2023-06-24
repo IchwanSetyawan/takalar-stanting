@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { intervensiModel } from "../model/IntervensiModel";
 import TitleComponent from "./TitleComponent";
 import DownloadIcon from "../assets/icon/download-icon.svg";
@@ -7,6 +7,9 @@ import { RekomendasiContext } from "../context/RekomendasiContext";
 
 const CardIntervensi = () => {
   const { rekomendasiData } = useContext(RekomendasiContext);
+  useEffect(() => {
+    rekomendasiData;
+  }, []);
   return (
     <>
       <div className="border rounded-lg bg-white  h-auto px-6 pt-8 pb-10">
@@ -29,7 +32,7 @@ const CardIntervensi = () => {
                   </div>
                 </div>
                 <div className="w-full text-justify leading-8">
-                  <span>{item.rekomendasi}</span>
+                  <span>{item?.rekomendasi}</span>
                 </div>
               </div>
             </div>

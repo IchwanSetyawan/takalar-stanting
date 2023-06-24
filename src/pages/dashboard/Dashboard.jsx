@@ -305,7 +305,7 @@ const Dashboard = () => {
                       name="Prevalensi"
                       total={
                         datas.prevalensi
-                          ? `${datas?.prevalensi.toFixed(2)} %`
+                          ? `${datas?.prevalensi.toFixed(0)} %`
                           : 0 + "%"
                       }
                       icon={CurveIcon}
@@ -348,7 +348,7 @@ const Dashboard = () => {
                   <CardRealtimeVer2
                     name="Prevalensi Balita Stunting"
                     icon={SortIcon}
-                    total={`${datas?.prevalensi_balita_stunting} %`}
+                    total={`${Math.round(datas?.prevalensi_balita_stunting)} %`}
                   />
                 </>
               </PeriodikData>

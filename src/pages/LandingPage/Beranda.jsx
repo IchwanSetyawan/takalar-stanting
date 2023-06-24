@@ -353,20 +353,21 @@ const Beranda = () => {
           <div className="flex justify-center gap-6">
             {NewsPageModel.slice(0, 3).map((item, idx) => (
               <div
-                key={item.id}
+                key={item.idx}
                 className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow "
               >
-                <a href="#">
+                <div className="h-[250px] ">
                   <img
-                    className="rounded-t-lg w-full"
-                    src={NewsImage}
+                    className="rounded-t-lg w-full h-full object-cover"
+                    src={item.image}
                     alt="news image"
                   />
-                </a>
+                </div>
+
                 <div>
                   <div className="mt-4 h-72 ">
                     <a href="#">
-                      <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      <h5 className="mb-4 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {item.title}
                       </h5>
                     </a>

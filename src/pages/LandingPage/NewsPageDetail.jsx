@@ -28,7 +28,7 @@ const NewsPageDetail = () => {
           </div>
           <div className="w-full">
             <img
-              src={NewsImage1}
+              src={data.image}
               alt="photo news"
               className="rounded-lg w-full"
             />
