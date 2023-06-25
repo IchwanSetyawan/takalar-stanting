@@ -149,7 +149,7 @@ const Cakupan = () => {
                             ></div>
                           </div>
                           <p className="text-sm text-dark font-semibold ml-4">
-                            {item?.nilai.toFixed(2)}%
+                            {Number(item?.nilai.toFixed(2))}%
                             {/* {item.nilai.toFixed(2)} */}
                           </p>
                         </div>
