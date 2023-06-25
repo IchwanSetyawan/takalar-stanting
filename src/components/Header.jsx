@@ -42,6 +42,8 @@ export const Header = () => {
       setTabMenu(6);
     } else if (location.pathname === "/dashboard-bapakasuh") {
       setTabMenu(7);
+    } else if (location.pathname === "/dashboard-news") {
+      setTabMenu(8);
     }
   }, []);
 
@@ -77,6 +79,10 @@ export const Header = () => {
                 ? "Wilayah"
                 : tabMenu === 7
                 ? "Dashboard Bapak Asuh"
+                : tabMenu === 8
+                ? "Dashboard News"
+                : tabMenu === 9
+                ? "Unggah Artikel"
                 : ""}
             </h1>
             <div className="flex gap-4 items-center">

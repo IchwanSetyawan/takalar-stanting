@@ -366,11 +366,11 @@ const Beranda = () => {
 
                 <div>
                   <div className="mt-4 h-72 ">
-                    <a href="#">
+                    <Link to={`/news/${item.id}`}>
                       <h5 className="mb-4 text-xl font-bold tracking-tight text-gray-900 ">
                         {item.title}
                       </h5>
-                    </a>
+                    </Link>
 
                     <div className="">
                       <p className="mb-3  text-sm font-normal text-[#858D9D]">
