@@ -87,6 +87,7 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.setItem("kl", response.data.kelurahan_desa);
       })
       .catch((err) => {
+        toast.error("Username atau password salah!");
         setIsLogin(false);
         setIsLoading(false);
         console.log(err);

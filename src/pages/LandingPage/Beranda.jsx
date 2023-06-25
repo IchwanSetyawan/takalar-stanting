@@ -367,7 +367,7 @@ const Beranda = () => {
                 <div>
                   <div className="mt-4 h-72 ">
                     <a href="#">
-                      <h5 className="mb-4 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      <h5 className="mb-4 text-xl font-bold tracking-tight text-gray-900 ">
                         {item.title}
                       </h5>
                     </a>

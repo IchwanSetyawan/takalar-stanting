@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import RealtimeData from "../../components/RealtimeData";
 import PeriodikData from "../../components/PeriodikData";
@@ -16,6 +16,8 @@ import BreastFeedingMothers from "../../assets/icon/ibu-menyusui-icon.svg";
 import BabyStroller from "../../assets/icon/baby-stroller-icon.svg";
 import formattedNumber from "../../utills/formattedNumber ";
 import axios from "axios";
+import { TabMenuContext } from "../../context/TabMenuContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const DashboardBalita = () => {
   const [kecamatanList, setKecamatanList] = useState([]);
@@ -297,7 +299,7 @@ const DashboardBalita = () => {
                 <PeriodikData>
                   <>
                     <CardPeriodik
-                      name="Jumlah Remaja"
+                      name="Jumlah Remaja Putri"
                       total={
                         datas.jumlah_remaja
                           ? formattedNumber(datas.jumlah_remaja)

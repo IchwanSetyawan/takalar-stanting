@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import RealtimeData from "../../components/RealtimeData";
 import PeriodikData from "../../components/PeriodikData";
@@ -16,6 +16,7 @@ import "moment/locale/id";
 import formattedNumber from "../../utills/formattedNumber ";
 import CardRealtimeVer2 from "../../components/CardRealtimeVer2";
 import axios from "axios";
+import { TabMenuContext } from "../../context/TabMenuContext";
 
 const Dashboard = () => {
   const [kecamatanList, setKecamatanList] = useState([]);
@@ -27,6 +28,18 @@ const Dashboard = () => {
   const token = localStorage.getItem("token");
   const getLocalKec = JSON.parse(localStorage.getItem("kc"));
   const getLocalKel = JSON.parse(localStorage.getItem("kl"));
+
+  const { tabMenu, setTabMenu } = useContext(TabMenuContext);
+  console.log("🚀 ~ file: Beranda.jsx:250 ~ Beranda ~ tabMenu:", tabMenu);
+
+  const pathname = window.location.pathname;
+  if (pathname === "/dashboard") {
+    setTabMenu(1);
+  }
+
+  useEffect(() => {
+    tabMenu;
+  }, [tabMenu]);
 
   const fetchDataKecAndKel = async () => {
     if (kecamatanId && kelurahanId) {
@@ -183,6 +196,10 @@ const Dashboard = () => {
     fetchDataKec();
     fetchDataKelurahan();
   }, [kecamatanId, kelurahanId]);
+
+  useEffect(() => {
+    // window.location.reload();
+  }, []);
 
   const prevalensi_stunting_ssgi_2021 = datas.prevalensi_stunting_ssgi_2021;
   const prevalensi_stunting_ssgi_2022 = datas.prevalensi_stunting_ssgi_2022;

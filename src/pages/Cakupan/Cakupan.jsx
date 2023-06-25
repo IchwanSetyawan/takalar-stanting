@@ -91,10 +91,21 @@ const Cakupan = () => {
           <div>
             <div className="h-auto">
               <div className=" p-10 pb-16  rounded-xl h-auto bg-white border border-gray-200">
-                <div className="flex flex-row justify-center flex-wrap gap-4">
-                  <div className="max-w-[850px]">
-                    {data.map((item, id) => (
-                      <div className="mt-10 relative  " key={id}>
+                <div className="grid grid-cols-5 bg-primary rounded-t-lg">
+                  <div className=" text-white col-span-4 flex justify-center items-center py-5  text-center ">
+                    Indikator
+                  </div>
+                  <div className=" text-white  col-span-1 text-sm text-center flex justify-center items-center ">
+                    Target Nasional (Perpres)
+                  </div>
+                </div>
+                {data.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="grid grid-cols-5  justify-center flex-wrap "
+                  >
+                    <div className="col-span-4 ">
+                      <div className="mt-10 relative space-y-4 ">
                         <div className=" text flex justify-start  mb-1 gap-5">
                           <div className="mt-1 nomor ">
                             <div className="text-white text-sm rounded-full font-bold h-6 w-6 flex justify-center items-center  bg-primary ">
@@ -104,10 +115,6 @@ const Cakupan = () => {
                           <div className="flex items-center justify-between w-full">
                             <div className="w-full">
                               <p className="w-11/12">{item.indikator}</p>
-
-                              <p className="mt-2 text-sm font-normal text-[#252525]">
-                                Target Nasional (Perpres) : {item.target}%
-                              </p>
                             </div>
                             {item.nilai <= 55 && (
                               <div className="w-8 h-8">
@@ -136,13 +143,14 @@ const Cakupan = () => {
                               } h-5 rounded-full `}
                               style={{
                                 width: `${maxWidthConvert(
-                                  item.nilai ? item.nilai.toFixed(0) : 0
+                                  item.nilai ? item.nilai : 0
                                 )}%`,
                               }}
                             ></div>
                           </div>
                           <p className="text-sm text-dark font-semibold ml-4">
-                            {convertPercent(item?.nilai.toFixed(0))}%
+                            {item?.nilai.toFixed(2)}%
+                            {/* {item.nilai.toFixed(2)} */}
                           </p>
                         </div>
 
@@ -182,9 +190,16 @@ const Cakupan = () => {
                           </div>
                         ) : null}
                       </div>
-                    ))}
+                    </div>
+                    <div className="col-span-1">
+                      <div className="mt-10 flex  h-full flex-col align-middle items-center gap-2  pl-5 ">
+                        <p className="font-bold text-sm text-primary">
+                          {Number(item.target.toFixed(2))}%
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

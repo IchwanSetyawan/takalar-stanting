@@ -35,6 +35,7 @@ import { RekomendasiContextProvider } from "./context/RekomendasiContext";
 import TentangKami from "./pages/LandingPage/TentangKami";
 import NewsPage from "./pages/LandingPage/NewsPage";
 import NewsPageDetail from "./pages/LandingPage/NewsPageDetail";
+import DashboardNews from "./pages/dashboard-news/DashboardNews";
 
 function App() {
   // const { isLogin, setIsLogin } = useContext(authContext);
@@ -96,6 +97,11 @@ function App() {
                               exact
                               path="/tentang-kami"
                               element={<TentangKami />}
+                            />
+                            <Route
+                              exact
+                              path="/dashboard-news"
+                              element={<DashboardNews />}
                             />
                             <Route path="*" element={<Notfound />} />
                           </Routes>
