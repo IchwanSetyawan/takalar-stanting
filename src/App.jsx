@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import {
   Route,
@@ -35,6 +35,8 @@ import { RekomendasiContextProvider } from "./context/RekomendasiContext";
 import TentangKami from "./pages/LandingPage/TentangKami";
 import NewsPage from "./pages/LandingPage/NewsPage";
 import NewsPageDetail from "./pages/LandingPage/NewsPageDetail";
+import DashboardNews from "./pages/dashboard-news/DashboardNews";
+import NewsAdd from "./pages/dashboard-news/NewsAdd.jsx";
 
 function App() {
   // const { isLogin, setIsLogin } = useContext(authContext);
@@ -96,6 +98,16 @@ function App() {
                               exact
                               path="/tentang-kami"
                               element={<TentangKami />}
+                            />
+                            <Route
+                              exact
+                              path="/dashboard-news"
+                              element={<DashboardNews />}
+                            />
+                            <Route
+                              exact
+                              path="/dashboard-news/add"
+                              element={<NewsAdd />}
                             />
                             <Route path="*" element={<Notfound />} />
                           </Routes>

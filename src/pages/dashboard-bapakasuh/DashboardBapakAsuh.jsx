@@ -276,7 +276,7 @@ const DashboardBapakAsuh = () => {
                   total={
                     datas.rt_pertumbuhan_panjang_berat_anak
                       ? formattedNumber(
-                          datas?.rt_pertumbuhan_panjang_berat_anak.toFixed(1)
+                          datas?.rt_pertumbuhan_panjang_berat_anak.toFixed(0)
                         )
                       : 0
                   }
@@ -304,7 +304,7 @@ const DashboardBapakAsuh = () => {
                   total={
                     datas.rt_komsumsi_baduta_protein_hewani
                       ? formattedNumber(
-                          datas.rt_komsumsi_baduta_protein_hewani.toFixed(1)
+                          datas.rt_komsumsi_baduta_protein_hewani.toFixed(0)
                         )
                       : 0
                   }

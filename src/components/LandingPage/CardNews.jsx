@@ -12,7 +12,7 @@ const CardNews = ({ datas }) => {
             <div className="flex justify-between items-center gap-5">
               <div className="rounded-lg w-3/6 h-44">
                 <img
-                  src={ImageCard}
+                  src={item.image}
                   alt="img"
                   className=" object-fill bg-cover h-full  "
                 />

@@ -14,10 +14,13 @@ import RecommendationIcon from "../assets/icon/recommendation-icon.svg";
 import RecommendationLightIcon from "../assets/icon/recommendation-light-icon.svg";
 import LocationLightIcon from "../assets/icon/location-light-icon.svg";
 import LocationIcon from "../assets/icon/location-icon.svg";
+import NewsLightIcon from "../assets/icon/news-icon.svg";
+import AddNewsIcon from "../assets/icon/add-news-icon.svg";
 
 const Sidebar = () => {
   const location = useLocation();
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
+
   useEffect(() => {
     if (location.pathname === "/") {
       setTabMenu(1);
@@ -31,8 +34,16 @@ const Sidebar = () => {
       setTabMenu(5);
     } else if (location.pathname === "/location") {
       setTabMenu(6);
+    } else if (location.pathname === "/dashboard-bapakasuh") {
+      setTabMenu(7);
+    } else if (location.pathname === "/dashboard-news") {
+      setTabMenu(8);
+    } else if (location.pathname === "/dashboard-news/add") {
+      setTabMenu(9);
     }
   }, [location]);
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -219,6 +230,56 @@ const Sidebar = () => {
 
                       <span className="ml-3 text-base font-bold">
                         Rekomendasi
+                      </span>
+                    </div>
+                  </Link>
+                </li>
+                <li className="hidden">
+                  <Link
+                    to="/dashboard-news"
+                    onClick={() => setTabMenu(8)}
+                    className={`${
+                      tabMenu === 8
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                    }`}
+                  >
+                    <div className="flex items-center ">
+                      <div className="text-white">
+                        {tabMenu === 8 ? (
+                          <img src={NewsLightIcon} />
+                        ) : (
+                          <img src={NewsLightIcon} />
+                        )}
+                      </div>
+
+                      <span className="ml-3 text-base font-bold">
+                        Dashboard News
+                      </span>
+                    </div>
+                  </Link>
+                </li>
+                <li className="hidden">
+                  <Link
+                    to="/dashboard-news/add"
+                    onClick={() => setTabMenu(9)}
+                    className={`${
+                      tabMenu === 9
+                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                    }`}
+                  >
+                    <div className="flex items-center ">
+                      <div className="text-white">
+                        {tabMenu === 9 ? (
+                          <img src={AddNewsIcon} />
+                        ) : (
+                          <img src={AddNewsIcon} />
+                        )}
+                      </div>
+
+                      <span className="ml-3 text-base font-bold">
+                        Unggah Artikel
                       </span>
                     </div>
                   </Link>

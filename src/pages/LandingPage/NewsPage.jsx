@@ -7,7 +7,6 @@ import { NewsPageModel } from "../../model/NewsPageModel";
 
 const NewsPage = () => {
   let data = NewsPageModel;
-  console.log("🚀 ~ file: NewsPage.jsx:10 ~ NewsPage ~ data:", data);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(data);
