@@ -1,10 +1,9 @@
 import React from "react";
 import Layout from "../../layouts/LandingPage/Layout";
-import Form from "../../components/LandingPage/Form";
-import SelectComponent from "../../components/LandingPage/SelectComponent";
 import { useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { Toaster, toast } from "react-hot-toast";
 
 const RegisterBapakAsuh = () => {
   const [kecamatanList, setKecamatanList] = React.useState([]);
@@ -34,16 +33,9 @@ const RegisterBapakAsuh = () => {
       );
 
       return setKelurahanList(filteredKelurahan);
-
-      // console.log("filteredKelurahan", filteredKelurahan);
     }
     setKelurahanList(responseData);
-
-    // setSelectedKelurahan(null);
   };
-
-  console.log("kecamatanList", kecamatanList);
-  console.log("kelurahanList", kelurahanList);
 
   const onChangeKecamatan = (e) => {
     const selectedKecamatanId = e.target.value;
@@ -66,10 +58,32 @@ const RegisterBapakAsuh = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log("data", data);
+    axios
+      .post(
+        "https://stunting.ahadnikah.com/api/admin/landing-page/form-bapakasuh/",
+        data
+      )
+      .then((response) => {
+        // Berhasil mengirim data
+        toast.success("Pendaftaran Berhasil!");
+        console.log(response.data);
+        reset();
+      })
+      .catch((error) => {
+        // Gagal mengirim data
+        toast.error("pendaftaran gagal!");
+        console.log("errors", errors);
+
+        console.error(error);
+      });
+
+    const myCheckboxValue = watch("bersedia");
+    console.log(myCheckboxValue);
   };
   return (
     <Layout>
@@ -151,7 +165,11 @@ const RegisterBapakAsuh = () => {
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-4 px-6 "
                     placeholder="input nama lengkap"
                   />
+                  {errors.firstName?.type === "required" && (
+                    <p role="alert">Name is required</p>
+                  )}
                 </div>
+
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Alamat
@@ -231,12 +249,13 @@ const RegisterBapakAsuh = () => {
                   </label>
                   <input
                     {...register("email")}
-                    name="email"
+                    aria-invalid={errors.mail ? "true" : "false"}
                     type="email"
                     id="text"
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-4 px-6 "
                     placeholder="contohemail@mail.com"
                   />
+                  {errors.mail && <p role="alert">{errors.mail?.message}</p>}
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -264,10 +283,11 @@ const RegisterBapakAsuh = () => {
 
                   <div className="flex flex-row items-center mb-4">
                     <input
-                      {...register("bersedia")}
-                      type="radio"
-                      value="1"
-                      name="bersedia"
+                      {...register("bersedia", { defaultValue: false })}
+                      id="bersedia1"
+                      type="checkbox"
+                      value={true}
+                      name="ketersediaan"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                     />
                     <label className="ml-2 text-sm font-medium text-gray-900 ">
@@ -276,10 +296,11 @@ const RegisterBapakAsuh = () => {
                   </div>
                   <div className="flex items-center">
                     <input
-                      {...register("bersedia")}
-                      type="radio"
-                      value="0"
-                      name="bersedia"
+                      {...register("bersedia", { defaultValue: false })}
+                      type="checkbox"
+                      id="bersedia2"
+                      value={false}
+                      name="ketersediaan"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                     />
                     <label
@@ -302,16 +323,15 @@ const RegisterBapakAsuh = () => {
                   <select
                     name="donasi"
                     {...register("donasi")}
-                    // onChange={(e) => onChangeKelurahan(e)}
                     id="countries"
                     className="bg-gray-50 border py-4 px-6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "
                   >
                     <option value="">- Pilih Jumlah Donasi -</option>
-                    <option value="1">Rp. 20.000</option>
-                    <option value="2">Rp. 30.000</option>
-                    <option value="3">Rp. 40.000</option>
-                    <option value="4">Rp. 50.000</option>
-                    <option value="5">Rp. 60.000</option>
+                    <option value="20000">Rp. 20.000</option>
+                    <option value="30000">Rp. 30.000</option>
+                    <option value="40000">Rp. 40.000</option>
+                    <option value="50000">Rp. 50.000</option>
+                    <option value="60000">Rp. 60.000</option>
                   </select>
                 </div>
 
@@ -325,16 +345,15 @@ const RegisterBapakAsuh = () => {
                   </label>
 
                   <select
-                    // onChange={(e) => onChangeKelurahan(e)}
                     id="countries"
                     {...register("jangka_waktu")}
                     name="jangka_waktu"
                     className="bg-gray-50 border py-4 px-6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "
                   >
                     <option value="">- Pilih Jangka Waktu Komitmen -</option>
-                    <option value="1">6 Bulan</option>
-                    <option value="2">9 Bulan</option>
-                    <option value="3">12 Bulan</option>
+                    <option value="6 Bulan">6 Bulan</option>
+                    <option value="9 Bulan">9 Bulan</option>
+                    <option value="12 Bulan">12 Bulan</option>
                   </select>
                 </div>
               </div>
@@ -350,6 +369,7 @@ const RegisterBapakAsuh = () => {
           </button>
         </div>
       </form>
+      <Toaster position="top-center" reverseOrder={true} />
     </Layout>
   );
 };
