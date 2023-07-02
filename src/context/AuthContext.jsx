@@ -75,13 +75,19 @@ export const AuthContextProvider = ({ children }) => {
         setIsLogin(true);
         setRoles(response.data.roles);
         setTokenFunc(response.data.access);
+        localStorage.setItem("roles", response.data.roles);
         localStorage.setItem("1", response?.data?.first_name);
 
+        // setTimeout(() => {
+        // }, 3000);
         setTimeout(() => {
-          navigate("/dashboard");
+          if (localStorage.getItem("roles") === "admin-artikel") {
+            navigate("/dashboard-news");
+          } else {
+            navigate("/dashboard");
+          }
         }, 2000);
         toast.success("Berhasil login!");
-        console.log(isLogin);
         setIsLoading(true);
         localStorage.setItem("kc", response.data.kecamatan);
         localStorage.setItem("kl", response.data.kelurahan_desa);

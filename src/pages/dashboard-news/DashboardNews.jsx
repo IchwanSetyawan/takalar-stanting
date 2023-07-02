@@ -2,10 +2,33 @@ import React, { useState } from "react";
 import Layout from "../../layouts/Layout";
 import DeleteIcon from "../../assets/icon/delete-icon.svg";
 import EditIcon from "../../assets/icon/edit-icon.svg";
+import { useEffect } from "react";
+import axios from "axios";
+import formatDate from "../../utills/formattedDate";
 
 const DashboardNews = () => {
   const [searchTerm, setSearchTerm] = useState("");
   //   const [searchResults, setSearchResults] = useState(data);
+  const [datas, setDatas] = useState([]);
+
+  const fetchData = async () => {
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        setDatas(response?.data);
+        console.log(response?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Layout>
       <div className="m-8">
@@ -85,78 +108,36 @@ const DashboardNews = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    1
-                  </th>
-                  <td className="px-6 py-4">
-                    Dampak Kenaikan Angka Stunting Terhadap Kesejahteraan
-                    Masyarakat
-                  </td>
-                  <td className="px-6 py-4">17 Juni 2023</td>
-                  <td className="px-6 py-4">123</td>
-                  <td className="px-6 py-4 w-28">
-                    <div classNameName="flex items-center ">
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        <img src={EditIcon} />
-                      </button>
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        <img src={DeleteIcon} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    2
-                  </th>
-                  <td className="px-6 py-4">
-                    Dinkes Bersama TP-PKK Kabupaten Genjot Penanganan Penurunan
-                    Stunting di Kabupaten Takalar
-                  </td>
-                  <td className="px-6 py-4">17 Juni 2023</td>
-                  <td className="px-6 py-4">123</td>
-                  <td className="px-6 py-4">
-                    <div classNameName="flex item items-center gap-5">
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        <img src={EditIcon} />
-                      </button>
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        <img src={DeleteIcon} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    3
-                  </th>
-                  <td className="px-6 py-4">
-                    Cegah Stunting dengan Perbaikan Pola Makan, Pola Asuh dan
-                    Sanitasi
-                  </td>
-                  <td className="px-6 py-4">17 Juni 2023</td>
-                  <td className="px-6 py-4">123</td>
-                  <td className="px-6 py-4">
-                    <div classNameName="flex gap-5 item">
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        <img src={EditIcon} />
-                      </button>
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        <img src={DeleteIcon} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                {datas?.results?.map((item, idx) => {
+                  return (
+                    <tr
+                      key={item.id}
+                      className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                    >
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      >
+                        {idx + 1}
+                      </th>
+                      <td className="px-6 py-4">{item.title}</td>
+                      <td className="px-6 py-4">
+                        {formatDate(item.created_at)}
+                      </td>
+                      <td className="px-6 py-4">123</td>
+                      <td className="px-6 py-4 w-28">
+                        <div classNameName="flex items-center ">
+                          <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <img src={EditIcon} />
+                          </button>
+                          <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <img src={DeleteIcon} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -4,12 +4,16 @@ import CardNews from "../../components/LandingPage/CardNews";
 import SearchIcon from "../../assets/landingpage/search-icon.svg";
 import { useState } from "react";
 import { NewsPageModel } from "../../model/NewsPageModel";
+import { useEffect } from "react";
+import axios from "axios";
 
 const NewsPage = () => {
   let data = NewsPageModel;
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState(data);
+
+  const [datas, setDatas] = useState([]);
+  const [searchResults, setSearchResults] = useState(datas);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -22,6 +26,24 @@ const NewsPage = () => {
     );
     setSearchResults(filteredResults);
   };
+
+  const fetchData = () => {
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        setDatas(response?.data);
+        console.log(response?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Layout>
@@ -85,15 +107,24 @@ const NewsPage = () => {
             </div>
           </div>
           <div className="flex justify-between items-center mb-10 w-full "></div>
-          {searchResults.length === 0 ? (
+          {/* {searchResults.length === 0 ? (
             <div className="flex justify-center items-center">
               <p className="text-center text-3xl font-bold">
                 tidak ada artikel yang dicari!
               </p>
             </div>
           ) : (
-            <CardNews datas={searchResults} />
-          )}
+            )} */}
+
+          {datas?.results?.map((item) => (
+            <CardNews
+              title={item.title}
+              body={item.body}
+              created_at={item.created_at}
+              id={item.id}
+              gambar={item.gambar}
+            />
+          ))}
         </div>
       </div>
     </Layout>

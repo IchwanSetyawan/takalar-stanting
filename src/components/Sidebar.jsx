@@ -15,7 +15,9 @@ import RecommendationLightIcon from "../assets/icon/recommendation-light-icon.sv
 import LocationLightIcon from "../assets/icon/location-light-icon.svg";
 import LocationIcon from "../assets/icon/location-icon.svg";
 import NewsLightIcon from "../assets/icon/news-icon.svg";
+import NewsDefaultIcon from "../assets/icon/news-default-icon.svg";
 import AddNewsIcon from "../assets/icon/add-news-icon.svg";
+import AddNewsLightIcon from "../assets/icon/add-news-icon-light.svg";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -63,227 +65,243 @@ const Sidebar = () => {
             </div>
             <div className="mt-9">
               <ul className="font-medium flex flex-col  text-sm">
-                <li>
-                  <Link
-                    to="/dashboard"
-                    onClick={() => setTabMenu(1)}
-                    className={`${
-                      tabMenu === 1
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary"
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6]"
-                    }`}
-                  >
-                    <div className="flex items-center ">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
+                {localStorage.getItem("roles") === "admin-artikel" ? (
+                  <>
+                    <li>
+                      <Link
+                        to="/dashboard-news"
+                        onClick={() => setTabMenu(8)}
+                        className={`${
+                          tabMenu === 8
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
                       >
-                        <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z" />
-                        <path d="M3.265 10.602l7.668 4.129a2.25 2.25 0 002.134 0l7.668-4.13 1.37.739a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.71 0l-9.75-5.25a.75.75 0 010-1.32l1.37-.738z" />
-                        <path d="M10.933 19.231l-7.668-4.13-1.37.739a.75.75 0 000 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z" />
-                      </svg>
+                        <div className="flex items-center ">
+                          <div className="text-white">
+                            {tabMenu === 8 ? (
+                              <img src={NewsLightIcon} />
+                            ) : (
+                              <img src={NewsDefaultIcon} />
+                            )}
+                          </div>
 
-                      <span className="ml-3 text-base font-bold">
-                        Dashboard
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/dashboard-balita"
-                    onClick={() => setTabMenu(2)}
-                    className={`${
-                      tabMenu === 2
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center text-red ">
-                      <div className="text-white">
-                        {tabMenu === 2 ? (
-                          <img src={BalitaLightIcon} />
-                        ) : (
-                          <img src={BalitaIcon} />
-                        )}
-                      </div>
+                          <span className="ml-3 text-base font-bold">
+                            Dashboard News
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/dashboard-news/add"
+                        onClick={() => setTabMenu(9)}
+                        className={`${
+                          tabMenu === 9
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
+                      >
+                        <div className="flex items-center ">
+                          <div className="text-white">
+                            {tabMenu === 9 ? (
+                              <img src={AddNewsLightIcon} />
+                            ) : (
+                              <img src={AddNewsIcon} />
+                            )}
+                          </div>
 
-                      <span className="ml-3 text-base font-bold">
-                        Dashboard Balita
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/dashboard-bapakasuh"
-                    onClick={() => setTabMenu(7)}
-                    className={`${
-                      tabMenu === 7
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center text-red ">
-                      <div className="text-white">
-                        {tabMenu === 7 ? (
-                          <img src={BapakAsuhLightIcon} className="w-10 p-0" />
-                        ) : (
-                          <img src={BapakAsuhIcon} className="w-10 p-0" />
-                        )}
-                      </div>
+                          <span className="ml-3 text-base font-bold">
+                            Unggah Artikel
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link
+                        to="/dashboard"
+                        onClick={() => setTabMenu(1)}
+                        className={`${
+                          tabMenu === 1
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary"
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6]"
+                        }`}
+                      >
+                        <div className="flex items-center ">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z" />
+                            <path d="M3.265 10.602l7.668 4.129a2.25 2.25 0 002.134 0l7.668-4.13 1.37.739a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.71 0l-9.75-5.25a.75.75 0 010-1.32l1.37-.738z" />
+                            <path d="M10.933 19.231l-7.668-4.13-1.37.739a.75.75 0 000 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z" />
+                          </svg>
 
-                      <span className="ml-3 text-base font-bold">
-                        Dashboard Bapak Asuh
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/location"
-                    onClick={() => setTabMenu(6)}
-                    className={`${
-                      tabMenu === 6
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center ">
-                      <div className="text-white">
-                        {tabMenu === 6 ? (
-                          <img src={LocationLightIcon} />
-                        ) : (
-                          <img src={LocationIcon} />
-                        )}
-                      </div>
+                          <span className="ml-3 text-base font-bold">
+                            Dashboard
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/dashboard-balita"
+                        onClick={() => setTabMenu(2)}
+                        className={`${
+                          tabMenu === 2
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
+                      >
+                        <div className="flex items-center text-red ">
+                          <div className="text-white">
+                            {tabMenu === 2 ? (
+                              <img src={BalitaLightIcon} />
+                            ) : (
+                              <img src={BalitaIcon} />
+                            )}
+                          </div>
 
-                      <span className="ml-3 text-base font-bold">Wilayah</span>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/sebaran"
-                    onClick={() => setTabMenu(3)}
-                    className={`${
-                      tabMenu === 3
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center ">
-                      <div>
-                        {tabMenu === 3 ? (
-                          <img src={SebaranLightIcon} />
-                        ) : (
-                          <img src={SebaranIcon} />
-                        )}
-                      </div>
+                          <span className="ml-3 text-base font-bold">
+                            Dashboard Balita
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/dashboard-bapakasuh"
+                        onClick={() => setTabMenu(7)}
+                        className={`${
+                          tabMenu === 7
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
+                      >
+                        <div className="flex items-center text-red ">
+                          <div className="text-white">
+                            {tabMenu === 7 ? (
+                              <img
+                                src={BapakAsuhLightIcon}
+                                className="w-10 p-0"
+                              />
+                            ) : (
+                              <img src={BapakAsuhIcon} className="w-10 p-0" />
+                            )}
+                          </div>
 
-                      <span className="ml-3 text-base font-bold">Sebaran</span>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/cakupan"
-                    onClick={() => setTabMenu(4)}
-                    className={`${
-                      tabMenu === 4
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center ">
-                      <div className="text-white">
-                        {tabMenu === 4 ? (
-                          <img src={CakupanLightIcon} />
-                        ) : (
-                          <img src={CakupanIcon} />
-                        )}
-                      </div>
-                      <span className="ml-3 text-base font-bold">Cakupan</span>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/recommendation"
-                    onClick={() => setTabMenu(5)}
-                    className={`${
-                      tabMenu === 5
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center ">
-                      <div className="text-white">
-                        {tabMenu === 5 ? (
-                          <img src={RecommendationLightIcon} />
-                        ) : (
-                          <img src={RecommendationIcon} />
-                        )}
-                      </div>
+                          <span className="ml-3 text-base font-bold">
+                            Dashboard Bapak Asuh
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/location"
+                        onClick={() => setTabMenu(6)}
+                        className={`${
+                          tabMenu === 6
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
+                      >
+                        <div className="flex items-center ">
+                          <div className="text-white">
+                            {tabMenu === 6 ? (
+                              <img src={LocationLightIcon} />
+                            ) : (
+                              <img src={LocationIcon} />
+                            )}
+                          </div>
 
-                      <span className="ml-3 text-base font-bold">
-                        Rekomendasi
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-                <li className="hidden">
-                  <Link
-                    to="/dashboard-news"
-                    onClick={() => setTabMenu(8)}
-                    className={`${
-                      tabMenu === 8
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center ">
-                      <div className="text-white">
-                        {tabMenu === 8 ? (
-                          <img src={NewsLightIcon} />
-                        ) : (
-                          <img src={NewsLightIcon} />
-                        )}
-                      </div>
+                          <span className="ml-3 text-base font-bold">
+                            Wilayah
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/sebaran"
+                        onClick={() => setTabMenu(3)}
+                        className={`${
+                          tabMenu === 3
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
+                      >
+                        <div className="flex items-center ">
+                          <div>
+                            {tabMenu === 3 ? (
+                              <img src={SebaranLightIcon} />
+                            ) : (
+                              <img src={SebaranIcon} />
+                            )}
+                          </div>
 
-                      <span className="ml-3 text-base font-bold">
-                        Dashboard News
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-                <li className="hidden">
-                  <Link
-                    to="/dashboard-news/add"
-                    onClick={() => setTabMenu(9)}
-                    className={`${
-                      tabMenu === 9
-                        ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
-                        : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
-                    }`}
-                  >
-                    <div className="flex items-center ">
-                      <div className="text-white">
-                        {tabMenu === 9 ? (
-                          <img src={AddNewsIcon} />
-                        ) : (
-                          <img src={AddNewsIcon} />
-                        )}
-                      </div>
+                          <span className="ml-3 text-base font-bold">
+                            Sebaran
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/cakupan"
+                        onClick={() => setTabMenu(4)}
+                        className={`${
+                          tabMenu === 4
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
+                      >
+                        <div className="flex items-center ">
+                          <div className="text-white">
+                            {tabMenu === 4 ? (
+                              <img src={CakupanLightIcon} />
+                            ) : (
+                              <img src={CakupanIcon} />
+                            )}
+                          </div>
+                          <span className="ml-3 text-base font-bold">
+                            Cakupan
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/recommendation"
+                        onClick={() => setTabMenu(5)}
+                        className={`${
+                          tabMenu === 5
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
+                      >
+                        <div className="flex items-center ">
+                          <div className="text-white">
+                            {tabMenu === 5 ? (
+                              <img src={RecommendationLightIcon} />
+                            ) : (
+                              <img src={RecommendationIcon} />
+                            )}
+                          </div>
 
-                      <span className="ml-3 text-base font-bold">
-                        Unggah Artikel
-                      </span>
-                    </div>
-                  </Link>
-                </li>
+                          <span className="ml-3 text-base font-bold">
+                            Rekomendasi
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
