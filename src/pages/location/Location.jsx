@@ -72,7 +72,7 @@ const Location = () => {
                       Total Balita Yang Diukur
                     </th>
                     <th scope="col" className="px-6 text-center py-3">
-                      Prevelensi Stunting
+                      Prevelensi
                     </th>
                   </tr>
                 </thead>

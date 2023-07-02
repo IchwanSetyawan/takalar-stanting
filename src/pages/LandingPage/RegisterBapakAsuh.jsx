@@ -59,7 +59,11 @@ const RegisterBapakAsuh = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm();
+
+  console.log("errors ini", errors);
+  const selectedValueDonasi = watch("donasi");
 
   const onSubmit = (data) => {
     console.log("data", data);
@@ -72,19 +76,16 @@ const RegisterBapakAsuh = () => {
         // Berhasil mengirim data
         toast.success("Pendaftaran Berhasil!");
         console.log(response.data);
+
         reset();
       })
       .catch((error) => {
         // Gagal mengirim data
         toast.error("pendaftaran gagal!");
-        console.log("errors", errors);
-
         console.error(error);
       });
-
-    const myCheckboxValue = watch("bersedia");
-    console.log(myCheckboxValue);
   };
+
   return (
     <Layout>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -159,14 +160,16 @@ const RegisterBapakAsuh = () => {
                   </label>
                   <input
                     type="text"
-                    {...register("nama")}
+                    {...register("nama", { required: true })}
                     id="text"
                     name="nama"
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-4 px-6 "
                     placeholder="input nama lengkap"
                   />
-                  {errors.firstName?.type === "required" && (
-                    <p role="alert">Name is required</p>
+                  {errors.nama && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * nama harus di isi!
+                    </p>
                   )}
                 </div>
 
@@ -176,12 +179,17 @@ const RegisterBapakAsuh = () => {
                   </label>
                   <input
                     type="text"
-                    {...register("alamat")}
+                    {...register("alamat", { required: true })}
                     id="text"
                     name="alamat"
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-4 px-6 "
-                    placeholder="desa"
+                    placeholder="alamat"
                   />
+                  {errors.alamat && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * alamat harus di isi!
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -191,19 +199,24 @@ const RegisterBapakAsuh = () => {
                     Kecamatan
                   </label>
                   <select
-                    {...register("kecamatan")}
+                    {...register("kecamatan", { required: true })}
                     name="kecamatan"
                     onChange={(e) => onChangeKecamatan(e)}
                     id="countries"
                     className="bg-gray-50 border py-4 px-6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "
                   >
-                    <option valu=""> -Pilih Kecamatan-</option>
+                    <option value=""> -Pilih Kecamatan-</option>
                     {kecamatanList.map((item) => (
                       <option key={item.id} value={item.id}>
                         {item.kecamatan}
                       </option>
                     ))}
                   </select>
+                  {errors.kecamatan && selectedKecamatan === "" && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * kecamatan harus di isi!
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -216,17 +229,23 @@ const RegisterBapakAsuh = () => {
                   <select
                     onChange={(e) => onChangeKelurahan(e)}
                     id="countries"
-                    {...register("kelurahan")}
+                    {...register("kelurahan", { required: true })}
                     name="kelurahan"
+                    disabled={!selectedKecamatan}
                     className="bg-gray-50 border py-4 px-6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "
                   >
-                    <option value="">-Pilih Kecamatan-</option>
+                    <option value="">-Pilih Kelurahan-</option>
                     {kelurahanList.map((item) => (
                       <option key={item.id} value={item.id}>
                         {item.desa}
                       </option>
                     ))}
                   </select>
+                  {errors.kelurahan && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * kelurahan harus di isi!
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -236,11 +255,16 @@ const RegisterBapakAsuh = () => {
                   <input
                     name="no_hp"
                     type="text"
-                    {...register("no_hp")}
+                    {...register("no_hp", { required: true })}
                     id="text"
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-4 px-6 "
                     placeholder="08xxxxxxxxxx"
                   />
+                  {errors.no_hp && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * nomor hp harus di isi!
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -248,14 +272,25 @@ const RegisterBapakAsuh = () => {
                     Alamat Email
                   </label>
                   <input
-                    {...register("email")}
-                    aria-invalid={errors.mail ? "true" : "false"}
+                    {...register("email", {
+                      required: true,
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
+                        message: "Email tidak valid",
+                      },
+                    })}
+                    // aria-invalid={errors.mail ? "true" : "false"}
                     type="email"
                     id="text"
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-4 px-6 "
                     placeholder="contohemail@mail.com"
                   />
-                  {errors.mail && <p role="alert">{errors.mail?.message}</p>}
+                  {errors.email && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * email harus di isi !
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -265,10 +300,15 @@ const RegisterBapakAsuh = () => {
                     name="profesi"
                     type="text"
                     id="text"
-                    {...register("profesi")}
+                    {...register("profesi", { required: true })}
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-4 px-6 "
                     placeholder="Input Profesi/Satuan Kerja"
                   />
+                  {errors.profesi && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * profesi harus di isi!
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex flex-col gap-10 mt-10">
@@ -283,10 +323,9 @@ const RegisterBapakAsuh = () => {
 
                   <div className="flex flex-row items-center mb-4">
                     <input
-                      {...register("bersedia", { defaultValue: false })}
-                      id="bersedia1"
+                      {...register("ketersediaan")}
+                      id="bersedia"
                       type="checkbox"
-                      value={true}
                       name="ketersediaan"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                     />
@@ -294,24 +333,8 @@ const RegisterBapakAsuh = () => {
                       Ya, Bersedia
                     </label>
                   </div>
-                  <div className="flex items-center">
-                    <input
-                      {...register("bersedia", { defaultValue: false })}
-                      type="checkbox"
-                      id="bersedia2"
-                      value={false}
-                      name="ketersediaan"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
-                    />
-                    <label
-                      for="default-radio-2"
-                      className="ml-2 text-sm font-medium text-gray-900 "
-                    >
-                      Tidak
-                    </label>
-                  </div>
                 </div>
-                <div>
+                <div className="relative">
                   <label
                     for="countries"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -319,20 +342,29 @@ const RegisterBapakAsuh = () => {
                     Komitmen donasi per bulan untuk Anak Stunting di Kab.
                     Takalar
                   </label>
-
-                  <select
+                  <span className="absolute  text-gray-900 font-medium mt-10 inset-y-0 left-0 pl-5 flex items-cente">
+                    Rp.
+                  </span>
+                  <input
                     name="donasi"
-                    {...register("donasi")}
-                    id="countries"
-                    className="bg-gray-50 border py-4 px-6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "
-                  >
-                    <option value="">- Pilih Jumlah Donasi -</option>
-                    <option value="20000">Rp. 20.000</option>
-                    <option value="30000">Rp. 30.000</option>
-                    <option value="40000">Rp. 40.000</option>
-                    <option value="50000">Rp. 50.000</option>
-                    <option value="60000">Rp. 60.000</option>
-                  </select>
+                    type="text"
+                    id="number"
+                    {...register("donasi", {
+                      required: "Donasi harus diisi!",
+                      pattern: {
+                        value: /^[0-9]*$/,
+                        message: "Masukkan hanya angka",
+                      },
+                    })}
+                    className="w-full pl-12 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg py-4 px-6 "
+                    placeholder="input jumlah donasi minimal Rp. 20.000"
+                  />
+
+                  {errors.donasi && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * {errors.donasi.message}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -345,8 +377,8 @@ const RegisterBapakAsuh = () => {
                   </label>
 
                   <select
-                    id="countries"
-                    {...register("jangka_waktu")}
+                    id="waktu"
+                    {...register("jangka_waktu", { required: true })}
                     name="jangka_waktu"
                     className="bg-gray-50 border py-4 px-6 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "
                   >
@@ -355,6 +387,11 @@ const RegisterBapakAsuh = () => {
                     <option value="9 Bulan">9 Bulan</option>
                     <option value="12 Bulan">12 Bulan</option>
                   </select>
+                  {errors.jangka_waktu && (
+                    <p className="text-xs text-red-500 mt-2">
+                      * jangka waktu harus di isi!
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
