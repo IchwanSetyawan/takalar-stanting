@@ -52,11 +52,14 @@ export const Header = () => {
     localStorage.removeItem("1");
     localStorage.removeItem("kc");
     localStorage.removeItem("kl");
+    localStorage.removeItem("roles");
     setIsLoading(false);
-    toast.success("Berhasil logout!");
+    setTimeout(() => {
+      toast.success("Berhasil logout!");
+    }, 500);
     setTimeout(() => {
       navigate("/landing-page");
-    }, 2000);
+    }, 1000);
   };
 
   return (

@@ -27,6 +27,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { NewsPageModel } from "../../model/NewsPageModel";
+import formatDate from "../../utills/formattedDate";
 
 ChartJS.register(
   CategoryScale,
@@ -39,6 +40,8 @@ ChartJS.register(
 
 const Beranda = () => {
   const [datas, setDatas] = useState([]);
+
+  const [datasNews, setDatasNews] = useState([]);
 
   const labels = ["2021", "2022"];
   const data = {
@@ -246,6 +249,24 @@ const Beranda = () => {
     fetchDataSebaran();
   }, []);
 
+  const fetchDataNews = async () => {
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        setDatasNews(response?.data);
+        console.log(response?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchDataNews();
+  }, []);
+
   return (
     <>
       <Layout>
@@ -350,8 +371,8 @@ const Beranda = () => {
               </button>
             </Link>
           </div>
-          <div className="flex justify-center gap-6">
-            {NewsPageModel.slice(0, 3).map((item, idx) => (
+          <div className="flex justify-start gap-6">
+            {datasNews?.results?.slice(0, 3).map((item, idx) => (
               <div
                 key={item.idx}
                 className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow "
@@ -359,7 +380,7 @@ const Beranda = () => {
                 <div className="h-[250px] ">
                   <img
                     className="rounded-t-lg w-full h-full object-cover"
-                    src={item.image}
+                    src={item.gambar}
                     alt="news image"
                   />
                 </div>
@@ -374,13 +395,13 @@ const Beranda = () => {
 
                     <div className="">
                       <p className="mb-3  text-sm font-normal text-[#858D9D]">
-                        {item.description.slice(0, 150) + "..."}
+                        {item.body.slice(0, 150) + "..."}
                       </p>
                     </div>
                   </div>
                   <div className="flex justify-between items-center ">
                     <p className="text-sm text-[#858D9D]">
-                      Posted 17 June 2023
+                      {formatDate(item.created_at)}
                     </p>
                     <Link to={`/news/${item.id}`}>
                       <button className="text-primary text-sm ">Details</button>

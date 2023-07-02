@@ -42,6 +42,9 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      if (localStorage.getItem("roles") === "admin-artikel") {
+        return navigate("/dashboard-news");
+      }
       navigate("/dashboard");
     }
   });

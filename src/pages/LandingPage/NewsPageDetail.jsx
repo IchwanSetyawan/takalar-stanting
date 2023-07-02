@@ -1,14 +1,34 @@
 import React from "react";
 import Layout from "../../layouts/LandingPage/Layout";
-import NewsImage1 from "../../assets/landingpage/newsImage1.png";
 import { Link, useParams } from "react-router-dom";
-import { NewsPageModel } from "../../model/NewsPageModel";
 import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 
 const NewsPageDetail = () => {
   const { id } = useParams();
 
-  const data = NewsPageModel.find((val) => val.id == id);
+  const [datas, setDatas] = useState([]);
+
+  const fetchData = () => {
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        setDatas(response?.data?.results);
+        console.log(response?.data.results);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const data = datas.find((val) => toString(val.id) == toString(id));
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Layout>
@@ -23,12 +43,12 @@ const NewsPageDetail = () => {
           </Link>
           <div>
             <h1 className="font-bold text-3xl text-start mb-10">
-              {data.title}
+              {data?.title}
             </h1>
           </div>
           <div className="w-full">
             <img
-              src={data.image}
+              src={data?.gambar}
               alt="photo news"
               className="rounded-lg w-full"
             />
@@ -39,7 +59,7 @@ const NewsPageDetail = () => {
           </div>
 
           <div className="mb-20">
-            <p className="indent-10 text-justify">{data.description}</p>
+            <p className="indent-10 text-justify">{data?.body}</p>
           </div>
         </div>
       </div>
