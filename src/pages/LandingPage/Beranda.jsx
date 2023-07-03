@@ -42,6 +42,7 @@ const Beranda = () => {
   const [datas, setDatas] = useState([]);
 
   const [datasNews, setDatasNews] = useState([]);
+  const [isLoading, setIsloading] = useState(false);
 
   const labels = ["2021", "2022"];
   const data = {
@@ -251,14 +252,16 @@ const Beranda = () => {
 
   const fetchDataNews = async () => {
     const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
+    setIsloading(true);
 
     axios
       .get(url)
       .then((response) => {
         setDatasNews(response?.data);
-        console.log(response?.data);
+        setIsloading(false);
       })
       .catch((error) => {
+        setIsloading(false);
         console.log(error);
       });
   };
@@ -371,46 +374,54 @@ const Beranda = () => {
               </button>
             </Link>
           </div>
-          <div className="flex justify-start gap-6">
-            {datasNews?.results?.slice(0, 3).map((item, idx) => (
-              <div
-                key={item.idx}
-                className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow "
-              >
-                <div className="h-[250px] ">
-                  <img
-                    className="rounded-t-lg w-full h-full object-cover"
-                    src={item.gambar}
-                    alt="news image"
-                  />
-                </div>
+          {isLoading ? (
+            <div className="h-[357px] flex justify-center items-center">
+              <p className="text-center ">Loading ...</p>
+            </div>
+          ) : (
+            <div className="flex justify-center gap-6">
+              {datasNews?.results?.slice(0, 3).map((item, idx) => (
+                <div
+                  key={item.idx}
+                  className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow "
+                >
+                  <div className="h-[250px] ">
+                    <img
+                      className="rounded-t-lg w-full h-full object-cover"
+                      src={item.gambar}
+                      alt="news image"
+                    />
+                  </div>
 
-                <div>
-                  <div className="mt-4 h-72 ">
-                    <Link to={`/news/${item.id}`}>
-                      <h5 className="mb-4 text-xl font-bold tracking-tight text-gray-900 ">
-                        {item.title}
-                      </h5>
-                    </Link>
+                  <div>
+                    <div className="mt-4 h-72 ">
+                      <Link to={`/news/${item.id}`}>
+                        <h5 className="mb-4 text-xl font-bold tracking-tight text-gray-900 ">
+                          {item.title}
+                        </h5>
+                      </Link>
 
-                    <div className="">
-                      <p className="mb-3  text-sm font-normal text-[#858D9D]">
-                        {item.body.slice(0, 150) + "..."}
+                      <div className="">
+                        <p className="mb-3  text-sm font-normal text-[#858D9D]">
+                          {item.body.slice(0, 150) + "..."}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center ">
+                      <p className="text-sm text-[#858D9D]">
+                        {formatDate(item.created_at)}
                       </p>
+                      <Link to={`/news/${item.id}`}>
+                        <button className="text-primary text-sm ">
+                          Details
+                        </button>
+                      </Link>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center ">
-                    <p className="text-sm text-[#858D9D]">
-                      {formatDate(item.created_at)}
-                    </p>
-                    <Link to={`/news/${item.id}`}>
-                      <button className="text-primary text-sm ">Details</button>
-                    </Link>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="h-[357px] flex flex-col gap-10 bg-primary justify-center items-center">
