@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../assets/image/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -11,10 +11,19 @@ const Navbar = () => {
         </div>
       </Link>
       <div className="text-dark flex items-center gap-16">
-        <Link to="/landing-page">Beranda</Link>
-        <Link to="#">Daftar Wilayah</Link>
-        <Link to="/tentang-kami">Tentang Kami</Link>
-        <Link to="/login">
+        <Link to="/landing-page" className="hover:text-blue-700 font-bold">
+          Beranda
+        </Link>
+        <Link className="hover:text-blue-700 font-bold" to="#">
+          Daftar Wilayah
+        </Link>
+        <Link className="hover:text-blue-700 font-bold" to="/news">
+          Berita
+        </Link>
+        <Link className="hover:text-blue-700 font-bold" to="/tentang-kami">
+          Tentang Kami
+        </Link>
+        <Link className="hover:text-blue-700 font-bold" to="/login">
           <button className="px-6 py-2 border border-primary rounded-lg">
             Login
           </button>

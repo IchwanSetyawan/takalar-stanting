@@ -7,11 +7,9 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-const NewsAdd = () => {
-  // const [value, setValue] = useState("");
-
+const EditNews = () => {
   const [datas, setDatas] = useState([]);
 
   const {
@@ -23,6 +21,8 @@ const NewsAdd = () => {
     watch,
     getValues,
   } = useForm();
+
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const modules = {
     toolbar: [
@@ -69,6 +69,10 @@ const NewsAdd = () => {
     getCategory();
   }, []);
 
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
+  };
+
   const editorBody = watch("body");
 
   const onEditorStateChange = (editorState) => {
@@ -80,6 +84,7 @@ const NewsAdd = () => {
   }, [register]);
 
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const onSubmit = (data) => {
     const currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
@@ -91,28 +96,50 @@ const NewsAdd = () => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("body", data.body);
-    formData.append("gambar", data.gambar[0]); // Assuming you are selecting a single image
-    formData.append("created_at", data.currentDate);
     formData.append("category", data.category);
+    formData.append("created_at", data.created_at);
+    formData.append("gambar", data.gambar);
+    // if (selectedImage) {
+    // }
 
     console.log("formData", formData);
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`;
     axios
-      .post(
-        "https://stunting.ahadnikah.com/api/admin/dashboard/artikel/",
-        formData
-      )
-      .then((res) => {
-        toast.success("Artikel berhasil ditambahkan");
-        console.log(res.data);
-        setTimeout(() => {
-          navigate("/dashboard-news");
-        }, 2000);
-        reset();
+      .put(url, formData)
+      .then((response) => {
+        console.log(response.data);
+        // Proses pengeditan berhasil
+        toast.success("Berhasil mengedit artikel");
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.error(error);
+        toast.error("Gagal mengedit artikel");
+        // Terjadi kesalahan saat pengeditan data
       });
   };
+
+  const fetchData = async () => {
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        // setDatas(response?.data);
+        setValue("title", response.data.title);
+        setValue("body", response.data.body);
+        setValue("category", response.data.category);
+        setValue("created_at", response.data.created_at);
+        setValue("gambar", response.data.gambar);
+        console.log("get bye id", response?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Layout>
@@ -192,6 +219,7 @@ const NewsAdd = () => {
                 type="file"
                 name="image"
                 accept="image/*"
+                onChange={handleImageChange}
                 {...register("gambar", { required: "File gambar diperlukan" })}
               />
               {errors.gambar && (
@@ -203,13 +231,20 @@ const NewsAdd = () => {
           </div>
 
           <div className="flex justify-end">
-            <div className="w-[100px]">
-              <button
-                type="submit"
-                className="px-1 w-full py-3 text-white font-semibold bg-primary rounded-md mt-7"
-              >
-                Post
-              </button>
+            <div className=" flex gap-5">
+              <div className="w-[200px]">
+                <button className="px-1 w-full py-3 text-white font-semibold bg-red-500 rounded-md mt-7">
+                  <Link to="/dashboard-news">Batal</Link>
+                </button>
+              </div>
+              <div className="w-[200px]">
+                <button
+                  type="submit"
+                  className="px-1 w-full py-3 text-white font-semibold bg-primary rounded-md mt-7"
+                >
+                  Simpan
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -218,4 +253,4 @@ const NewsAdd = () => {
   );
 };
 
-export default NewsAdd;
+export default EditNews;

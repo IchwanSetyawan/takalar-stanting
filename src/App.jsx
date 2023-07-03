@@ -37,6 +37,7 @@ import NewsPage from "./pages/LandingPage/NewsPage";
 import NewsPageDetail from "./pages/LandingPage/NewsPageDetail";
 import DashboardNews from "./pages/dashboard-news/DashboardNews";
 import NewsAdd from "./pages/dashboard-news/NewsAdd.jsx";
+import EditNews from "./pages/dashboard-news/EditNews";
 
 function App() {
   // const { isLogin, setIsLogin } = useContext(authContext);
@@ -108,6 +109,11 @@ function App() {
                               exact
                               path="/dashboard-news/add"
                               element={<NewsAdd />}
+                            />
+                            <Route
+                              exact
+                              path="/dashboard-news/edit/:id"
+                              element={<EditNews />}
                             />
                             <Route path="*" element={<Notfound />} />
                           </Routes>

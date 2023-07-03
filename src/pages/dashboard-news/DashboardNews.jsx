@@ -5,22 +5,24 @@ import EditIcon from "../../assets/icon/edit-icon.svg";
 import { useEffect } from "react";
 import axios from "axios";
 import formatDate from "../../utills/formattedDate";
+import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const DashboardNews = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  //   const [searchResults, setSearchResults] = useState(data);
   const [datas, setDatas] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async () => {
     const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
-
+    setIsLoading(true);
     axios
       .get(url)
       .then((response) => {
         setDatas(response?.data);
-        console.log(response?.data);
+        setIsLoading(false);
       })
       .catch((error) => {
+        setIsLoading(false);
         console.log(error);
       });
   };
@@ -28,6 +30,24 @@ const DashboardNews = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleDelete = (id) => {
+    axios
+      .delete(
+        `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`
+      )
+      .then((res) => {
+        console.log(res);
+        toast.success("Berhasil menghapus artikel");
+        setTimeout(() => {
+          fetchData();
+        }, 1000);
+      })
+      .catch((err) => {
+        toast.error("Gagal menghapus artikel");
+        console.log(err);
+      });
+  };
 
   return (
     <Layout>
@@ -108,36 +128,51 @@ const DashboardNews = () => {
                 </tr>
               </thead>
               <tbody>
-                {datas?.results?.map((item, idx) => {
-                  return (
-                    <tr
-                      key={item.id}
-                      className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
-                    >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        {idx + 1}
-                      </th>
-                      <td className="px-6 py-4">{item.title}</td>
-                      <td className="px-6 py-4">
-                        {formatDate(item.created_at)}
-                      </td>
-                      <td className="px-6 py-4">123</td>
-                      <td className="px-6 py-4 w-28">
-                        <div classNameName="flex items-center ">
-                          <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            <img src={EditIcon} />
-                          </button>
-                          <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            <img src={DeleteIcon} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {isLoading ? (
+                  <div className="flex justify-center items-center">
+                    <p className="text-center">Loading ...</p>
+                  </div>
+                ) : (
+                  <>
+                    {datas?.results?.map((item, idx) => {
+                      return (
+                        <tr
+                          key={item.id}
+                          className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                        >
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            {idx + 1}
+                          </th>
+                          <td className="px-6 py-4 text-blue-600">
+                            <Link to={`/news/${item.id}`}>{item.title}</Link>
+                          </td>
+                          <td className="px-6 py-4">
+                            {formatDate(item.created_at)}
+                          </td>
+                          <td className="px-6 py-4">123</td>
+                          <td className="px-6 py-4 w-28">
+                            <div classNameName="flex items-center ">
+                              <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                <Link to={`/dashboard-news/edit/${item.id}`}>
+                                  <img src={EditIcon} />
+                                </Link>
+                              </button>
+                              <button
+                                onClick={() => handleDelete(item.id)}
+                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                              >
+                                <img src={DeleteIcon} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </>
+                )}
               </tbody>
             </table>
           </div>
