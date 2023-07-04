@@ -16,16 +16,7 @@ const NewsPage = () => {
 
   const [datas, setDatas] = useState([]);
   const [datasRekom, setDatasRekom] = useState([]);
-  const [searchResults, setSearchResults] = useState(datas);
   const [loading, setIsLoading] = useState(false);
-
-  const handleInputChange = (event) => {
-    // setSearchTerm(event.target.value);
-  };
-
-  // const filteredResults = datas?.results?.filter((item) =>
-  //   item.title.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
 
   const fetchData = () => {
     const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
@@ -46,6 +37,16 @@ const NewsPage = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const newDatas = datas;
+
+  const filteredData = newDatas?.results?.filter((data) =>
+    data?.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <Layout>
@@ -84,7 +85,7 @@ const NewsPage = () => {
                   type="search"
                   id="default-search"
                   // value={searchTerm}
-                  onChange={handleInputChange}
+                  // onChange={handleSearch}
                   className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 "
                   placeholder="Cari artikel..."
                 />
@@ -99,8 +100,13 @@ const NewsPage = () => {
           </div>
         ) : (
           <div className="flex gap-10">
-            <div>
-              {datas?.results?.map((item) => (
+            <div className="w-full">
+              {filteredData?.length === 0 && (
+                <div className="h-screen flex justify-center mt-24">
+                  <p>Tidak ada berita ditemukan!</p>
+                </div>
+              )}
+              {filteredData?.map((item) => (
                 <CardNews
                   title={item.title}
                   body={item.body}
@@ -113,7 +119,7 @@ const NewsPage = () => {
             <div className="w-[700px] ">
               <div className="mb-10">
                 <p className="text-xl font-bold">
-                  Artikel yang Mungkin Anda Sukai :{" "}
+                  Artikel yang Mungkin Anda Sukai :
                 </p>
               </div>
               <div className="flex flex-col gap-5">
@@ -126,7 +132,7 @@ const NewsPage = () => {
                         <div className="flex flex-col gap-5 justify-between h-full">
                           <h1 className="text-base">{item?.title}</h1>
                           <p className="font-normal text-sm text-[#858D9D]">
-                            {formatDate(item?.created_at)}
+                            Di upload pada {formatDate(item?.created_at)}
                           </p>
                         </div>
                       </Link>

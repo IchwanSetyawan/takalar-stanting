@@ -74,7 +74,6 @@ const EditNews = () => {
   };
 
   const editorBody = watch("body");
-
   const onEditorStateChange = (editorState) => {
     setValue("body", editorState);
   };
@@ -86,51 +85,47 @@ const EditNews = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const onSubmit = (data) => {
-    const currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+  const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`;
+  const currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
 
-    // const postData = {
-    //   ...getValues(),
-    //   created_at: currentDate,
-    // };
+  const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("body", data.body);
     formData.append("category", data.category);
     formData.append("created_at", data.created_at);
-    formData.append("gambar", data.gambar);
-    // if (selectedImage) {
-    // }
 
-    console.log("formData", formData);
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`;
-    axios
-      .put(url, formData)
-      .then((response) => {
-        console.log(response.data);
-        // Proses pengeditan berhasil
-        toast.success("Berhasil mengedit artikel");
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("Gagal mengedit artikel");
-        // Terjadi kesalahan saat pengeditan data
-      });
+    const file = data.gambar[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64Image = reader.result;
+      formData.append("gambar", base64Image);
+      axios
+        .put(url, formData)
+        .then((response) => {
+          console.log(response.data);
+          toast.success("Berhasil mengedit artikel");
+        })
+        .catch((error) => {
+          console.error(error);
+          toast.error("Gagal mengedit artikel");
+        });
+    };
+    reader.readAsDataURL(file);
   };
 
-  const fetchData = async () => {
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`;
+  const imagePriview = watch("gambar");
 
+  const fetchData = async () => {
     axios
       .get(url)
       .then((response) => {
-        // setDatas(response?.data);
         setValue("title", response.data.title);
         setValue("body", response.data.body);
         setValue("category", response.data.category);
         setValue("created_at", response.data.created_at);
         setValue("gambar", response.data.gambar);
-        console.log("get bye id", response?.data);
       })
       .catch((error) => {
         console.log(error);
@@ -149,7 +144,7 @@ const EditNews = () => {
             <div className="-mt-6">
               <div className="flex justify-start items-center mb-8">
                 <h1 className="text-2xl font-bold  text-darkHard">
-                  Form Unggah Artikel
+                  Edit Artikel
                 </h1>
               </div>
             </div>

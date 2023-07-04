@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 const DashboardNews = () => {
   const [datas, setDatas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchData = async () => {
     const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
@@ -31,6 +32,15 @@ const DashboardNews = () => {
     fetchData();
   }, []);
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  console.log("datas", datas);
+  const filteredData = datas?.results?.filter((data) =>
+    data?.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const handleDelete = (id) => {
     axios
       .delete(
@@ -47,6 +57,10 @@ const DashboardNews = () => {
         toast.error("Gagal menghapus artikel");
         console.log(err);
       });
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
   };
 
   return (
@@ -89,7 +103,7 @@ const DashboardNews = () => {
                         type="search"
                         id="default-search"
                         // value={searchTerm}
-                        // onChange={handleInputChange}
+                        onChange={handleSearch}
                         className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 "
                         placeholder="Cari artikel..."
                       />
@@ -97,9 +111,10 @@ const DashboardNews = () => {
                   </form>
                 </>
                 <div>
-                  <button className="py-4 text-sm px-4 bg-gray-50 rounded-2xl border border-gray-300">
-                    <span>Urutkan</span>
-                  </button>
+                  {/* <select value={filter} onChange={handleFilterChange}>
+                    <option value="asc">Ascending</option>
+                    <option value="date">Date</option>
+                  </select> */}
                 </div>
               </div>
             </div>
@@ -120,7 +135,10 @@ const DashboardNews = () => {
                     Tanggal Unggah
                   </th>
                   <th scope="col" className="px-6 py-4">
-                    Pembaca
+                    Dilihat
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Gambar
                   </th>
                   <th scope="col" className="px-6 py-4 text-center">
                     Aksi
@@ -132,17 +150,18 @@ const DashboardNews = () => {
                   <div className="flex justify-center items-center">
                     <p className="text-center">Loading ...</p>
                   </div>
+                ) : filteredData?.length === 0 ? (
+                  <div>
+                    <p className="text-center">Data tidak ditemukan</p>
+                  </div>
                 ) : (
                   <>
-                    {datas?.results?.map((item, idx) => {
+                    {filteredData?.reverse()?.map((item, idx) => {
                       return (
-                        <tr
-                          key={item.id}
-                          className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
-                        >
+                        <tr key={item.id} className="bg-white border-b ">
                           <th
                             scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                           >
                             {idx + 1}
                           </th>
@@ -152,17 +171,25 @@ const DashboardNews = () => {
                           <td className="px-6 py-4">
                             {formatDate(item.created_at)}
                           </td>
-                          <td className="px-6 py-4">123</td>
+                          <td className="px-6 py-4">{item.views}</td>
+                          <td className="px-6 py-4">
+                            <div className=" h-24 w-24">
+                              <img
+                                src={item.gambar}
+                                className="w-full h-full object-fill"
+                              />
+                            </div>
+                          </td>
                           <td className="px-6 py-4 w-28">
                             <div classNameName="flex items-center ">
-                              <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                              {/* <button className="font-medium text-blue-600 hover:underline">
                                 <Link to={`/dashboard-news/edit/${item.id}`}>
                                   <img src={EditIcon} />
                                 </Link>
-                              </button>
+                              </button> */}
                               <button
                                 onClick={() => handleDelete(item.id)}
-                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                className="font-medium text-blue-600 "
                               >
                                 <img src={DeleteIcon} />
                               </button>

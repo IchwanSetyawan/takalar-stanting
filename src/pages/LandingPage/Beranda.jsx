@@ -403,7 +403,11 @@ const Beranda = () => {
 
                       <div className="">
                         <p className="mb-3  text-sm font-normal text-[#858D9D]">
-                          {item.body.slice(0, 150) + "..."}
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: item.body.slice(0, 250) + "...",
+                            }}
+                          />
                         </p>
                       </div>
                     </div>
