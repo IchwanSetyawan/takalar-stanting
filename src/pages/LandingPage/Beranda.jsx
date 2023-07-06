@@ -251,7 +251,7 @@ const Beranda = () => {
   }, []);
 
   const fetchDataNews = async () => {
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/?ordering=-created_at`;
     setIsloading(true);
 
     axios
@@ -403,7 +403,11 @@ const Beranda = () => {
 
                       <div className="">
                         <p className="mb-3  text-sm font-normal text-[#858D9D]">
-                          {item.body.slice(0, 150) + "..."}
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: item.body.slice(0, 250) + "...",
+                            }}
+                          />
                         </p>
                       </div>
                     </div>

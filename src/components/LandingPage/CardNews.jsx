@@ -31,11 +31,8 @@ const CardNews = ({ gambar, title, body, id, created_at }) => {
                 </div>
                 <div className="flex mt-8 justify-between items-center">
                   <p className="text-sm text-[#858D9D]">
-                    {formatDate(created_at)}
+                    Di upload pada {formatDate(created_at)}
                   </p>
-                  <Link to={`/news/${id}`}>
-                    <p className="text-sm text-primary">Details</p>
-                  </Link>
                 </div>
               </div>
             </div>

@@ -45,6 +45,23 @@ const NewsPageDetail = () => {
     navigate(-1); // Navigate back by a relative value of -1
   };
 
+  const hitView = () => {
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}/hit/`;
+    setIsLoading(true);
+    axios
+      .post(url)
+      .then((response) => {
+        console.log(response?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    hitView();
+  }, []);
+
   return (
     <Layout>
       <div className="flex justify-center my-10 ">
@@ -65,9 +82,14 @@ const NewsPageDetail = () => {
                 <h1 className="font-bold text-3xl text-start mb-2">
                   {data?.title}
                 </h1>
-                <p className="text-[#858D9D] text-sm mt-4 mb-10">
-                  {`Diposting pada  ${formatDate(data?.created_at)}`}
-                </p>
+                <div className="flex justify-between items-center">
+                  <p className="text-[#858D9D] text-sm mt-4 mb-10">
+                    {`Diposting pada  ${formatDate(data?.created_at)}`}
+                  </p>
+                  <p className="text-[#858D9D] text-sm mt-4 mb-10">
+                    {`Dilihat  ${data?.views} kali`}
+                  </p>
+                </div>
               </div>
               <div className="w-full ">
                 <img

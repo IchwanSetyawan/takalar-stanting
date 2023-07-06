@@ -23,6 +23,7 @@ const EditNews = () => {
   } = useForm();
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [defaultImage, setDefaultImage] = useState(null);
 
   const modules = {
     toolbar: [
@@ -69,12 +70,20 @@ const EditNews = () => {
     getCategory();
   }, []);
 
-  const handleImageChange = (e) => {
-    setSelectedImage(e.target.files[0]);
+  const handleImageChange = async (e) => {
+    console.log("imageCHange", e.target.files);
+    setDefaultImage(await generateFile(e.target.files[0]));
   };
 
-  const editorBody = watch("body");
+  useEffect(() => {
+    if (watch("gambar")?.length) {
+      generateFile(getValues("gambar")[0]).then((res) => {
+        setDefaultImage(res);
+      });
+    }
+  }, [watch("gambar")]);
 
+  const editorBody = watch("body");
   const onEditorStateChange = (editorState) => {
     setValue("body", editorState);
   };
@@ -86,51 +95,88 @@ const EditNews = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const onSubmit = (data) => {
-    const currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+  const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}/`;
+  const currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
 
-    // const postData = {
-    //   ...getValues(),
-    //   created_at: currentDate,
-    // };
+  const urlToBlob = (url) => {
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then((response) => response.blob())
+        .then((blob) => {
+          resolve(blob);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const generateFile = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("body", data.body);
     formData.append("category", data.category);
-    formData.append("created_at", data.created_at);
-    formData.append("gambar", data.gambar);
-    // if (selectedImage) {
-    // }
+    if (data.gambar[0] === undefined) {
+      const toBlob = await urlToBlob(defaultImage);
 
-    console.log("formData", formData);
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`;
+      const name = defaultImage.substring(defaultImage.lastIndexOf("/") + 1);
+      toBlob.lastModifiedDate = new Date();
+      toBlob.name = name;
+      const myFile = new File([toBlob], name, {
+        type: toBlob.type,
+      });
+
+      formData.append("gambar", myFile);
+    } else {
+      formData.append("gambar", data.gambar[0]);
+    }
+
+    const token = localStorage.getItem("token");
+
     axios
-      .put(url, formData)
+      .put(url, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
-        console.log(response.data);
-        // Proses pengeditan berhasil
         toast.success("Berhasil mengedit artikel");
+        setTimeout(() => {
+          navigate("/dashboard-news");
+        }, 2000);
       })
       .catch((error) => {
         console.error(error);
         toast.error("Gagal mengedit artikel");
-        // Terjadi kesalahan saat pengeditan data
       });
   };
 
-  const fetchData = async () => {
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`;
+  // const imagePriview = watch();
 
+  const fetchData = async () => {
     axios
       .get(url)
       .then((response) => {
-        // setDatas(response?.data);
         setValue("title", response.data.title);
         setValue("body", response.data.body);
         setValue("category", response.data.category);
-        setValue("created_at", response.data.created_at);
-        setValue("gambar", response.data.gambar);
-        console.log("get bye id", response?.data);
+        setDefaultImage(response.data.gambar);
+        // setValue("created_at", response.data.created_at);
+        // setValue("gambar", response.data.gambar);
       })
       .catch((error) => {
         console.log(error);
@@ -149,7 +195,7 @@ const EditNews = () => {
             <div className="-mt-6">
               <div className="flex justify-start items-center mb-8">
                 <h1 className="text-2xl font-bold  text-darkHard">
-                  Form Unggah Artikel
+                  Edit Artikel
                 </h1>
               </div>
             </div>
@@ -199,7 +245,7 @@ const EditNews = () => {
                 {...register("category", { required: "kategori diperlukan" })}
                 className="px-3 w-56 py-2 rounded-lg font-medium border-darkSmooth border text-sm "
               >
-                <option value="">- pilih kategori -</option>
+                <option disabled>- pilih kategori -</option>
                 {datas?.results?.map((opt) => (
                   <option key={opt.id} value={opt.id}>
                     {opt.name}
@@ -215,12 +261,13 @@ const EditNews = () => {
 
             <div className="mt-10 flex flex-col">
               <label className=" font-bold">Pilih gambar*</label>
+              <img src={defaultImage} alt="priview" className="h-44 w-44" />
               <input
                 type="file"
                 name="image"
                 accept="image/*"
-                onChange={handleImageChange}
-                {...register("gambar", { required: "File gambar diperlukan" })}
+                // onChange={handleImageChange}
+                {...register("gambar")}
               />
               {errors.gambar && (
                 <span className="text-red-500 text-xs">
