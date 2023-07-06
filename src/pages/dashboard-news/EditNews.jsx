@@ -23,6 +23,7 @@ const EditNews = () => {
   } = useForm();
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [defaultImage, setDefaultImage] = useState(null);
 
   const modules = {
     toolbar: [
@@ -69,9 +70,18 @@ const EditNews = () => {
     getCategory();
   }, []);
 
-  const handleImageChange = (e) => {
-    setSelectedImage(e.target.files[0]);
+  const handleImageChange = async (e) => {
+    console.log("imageCHange", e.target.files);
+    setDefaultImage(await generateFile(e.target.files[0]));
   };
+
+  useEffect(() => {
+    if (watch("gambar")?.length) {
+      generateFile(getValues("gambar")[0]).then((res) => {
+        setDefaultImage(res);
+      });
+    }
+  }, [watch("gambar")]);
 
   const editorBody = watch("body");
   const onEditorStateChange = (editorState) => {
@@ -85,37 +95,77 @@ const EditNews = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`;
+  const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}/`;
   const currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
 
-  const onSubmit = (data) => {
+  const urlToBlob = (url) => {
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then((response) => response.blob())
+        .then((blob) => {
+          resolve(blob);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const generateFile = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("body", data.body);
     formData.append("category", data.category);
-    formData.append("created_at", data.created_at);
+    if (data.gambar[0] === undefined) {
+      const toBlob = await urlToBlob(defaultImage);
 
-    const file = data.gambar[0];
-    const reader = new FileReader();
+      const name = defaultImage.substring(defaultImage.lastIndexOf("/") + 1);
+      toBlob.lastModifiedDate = new Date();
+      toBlob.name = name;
+      const myFile = new File([toBlob], name, {
+        type: toBlob.type,
+      });
 
-    reader.onloadend = () => {
-      const base64Image = reader.result;
-      formData.append("gambar", base64Image);
-      axios
-        .put(url, formData)
-        .then((response) => {
-          console.log(response.data);
-          toast.success("Berhasil mengedit artikel");
-        })
-        .catch((error) => {
-          console.error(error);
-          toast.error("Gagal mengedit artikel");
-        });
-    };
-    reader.readAsDataURL(file);
+      formData.append("gambar", myFile);
+    } else {
+      formData.append("gambar", data.gambar[0]);
+    }
+
+    const token = localStorage.getItem("token");
+
+    axios
+      .put(url, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        toast.success("Berhasil mengedit artikel");
+        setTimeout(() => {
+          navigate("/dashboard-news");
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Gagal mengedit artikel");
+      });
   };
 
-  const imagePriview = watch("gambar");
+  // const imagePriview = watch();
 
   const fetchData = async () => {
     axios
@@ -124,8 +174,9 @@ const EditNews = () => {
         setValue("title", response.data.title);
         setValue("body", response.data.body);
         setValue("category", response.data.category);
-        setValue("created_at", response.data.created_at);
-        setValue("gambar", response.data.gambar);
+        setDefaultImage(response.data.gambar);
+        // setValue("created_at", response.data.created_at);
+        // setValue("gambar", response.data.gambar);
       })
       .catch((error) => {
         console.log(error);
@@ -194,7 +245,7 @@ const EditNews = () => {
                 {...register("category", { required: "kategori diperlukan" })}
                 className="px-3 w-56 py-2 rounded-lg font-medium border-darkSmooth border text-sm "
               >
-                <option value="">- pilih kategori -</option>
+                <option disabled>- pilih kategori -</option>
                 {datas?.results?.map((opt) => (
                   <option key={opt.id} value={opt.id}>
                     {opt.name}
@@ -210,12 +261,13 @@ const EditNews = () => {
 
             <div className="mt-10 flex flex-col">
               <label className=" font-bold">Pilih gambar*</label>
+              <img src={defaultImage} alt="priview" className="h-44 w-44" />
               <input
                 type="file"
                 name="image"
                 accept="image/*"
-                onChange={handleImageChange}
-                {...register("gambar", { required: "File gambar diperlukan" })}
+                // onChange={handleImageChange}
+                {...register("gambar")}
               />
               {errors.gambar && (
                 <span className="text-red-500 text-xs">

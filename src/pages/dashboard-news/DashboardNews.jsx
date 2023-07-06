@@ -20,15 +20,21 @@ const DashboardNews = () => {
   };
 
   const handleDelete = (id) => {
+    const token = localStorage.getItem("token");
     axios
       .delete(
-        `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`
+        `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         console.log(res);
         toast.success("Berhasil menghapus artikel");
         setTimeout(() => {
-          fetchData();
+          fetchDataFilter();
         }, 1000);
       })
       .catch((err) => {
@@ -206,11 +212,11 @@ const DashboardNews = () => {
                           </td>
                           <td className="px-6 py-4 w-28">
                             <div classNameName="flex items-center ">
-                              {/* <button className="font-medium text-blue-600 hover:underline">
+                              <button className="font-medium text-blue-600 hover:underline">
                                 <Link to={`/dashboard-news/edit/${item.id}`}>
                                   <img src={EditIcon} />
                                 </Link>
-                              </button> */}
+                              </button>
                               <button
                                 onClick={() => handleDelete(item.id)}
                                 className="font-medium text-blue-600 "

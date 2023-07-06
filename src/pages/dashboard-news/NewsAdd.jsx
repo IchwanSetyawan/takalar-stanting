@@ -10,8 +10,6 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const NewsAdd = () => {
-  // const [value, setValue] = useState("");
-
   const [datas, setDatas] = useState([]);
 
   const {
@@ -84,26 +82,28 @@ const NewsAdd = () => {
   const onSubmit = (data) => {
     const currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
 
-    // const postData = {
-    //   ...getValues(),
-    //   created_at: currentDate,
-    // };
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("body", data.body);
-    formData.append("gambar", data.gambar[0]); // Assuming you are selecting a single image
+    formData.append("gambar", data.gambar[0]);
     formData.append("created_at", data.currentDate);
     formData.append("category", data.category);
 
     console.log("formData", formData);
+
+    const token = localStorage.getItem("token");
     axios
       .post(
         "https://stunting.ahadnikah.com/api/admin/dashboard/artikel/",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then((res) => {
         toast.success("Artikel berhasil ditambahkan");
-        console.log(res.data);
         setTimeout(() => {
           navigate("/dashboard-news");
         }, 2000);
