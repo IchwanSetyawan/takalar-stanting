@@ -40,6 +40,10 @@ const NewsPage = () => {
               return new Date(a.created_at) - new Date(b.created_at);
             }
           });
+          const sortedArticles = response?.data?.results?.sort(
+            (a, b) => b.views - a.views
+          );
+          setDatasRecommendation(sortedArticles);
           setDatas(orderingData);
         } else {
           const sortedArticles = response?.data?.results?.sort(
@@ -48,10 +52,6 @@ const NewsPage = () => {
           setDatas(sortedArticles);
         }
 
-        const sortedArticles = response?.data?.results?.sort(
-          (a, b) => b.views - a.views
-        );
-        setDatasRecommendation(sortedArticles);
         setIsLoading(false);
       })
       .catch((error) => {
