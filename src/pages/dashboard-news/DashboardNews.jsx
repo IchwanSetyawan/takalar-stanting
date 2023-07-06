@@ -12,34 +12,12 @@ const DashboardNews = () => {
   const [datas, setDatas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-
-  const fetchData = async () => {
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
-    setIsLoading(true);
-    axios
-      .get(url)
-      .then((response) => {
-        setDatas(response?.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [ordering, setOrdering] = useState("");
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    fetchDataFilter();
   };
-
-  console.log("datas", datas);
-  const filteredData = datas?.results?.filter((data) =>
-    data?.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const handleDelete = (id) => {
     axios
@@ -59,9 +37,49 @@ const DashboardNews = () => {
       });
   };
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+  const fetchDataFilter = async () => {
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/?ordering=${ordering}&search=${searchTerm}`;
+    setIsLoading(true);
+    axios
+      .get(url)
+      .then((response) => {
+        if (searchTerm) {
+          const filteredData = response?.data?.results?.filter((data) =>
+            data?.title.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          setDatas(filteredData);
+        } else if (ordering) {
+          const orderingData = response?.data?.results?.sort((a, b) => {
+            if (ordering === "-created_at") {
+              return new Date(b.created_at) - new Date(a.created_at);
+            } else {
+              return new Date(a.created_at) - new Date(b.created_at);
+            }
+          });
+          setDatas(orderingData);
+        } else {
+          const sortedArticles = response?.data?.results?.sort(
+            (a, b) => b.views - a.views
+          );
+          setDatas(sortedArticles);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+      });
   };
+
+  const handleOrderingChange = (e) => {
+    const selectedOrdering = e.target.value;
+    setOrdering(selectedOrdering);
+    fetchDataFilter();
+  };
+
+  useEffect(() => {
+    fetchDataFilter();
+  }, [searchTerm, ordering]);
 
   return (
     <Layout>
@@ -74,7 +92,7 @@ const DashboardNews = () => {
               </h1>
               <div className=" flex justify-center items-center text-dark  gap-4">
                 <>
-                  <form>
+                  <form className="flex justify-between items-center gap-3">
                     <label
                       for="default-search"
                       className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -102,20 +120,26 @@ const DashboardNews = () => {
                       <input
                         type="search"
                         id="default-search"
-                        // value={searchTerm}
+                        value={searchTerm}
                         onChange={handleSearch}
                         className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 "
                         placeholder="Cari artikel..."
                       />
                     </div>
+                    <div>
+                      <select
+                        id="ordering"
+                        value={ordering}
+                        onChange={handleOrderingChange}
+                        className="p-4 w-[150px] text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50"
+                      >
+                        <option value="">Urutkan</option>
+                        <option value="-created_at">Terbaru</option>
+                        <option value="created_at">Terlama</option>
+                      </select>
+                    </div>
                   </form>
                 </>
-                <div>
-                  {/* <select value={filter} onChange={handleFilterChange}>
-                    <option value="asc">Ascending</option>
-                    <option value="date">Date</option>
-                  </select> */}
-                </div>
               </div>
             </div>
           </div>
@@ -150,13 +174,13 @@ const DashboardNews = () => {
                   <div className="flex justify-center items-center">
                     <p className="text-center">Loading ...</p>
                   </div>
-                ) : filteredData?.length === 0 ? (
+                ) : datas?.length === 0 ? (
                   <div>
                     <p className="text-center">Data tidak ditemukan</p>
                   </div>
                 ) : (
                   <>
-                    {filteredData?.reverse()?.map((item, idx) => {
+                    {datas?.map((item, idx) => {
                       return (
                         <tr key={item.id} className="bg-white border-b ">
                           <th

@@ -10,22 +10,48 @@ import formatDate from "../../utills/formattedDate";
 import { Link } from "react-router-dom";
 
 const NewsPage = () => {
-  let data = NewsPageModel;
-
-  const [searchTerm, setSearchTerm] = useState("");
-
   const [datas, setDatas] = useState([]);
-  const [datasRekom, setDatasRekom] = useState([]);
-  const [loading, setIsLoading] = useState(false);
+  const [datasRecomendation, setDatasRecommendation] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [ordering, setOrdering] = useState("-created_at");
 
-  const fetchData = () => {
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    fetchDataFilter();
+  };
+
+  const fetchDataFilter = async () => {
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/?ordering=${ordering}&search=${searchTerm}`;
     setIsLoading(true);
     axios
       .get(url)
       .then((response) => {
-        setDatas(response?.data);
-        setDatasRekom(response?.data);
+        if (searchTerm) {
+          const filteredData = response?.data?.results?.filter((data) =>
+            data?.title.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          setDatas(filteredData);
+        } else if (ordering) {
+          const orderingData = response?.data?.results?.sort((a, b) => {
+            if (ordering === "-created_at") {
+              return new Date(b.created_at) - new Date(a.created_at);
+            } else {
+              return new Date(a.created_at) - new Date(b.created_at);
+            }
+          });
+          setDatas(orderingData);
+        } else {
+          const sortedArticles = response?.data?.results?.sort(
+            (a, b) => b.views - a.views
+          );
+          setDatas(sortedArticles);
+        }
+
+        const sortedArticles = response?.data?.results?.sort(
+          (a, b) => b.views - a.views
+        );
+        setDatasRecommendation(sortedArticles);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -34,19 +60,15 @@ const NewsPage = () => {
       });
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+  const handleOrderingChange = (e) => {
+    const selectedOrdering = e.target.value;
+    setOrdering(selectedOrdering);
+    fetchDataFilter();
   };
 
-  const newDatas = datas;
-
-  const filteredData = newDatas?.results?.filter((data) =>
-    data?.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    fetchDataFilter();
+  }, [searchTerm, ordering]);
 
   return (
     <Layout>
@@ -56,7 +78,7 @@ const NewsPage = () => {
             <p className="font-bold text-2xl">Daftar Artikel </p>
           </div>
           <div className="w-[400px]  ">
-            <form>
+            <form className="flex justify-between items-center gap-3">
               <label
                 for="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -84,29 +106,41 @@ const NewsPage = () => {
                 <input
                   type="search"
                   id="default-search"
-                  // value={searchTerm}
-                  // onChange={handleSearch}
+                  value={searchTerm}
+                  onChange={handleSearch}
                   className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 "
                   placeholder="Cari artikel..."
                 />
+              </div>
+              <div>
+                <select
+                  className="p-4 w-[150px] text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50"
+                  id="ordering"
+                  value={ordering}
+                  onChange={handleOrderingChange}
+                >
+                  <option value="">Urutkan</option>
+                  <option value="-created_at">Terbaru</option>
+                  <option value="created_at">Terlama</option>
+                </select>
               </div>
             </form>
           </div>
         </div>
 
-        {loading ? (
+        {isLoading ? (
           <div className="flex justify-center items-center ">
             <p>Loading...</p>
           </div>
         ) : (
           <div className="flex gap-10">
             <div className="w-full">
-              {filteredData?.length === 0 && (
+              {datas?.length === 0 && (
                 <div className="h-screen flex justify-center mt-24">
                   <p>Tidak ada berita ditemukan!</p>
                 </div>
               )}
-              {filteredData?.map((item) => (
+              {datas?.map((item) => (
                 <CardNews
                   title={item.title}
                   body={item.body}
@@ -122,11 +156,13 @@ const NewsPage = () => {
                   Artikel yang Mungkin Anda Sukai :
                 </p>
               </div>
-              <div className="flex flex-col gap-5">
-                {datasRekom?.results
-                  ?.reverse()
-                  .slice(0, 3)
-                  .map((item) => (
+              {isLoading ? (
+                <div className="flex flex-col gap-5">
+                  <p>Loading...</p>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-5">
+                  {datasRecomendation?.slice(0, 3).map((item) => (
                     <div className="border h-36 border-slate-50 rounded-lg shadow-md  transition duration-500 p-4 hover:bg-slate-50">
                       <Link to={`/news/${item.id}`}>
                         <div className="flex flex-col gap-5 justify-between h-full">
@@ -138,7 +174,8 @@ const NewsPage = () => {
                       </Link>
                     </div>
                   ))}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         )}

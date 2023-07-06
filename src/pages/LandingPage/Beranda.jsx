@@ -251,7 +251,7 @@ const Beranda = () => {
   }, []);
 
   const fetchDataNews = async () => {
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel`;
+    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/artikel/?ordering=-created_at`;
     setIsloading(true);
 
     axios
