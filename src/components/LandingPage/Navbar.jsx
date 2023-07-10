@@ -5,13 +5,13 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   return (
     <div className="bg-white flex justify-between px-20 py-5 ">
-      <Link to="/landing-page">
+      <Link to="/">
         <div className="logo w-[128px] h-[48px]">
           <img src={Logo} />
         </div>
       </Link>
       <div className="text-dark flex items-center gap-16">
-        <Link to="/landing-page" className="hover:text-blue-700 font-bold">
+        <Link to="/" className="hover:text-blue-700 font-bold">
           Beranda
         </Link>
         <Link className="hover:text-blue-700 font-bold" to="#">

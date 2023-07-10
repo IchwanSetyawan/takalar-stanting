@@ -90,11 +90,7 @@ function App() {
                               element={<Cakupan />}
                             />
 
-                            <Route
-                              exact
-                              path="/landing-page"
-                              element={<Beranda />}
-                            />
+                            <Route exact path="/" element={<Beranda />} />
                             <Route
                               exact
                               path="/tentang-kami"
