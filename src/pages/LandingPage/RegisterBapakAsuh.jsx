@@ -68,10 +68,7 @@ const RegisterBapakAsuh = () => {
   const onSubmit = (data) => {
     console.log("data", data);
     axios
-      .post(
-        "https://stunting.ahadnikah.com/api/admin/landing-page/form-bapakasuh/",
-        data
-      )
+      .post("https://stunting.ahadnikah.com/api/admin//form-bapakasuh/", data)
       .then((response) => {
         // Berhasil mengirim data
         toast.success("Pendaftaran Berhasil!");

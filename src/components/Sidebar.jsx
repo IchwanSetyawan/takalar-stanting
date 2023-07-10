@@ -58,7 +58,7 @@ const Sidebar = () => {
           <div>
             <div className="flex justify-center">
               <div className="w-32 ">
-                <Link to="/landing-page">
+                <Link to="/">
                   <img src={Logo} alt="logo" />
                 </Link>
               </div>
