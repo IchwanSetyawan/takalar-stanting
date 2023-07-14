@@ -78,17 +78,14 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.setItem("roles", response.data.roles);
         localStorage.setItem("1", response?.data?.first_name);
 
-        // setTimeout(() => {
-        // }, 3000);
-        setTimeout(() => {
-          if (localStorage.getItem("roles") === "admin-artikel") {
-            navigate("/dashboard-news");
-          } else if (localStorage.getItem("roles") === "admin-puskesmas") {
-            navigate("/form-anak-stunting");
-          } else {
-            navigate("/dashboard");
-          }
-        }, 2000);
+        if (localStorage.getItem("roles") === "admin-artikel") {
+          navigate("/dashboard-news");
+        } else if (localStorage.getItem("roles") === "admin-puskesmas") {
+          navigate("/form-anak-stunting");
+        } else {
+          navigate("/dashboard");
+        }
+
         toast.success("Berhasil login!");
         setIsLoading(true);
         localStorage.setItem("kc", response.data.kecamatan);

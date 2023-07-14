@@ -72,7 +72,7 @@ const Sidebar = () => {
             </div>
             <div className="mt-9">
               <ul className="font-medium flex flex-col  text-sm">
-                {localStorage.getItem("roles") === "admin-artikel" && (
+                {localStorage.getItem("roles") === "admin-artikel" ? (
                   <>
                     <li>
                       <Link
@@ -125,8 +125,7 @@ const Sidebar = () => {
                       </Link>
                     </li>
                   </>
-                )}
-                {localStorage.getItem("roles") === "admin-puskesmas" ? (
+                ) : localStorage.getItem("roles") === "admin-puskesmas" ? (
                   <>
                     <li>
                       <Link
