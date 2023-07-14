@@ -58,7 +58,7 @@ const Sidebar = () => {
         id="default-sidebar"
         className={`${
           isShowSidebar ? " translate-x-0" : " sm:translate-x-0"
-        } fixed top-30 left-0 z-40 w-60 h-screen transition-transform -translate-x-full `}
+        } fixed top-30 left-0 z-40 w-60 h-screen transition-transform top-0 -translate-x-full `}
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4  bg-white shadow-lg flex flex-col justify-between  ">
