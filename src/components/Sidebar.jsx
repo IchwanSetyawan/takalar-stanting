@@ -18,6 +18,7 @@ import NewsLightIcon from "../assets/icon/news-icon.svg";
 import NewsDefaultIcon from "../assets/icon/news-default-icon.svg";
 import AddNewsIcon from "../assets/icon/add-news-icon.svg";
 import AddNewsLightIcon from "../assets/icon/add-news-icon-light.svg";
+import { SidebarContext } from "../context/SidebarContext";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -42,22 +43,28 @@ const Sidebar = () => {
       setTabMenu(8);
     } else if (location.pathname === "/dashboard-news/add") {
       setTabMenu(9);
+    } else if (location.pathname === "/form-anak-stunting") {
+      setTabMenu(10);
     }
   }, [location]);
 
   useEffect(() => {}, []);
 
+  const { isShowSidebar, setIsShowSidebar } = useContext(SidebarContext);
+
   return (
     <>
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 w-60 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className={`${
+          isShowSidebar ? " translate-x-0" : " sm:translate-x-0"
+        } fixed top-30 left-0 z-40 w-60 h-screen transition-transform -translate-x-full `}
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4  bg-white shadow-lg flex flex-col justify-between  ">
           <div>
             <div className="flex justify-center">
-              <div className="w-32 ">
+              <div className="w-32 hidden md:block ">
                 <Link to="/">
                   <img src={Logo} alt="logo" />
                 </Link>
@@ -65,7 +72,7 @@ const Sidebar = () => {
             </div>
             <div className="mt-9">
               <ul className="font-medium flex flex-col  text-sm">
-                {localStorage.getItem("roles") === "admin-artikel" ? (
+                {localStorage.getItem("roles") === "admin-artikel" && (
                   <>
                     <li>
                       <Link
@@ -113,6 +120,35 @@ const Sidebar = () => {
 
                           <span className="ml-3 text-base font-bold">
                             Unggah Artikel
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {localStorage.getItem("roles") === "admin-puskesmas" ? (
+                  <>
+                    <li>
+                      <Link
+                        to="/form-anak-stunting"
+                        onClick={() => setTabMenu(5)}
+                        className={`${
+                          tabMenu === 10
+                            ? "flex items-center h-16 px-4 text-white rounded-lg  bg-primary  "
+                            : "flex items-center h-16 px-4 text-textGray rounded-lg   hover:bg-[#F7F7F6] "
+                        }`}
+                      >
+                        <div className="flex items-center ">
+                          <div className="text-white">
+                            {tabMenu === 10 ? (
+                              <img src={RecommendationLightIcon} />
+                            ) : (
+                              <img src={RecommendationIcon} />
+                            )}
+                          </div>
+
+                          <span className="ml-3 text-base font-bold">
+                            Tambah data
                           </span>
                         </div>
                       </Link>

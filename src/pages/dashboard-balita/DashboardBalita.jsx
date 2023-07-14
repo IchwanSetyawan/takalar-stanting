@@ -9,15 +9,16 @@ import CardRealtimeVer from "../../components/CardRealtimeVer";
 import CartComponentSingle from "../../cart/CartComponentSingle";
 import CardPeriodik from "../../components/CardPeriodik";
 
-import RemajaIcon from "../../assets/icon/remaja-icon.svg";
-import CalonPengantinIcon from "../../assets/icon/calon-pengantin-icon.svg";
-import MotherPregnantIcon from "../../assets/icon/mother-pregnant-icon.svg";
-import BreastFeedingMothers from "../../assets/icon/ibu-menyusui-icon.svg";
-import BabyStroller from "../../assets/icon/baby-stroller-icon.svg";
 import formattedNumber from "../../utills/formattedNumber ";
 import axios from "axios";
 import { TabMenuContext } from "../../context/TabMenuContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import CardRealtimeVer2 from "../../components/CardRealtimeVer2";
+import Persons from "../../assets/icon/persons.svg";
+import SortIcon from "../../assets/icon/sort-icon.svg";
+import AccesibleIcon from "../../assets/icon/accessible-icon.svg";
+import { BulanModel, TahunModel } from "../../model/BulanModel";
+import BabyStroller from "../../assets/icon/baby-stroller-icon.svg";
 
 const DashboardBalita = () => {
   const [kecamatanList, setKecamatanList] = useState([]);
@@ -26,15 +27,27 @@ const DashboardBalita = () => {
   const [kelurahanId, setKelurahanId] = useState("");
   const [datas, setDatas] = useState([]);
 
-  const dataStotalbalita =
-    datas.jumlah_anak_umur_0_5_bulan +
-    datas.jumlah_anak_umur_6_11_bulan +
-    datas.jumlah_anak_umur_12_23_bulan +
-    datas.jumlah_anak_umur_24_59_bulan;
+  const [valueBulan, setValueBulan] = useState("");
+  const [valueTahun, setValueTahun] = useState("");
+
+  const handleFilterBulan = (event) => {
+    const value = event.target.value;
+    setValueBulan(value);
+  };
+
+  const handleFilterTahun = (event) => {
+    const value = event.target.value;
+    setValueTahun(value);
+  };
 
   const token = localStorage.getItem("token");
   const getLocalKec = JSON.parse(localStorage.getItem("kc"));
   const getLocalKel = JSON.parse(localStorage.getItem("kl"));
+
+  const resetFilterBulan = () => {
+    setValueBulan("");
+    setValueTahun("");
+  };
 
   const fetchDataKecAndKel = async () => {
     if (kecamatanId && kelurahanId) {
@@ -45,7 +58,24 @@ const DashboardBalita = () => {
         },
       };
 
-      axios
+      await axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    if (kecamatanId && kelurahanId && valueBulan && valueTahun) {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}/${kelurahanId}?bulan=${valueBulan}&tahun=${valueTahun}`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await axios
         .get(url, payload)
         .then((response) => {
           setDatas(response?.data);
@@ -60,30 +90,51 @@ const DashboardBalita = () => {
     if (kecamatanId && kelurahanId) {
       fetchDataKecAndKel();
     }
-  }, [kecamatanId, kelurahanId]);
+    if (kecamatanId && kelurahanId && valueBulan && valueTahun) {
+      fetchDataKecAndKel();
+    }
+  }, [kecamatanId, kelurahanId, valueBulan, valueTahun]);
 
   const fetchOnlyKec = async () => {
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}`;
-    const payload = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios
-      .get(url, payload)
-      .then((response) => {
-        setDatas(response?.data);
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    if (kecamatanId) {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    }
+    if (kecamatanId && valueBulan && valueTahun) {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}?bulan=${valueBulan}&tahun=${valueTahun}`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   useEffect(() => {
     if (kecamatanId) {
       fetchOnlyKec();
     }
-  }, [kecamatanId]);
+  }, [kecamatanId, valueTahun]);
 
   // get all data
   const fetchDataAll = async () => {
@@ -184,6 +235,7 @@ const DashboardBalita = () => {
     if (value == "") {
       fetchOnlyKec();
     }
+    resetFilterBulan();
     setKelurahanId(value);
   };
 
@@ -196,6 +248,7 @@ const DashboardBalita = () => {
   const anak_6_11 = datas.jumlah_anak_umur_6_11_bulan;
   const anak_12_23 = datas.jumlah_anak_umur_12_23_bulan;
   const anak_24_59 = datas.jumlah_anak_umur_24_59_bulan;
+  const anak_0_59 = datas?.jumlah_anak_umur_0_59_bulan;
 
   return (
     <>
@@ -216,10 +269,6 @@ const DashboardBalita = () => {
                       {getLocalKec === null ? (
                         <option value="">Kecamatan</option>
                       ) : null}
-
-                      {/* {getLocalKel !== null ? (
-
-                    ):()} */}
 
                       {kecamatanList.map((kec, idx) => (
                         <option key={idx} value={kec.id}>
@@ -292,56 +341,76 @@ const DashboardBalita = () => {
                         datas_6_11_bulan={anak_6_11}
                         datas_12_23_bulan={anak_12_23}
                         datas_24_59_bulan={anak_24_59}
+                        datas_0_59_bulan={anak_0_59}
                       />
                     </div>
                   </div>
                 </RealtimeData>
                 <PeriodikData>
-                  <>
-                    <CardPeriodik
-                      name="Jumlah Remaja Putri"
-                      total={
-                        datas.jumlah_remaja
-                          ? formattedNumber(datas.jumlah_remaja)
-                          : 0
-                      }
-                      icon={RemajaIcon}
+                  <div className="flex  justify-between items-center text-sm mb-8 mt-2">
+                    <div className=" flex mt-4 w-full justify-between items-center text-dark  gap-4">
+                      <select
+                        onChange={handleFilterBulan}
+                        value={valueBulan}
+                        defaultValue="default"
+                        disabled={!kecamatanId}
+                        className="border-none shadow-smooth p-4 w-full text-md  rounded-lg "
+                      >
+                        <option value="">- Bulan -</option>
+                        {BulanModel.map((item, idx) => (
+                          <option
+                            className="text-base"
+                            value={item.bulan}
+                            key={idx}
+                          >
+                            {item.bulan}
+                          </option>
+                        ))}
+                      </select>
+
+                      <select
+                        defaultValue="default"
+                        onChange={handleFilterTahun}
+                        disabled={!kecamatanId || !valueBulan}
+                        value={valueTahun}
+                        className="border-none p-4 w-full rounded-lg shadow-smooth"
+                      >
+                        <option value="">- Tahun -</option>
+
+                        {TahunModel.map((item, idx) => (
+                          <option
+                            className="text-base"
+                            value={item.tahun}
+                            key={idx}
+                          >
+                            {item.tahun}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="flex flex-col space-y-4">
+                    <CardRealtimeVer2
+                      name="Jumlah Balita yang Diukur"
+                      icon={Persons}
+                      total={formattedNumber(datas.jumlah_balita_terukur | "0")}
                     />
-                    <CardPeriodik
-                      name="Jumlah Calon Pengantin"
-                      total={
-                        datas.jumlah_calon_pengantin
-                          ? formattedNumber(datas.jumlah_calon_pengantin)
-                          : 0
-                      }
-                      icon={CalonPengantinIcon}
+                    <CardRealtimeVer2
+                      icon={AccesibleIcon}
+                      total={formattedNumber(
+                        datas.jumlah_anak_pendek_sangat_pendek | "0"
+                      )}
+                      name="Jumlah Balita Pendek dan Sangat Pendek"
                     />
-                    <CardPeriodik
-                      name="Jumlah Ibu Hamil"
-                      total={
-                        datas.jumlah_ibu_hamil
-                          ? formattedNumber(datas.jumlah_ibu_hamil)
-                          : 0
-                      }
-                      icon={MotherPregnantIcon}
+
+                    <CardRealtimeVer2
+                      name="Prevalensi Balita Stunting"
+                      icon={SortIcon}
+                      total={`${Math.round(
+                        datas?.prevalensi_balita_stunting | 0
+                      )} %`}
                     />
-                    <CardPeriodik
-                      name="Jumlah Ibu Menyusui"
-                      total={
-                        datas.jumlah_ibu_menyusui
-                          ? formattedNumber(datas.jumlah_ibu_menyusui)
-                          : 0
-                      }
-                      icon={BreastFeedingMothers}
-                    />
-                    <CardPeriodik
-                      name="Jumlah Anak Usia 0-59 bulan"
-                      total={
-                        dataStotalbalita ? formattedNumber(dataStotalbalita) : 0
-                      }
-                      icon={BabyStroller}
-                    />
-                  </>
+                  </div>
                 </PeriodikData>
               </div>
             </div>

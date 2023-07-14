@@ -25,6 +25,7 @@ const CartComponentSingle = ({
   datas_6_11_bulan,
   datas_12_23_bulan,
   datas_24_59_bulan,
+  datas_0_59_bulan,
 }) => {
   // const { datas } = useContext(SummaryContext);
 
@@ -33,6 +34,7 @@ const CartComponentSingle = ({
     "6 - 11 bulan",
     "12 - 23 bulan",
     "24 - 59 bulan",
+    "0 - 59 bulan",
   ];
   const data = {
     labels: labels,
@@ -44,6 +46,7 @@ const CartComponentSingle = ({
           datas_6_11_bulan,
           datas_12_23_bulan,
           datas_24_59_bulan,
+          datas_0_59_bulan,
         ],
         indexAxis: "x",
         backgroundColor: "#168EEA",

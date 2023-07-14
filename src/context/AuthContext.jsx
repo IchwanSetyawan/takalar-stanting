@@ -83,6 +83,8 @@ export const AuthContextProvider = ({ children }) => {
         setTimeout(() => {
           if (localStorage.getItem("roles") === "admin-artikel") {
             navigate("/dashboard-news");
+          } else if (localStorage.getItem("roles") === "admin-puskesmas") {
+            navigate("/form-anak-stunting");
           } else {
             navigate("/dashboard");
           }
