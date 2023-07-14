@@ -7,6 +7,8 @@ import moment from "moment/moment";
 import { authContext } from "../context/AuthContext";
 import LiveClock from "react-live-clock";
 import { Toaster, toast } from "react-hot-toast";
+import { SidebarContext } from "../context/SidebarContext";
+import Logo from "../assets/image/logo.png";
 
 export const Header = () => {
   const currentDate = moment().format("dddd, D MMMM YYYY");
@@ -21,6 +23,9 @@ export const Header = () => {
   useEffect(() => {
     username;
   }, []);
+
+  const { isShowSidebar, setIsShowSidebar, handleShowSidebar } =
+    useContext(SidebarContext);
 
   const handlerShowDropdown = (e) => {
     e.preventDefault();
@@ -67,29 +72,50 @@ export const Header = () => {
       <div className="sm:ml-60 sticky top-0 z-50">
         <div className="relative">
           <div className="py-4 px-6 bg-primary  justify-between flex items-center shadow-md">
-            <h1 className="text-white text-xl font-semibold">
-              {tabMenu === 1
-                ? "Dashboard"
-                : tabMenu === 2
-                ? "Dashboard Balita"
-                : tabMenu === 3
-                ? "Sebaran"
-                : tabMenu === 4
-                ? "Cakupan"
-                : tabMenu === 5
-                ? "Rekomendasi"
-                : tabMenu === 6
-                ? "Wilayah"
-                : tabMenu === 7
-                ? "Dashboard Bapak Asuh"
-                : tabMenu === 8
-                ? "Dashboard News"
-                : tabMenu === 9
-                ? "Unggah Artikel"
-                : ""}
-            </h1>
+            <div className="flex items-center gap-4">
+              <button onClick={handleShowSidebar} className="md:hidden ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 text-white"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </button>
+              <h1 className="hidden md:block text-white text-xl font-semibold">
+                {tabMenu === 1
+                  ? "Dashboard"
+                  : tabMenu === 2
+                  ? "Dashboard Balita"
+                  : tabMenu === 3
+                  ? "Sebaran"
+                  : tabMenu === 4
+                  ? "Cakupan"
+                  : tabMenu === 5
+                  ? "Rekomendasi"
+                  : tabMenu === 6
+                  ? "Wilayah"
+                  : tabMenu === 7
+                  ? "Dashboard Bapak Asuh"
+                  : tabMenu === 8
+                  ? "Dashboard News"
+                  : tabMenu === 9
+                  ? "Unggah Artikel"
+                  : ""}
+              </h1>
+              <div className="md:hidden  flex justify-center items-center w-28">
+                <img src={Logo} alt="logo" className="w-full" />
+              </div>
+            </div>
             <div className="flex gap-4 items-center">
-              <div className="text-white text-sm ">
+              <div className="text-white text-sm hidden md:block">
                 <span>{currentDate} | </span>
                 <LiveClock format="HH:mm:ss" ticking={true} />
               </div>

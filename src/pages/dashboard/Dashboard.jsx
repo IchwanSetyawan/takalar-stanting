@@ -9,14 +9,17 @@ import WarningIcon from "../../assets/icon/warning-icon.svg";
 import CurveIcon from "../../assets/icon/curve-icon.svg";
 import FamilyTargetIcon from "../../assets/icon/family-target-icon.svg";
 import CartComponent from "../../cart/CartComponent";
-import Persons from "../../assets/icon/persons.svg";
-import SortIcon from "../../assets/icon/sort-icon.svg";
-import AccesibleIcon from "../../assets/icon/accessible-icon.svg";
 import "moment/locale/id";
 import formattedNumber from "../../utills/formattedNumber ";
 import CardRealtimeVer2 from "../../components/CardRealtimeVer2";
 import axios from "axios";
 import { TabMenuContext } from "../../context/TabMenuContext";
+import CardPeriodik from "../../components/CardPeriodik";
+import RemajaIcon from "../../assets/icon/remaja-icon.svg";
+import CalonPengantinIcon from "../../assets/icon/calon-pengantin-icon.svg";
+import MotherPregnantIcon from "../../assets/icon/mother-pregnant-icon.svg";
+import BreastFeedingMothers from "../../assets/icon/ibu-menyusui-icon.svg";
+import { BulanModel, TahunModel } from "../../model/BulanModel";
 
 const Dashboard = () => {
   const [kecamatanList, setKecamatanList] = useState([]);
@@ -25,12 +28,24 @@ const Dashboard = () => {
   const [kelurahanId, setKelurahanId] = useState("");
   const [datas, setDatas] = useState([]);
 
+  const [valueBulan, setValueBulan] = useState("");
+  const [valueTahun, setValueTahun] = useState("");
+
+  const handleFilterBulan = (event) => {
+    const value = event.target.value;
+    setValueBulan(value);
+  };
+
+  const handleFilterTahun = (event) => {
+    const value = event.target.value;
+    setValueTahun(value);
+  };
+
   const token = localStorage.getItem("token");
   const getLocalKec = JSON.parse(localStorage.getItem("kc"));
   const getLocalKel = JSON.parse(localStorage.getItem("kl"));
 
   const { tabMenu, setTabMenu } = useContext(TabMenuContext);
-  console.log("🚀 ~ file: Beranda.jsx:250 ~ Beranda ~ tabMenu:", tabMenu);
 
   const pathname = window.location.pathname;
   if (pathname === "/dashboard") {
@@ -50,7 +65,23 @@ const Dashboard = () => {
         },
       };
 
-      axios
+      await axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    if (kecamatanId && kelurahanId && valueBulan && valueTahun) {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}/${kelurahanId}?bulan=${valueBulan}&tahun=${valueTahun}`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await axios
         .get(url, payload)
         .then((response) => {
           setDatas(response?.data);
@@ -65,30 +96,51 @@ const Dashboard = () => {
     if (kecamatanId && kelurahanId) {
       fetchDataKecAndKel();
     }
-  }, [kecamatanId, kelurahanId]);
+    if (kecamatanId && kelurahanId && valueBulan && valueTahun) {
+      fetchDataKecAndKel();
+    }
+  }, [kecamatanId, kelurahanId, valueBulan, valueTahun]);
 
   const fetchOnlyKec = async () => {
-    const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}`;
-    const payload = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios
-      .get(url, payload)
-      .then((response) => {
-        setDatas(response?.data);
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    if (kecamatanId) {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    }
+    if (kecamatanId && valueBulan && valueTahun) {
+      const url = `https://stunting.ahadnikah.com/api/admin/dashboard/summary/${kecamatanId}?bulan=${valueBulan}&tahun=${valueTahun}`;
+      const payload = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await axios
+        .get(url, payload)
+        .then((response) => {
+          setDatas(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   useEffect(() => {
     if (kecamatanId) {
       fetchOnlyKec();
     }
-  }, [kecamatanId]);
+  }, [kecamatanId, valueTahun]);
 
   // get all data
   const fetchDataAll = async () => {
@@ -184,11 +236,17 @@ const Dashboard = () => {
     setKelurahanId("");
   };
 
+  const resetFilterBulan = () => {
+    setValueBulan("");
+    setValueTahun("");
+  };
+
   const handleKelurahanChange = (event) => {
     const value = event.target.value;
     if (value == "") {
       fetchOnlyKec();
     }
+    resetFilterBulan();
     setKelurahanId(value);
   };
 
@@ -196,10 +254,6 @@ const Dashboard = () => {
     fetchDataKec();
     fetchDataKelurahan();
   }, [kecamatanId, kelurahanId]);
-
-  useEffect(() => {
-    // window.location.reload();
-  }, []);
 
   const prevalensi_stunting_ssgi_2021 = datas.prevalensi_stunting_ssgi_2021;
   const prevalensi_stunting_ssgi_2022 = datas.prevalensi_stunting_ssgi_2022;
@@ -209,15 +263,15 @@ const Dashboard = () => {
   return (
     <>
       <Layout>
-        <div className="m-8">
-          <div className="bg-white my-8 px-4 py-2  rounded-lg">
+        <div className="md:m-8">
+          <div className="bg-white w-full my-8 px-4 py-2  rounded-lg">
             <div className=" flex justify-between items-center">
               <h2 className="text-xl  text-dark font-bold">
                 Ringkasan Per Wilayah
               </h2>
             </div>
 
-            <div className="flex justify-between gap-x-5 my-8">
+            <div className="grid grid-cols-1  md:grid-cols-4 gap-5 my-8">
               <>
                 <CardWilayah title="kecamatan" total={datas.total_kecamatan} />
                 <CardWilayah
@@ -236,10 +290,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="mt-8">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex flex-col md:flex-row justify-between  mb-8">
               <h1 className="text-2xl font-bold  text-darkHard">Wilayah</h1>
-
-              <div className=" flex justify-center items-center text-dark  gap-4">
+              <div className=" flex flex-col md:flex-row   md:justify-center items-start mt-5 md:mt-0 md:items-center text-dark  gap-4">
                 <>
                   <select
                     value={kecamatanId}
@@ -250,10 +303,6 @@ const Dashboard = () => {
                     {getLocalKec === null ? (
                       <option value="">Kecamatan</option>
                     ) : null}
-
-                    {/* {getLocalKel !== null ? (
-
-                    ):()} */}
 
                     {kecamatanList.map((kec, idx) => (
                       <option key={idx} value={kec.id}>
@@ -287,9 +336,9 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className=" grid grid-cols-3 gap-4 mt-10">
+            <div className=" grid grid-cols-1 lg:grid-cols-3 gap-y-4 md:gap-4 mt-10">
               <RealtimeData>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <>
                     <CardRealtimeHor
                       name="Jumlah Keluarga"
@@ -318,6 +367,7 @@ const Dashboard = () => {
                       }
                       icon={FamilyTargetIcon}
                     />
+
                     <CardRealtimeHor
                       name="Prevalensi"
                       total={
@@ -330,7 +380,7 @@ const Dashboard = () => {
                   </>
                 </div>
 
-                <div className="mt-4 shadow-smooth  border rounded-lg  px-2 py-5">
+                <div className="lg:mt-4 shadow-smooth  border rounded-lg mt-10  px-2 py-5">
                   <CartComponent
                     prevalensi_stunting_ssgi_2021={
                       prevalensi_stunting_ssgi_2021
@@ -347,27 +397,88 @@ const Dashboard = () => {
                   />
                 </div>
               </RealtimeData>
-              <PeriodikData>
-                <>
-                  <CardRealtimeVer2
-                    name="Jumlah Balita yang Diukur"
-                    icon={Persons}
-                    total={formattedNumber(datas.jumlah_balita_terukur)}
-                  />
-                  <CardRealtimeVer2
-                    icon={AccesibleIcon}
-                    total={formattedNumber(
-                      datas.jumlah_anak_pendek_sangat_pendek
-                    )}
-                    name="Jumlah Balita Pendek dan Sangat Pendek"
-                  />
 
-                  <CardRealtimeVer2
-                    name="Prevalensi Balita Stunting"
-                    icon={SortIcon}
-                    total={`${Math.round(datas?.prevalensi_balita_stunting)} %`}
+              <PeriodikData>
+                <div className="flex  justify-between items-center text-sm mb-8 mt-2 ">
+                  <div className=" flex mt-4 w-full justify-between items-center text-dark  gap-4">
+                    <select
+                      onChange={handleFilterBulan}
+                      value={valueBulan}
+                      defaultValue="default"
+                      disabled={!kecamatanId}
+                      className="border-none shadow-smooth p-4 w-full text-md  rounded-lg "
+                    >
+                      <option value="">- Bulan -</option>
+                      {BulanModel.map((item, idx) => (
+                        <option
+                          className="text-base"
+                          value={item.bulan}
+                          key={idx}
+                        >
+                          {item.bulan}
+                        </option>
+                      ))}
+                    </select>
+
+                    <select
+                      defaultValue="default"
+                      onChange={handleFilterTahun}
+                      value={valueTahun}
+                      disabled={!kecamatanId || !valueBulan}
+                      className="border-none p-4 w-full rounded-lg shadow-smooth"
+                    >
+                      <option value="">- Tahun -</option>
+
+                      {TahunModel.map((item, idx) => (
+                        <option
+                          className="text-base"
+                          value={item.tahun}
+                          key={idx}
+                        >
+                          {item.tahun}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-4">
+                  <CardPeriodik
+                    name="Jumlah Remaja"
+                    total={
+                      datas.jumlah_remaja
+                        ? formattedNumber(datas.jumlah_remaja)
+                        : 0
+                    }
+                    icon={RemajaIcon}
                   />
-                </>
+                  <CardPeriodik
+                    name="Jumlah Calon Pengantin"
+                    total={
+                      datas.jumlah_calon_pengantin
+                        ? formattedNumber(datas.jumlah_calon_pengantin)
+                        : 0
+                    }
+                    icon={CalonPengantinIcon}
+                  />
+                  <CardPeriodik
+                    name="Jumlah Ibu Hamil"
+                    total={
+                      datas.jumlah_ibu_hamil
+                        ? formattedNumber(datas.jumlah_ibu_hamil)
+                        : 0
+                    }
+                    icon={MotherPregnantIcon}
+                  />
+                  <CardPeriodik
+                    name="Jumlah Ibu Menyusui"
+                    total={
+                      datas.jumlah_ibu_menyusui
+                        ? formattedNumber(datas.jumlah_ibu_menyusui)
+                        : 0
+                    }
+                    icon={BreastFeedingMothers}
+                  />
+                </div>
               </PeriodikData>
             </div>
           </div>
