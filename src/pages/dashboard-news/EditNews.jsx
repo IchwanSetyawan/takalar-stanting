@@ -42,16 +42,6 @@ const EditNews = () => {
       // ["link", "image", "video"],
       ["link"],
     ],
-    keyboard: {
-      bindings: {
-        handleEnter: {
-          key: 13,
-          handler: function () {
-            return true;
-          },
-        },
-      },
-    },
   };
 
   const getCategory = () => {
